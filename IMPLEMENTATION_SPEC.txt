@@ -1,0 +1,2012 @@
+PROJECT: DEAD LETTER
+DOCUMENT TYPE: LOCKED IMPLEMENTATION SPECIFICATION
+DELIVERABLE: COMPLETE, BEAUTIFUL, RESPONSIVE, TESTED BROWSER GAME
+
+You are implementing a specified product, not pitching one.
+
+Do not redesign the concept.
+Do not invent alternative mechanics.
+Do not replace the visual direction with a generic modern web application.
+Do not ask me to choose between options.
+Do not return a plan instead of building.
+Do not stop after scaffolding.
+Do not claim successful testing without actually running it.
+
+Every required screen, interaction, visual treatment, and game rule appears below.
+
+Where implementation details are not prescribed, choose the smallest,
+most maintainable solution consistent with this specification.
+That permission does not extend to changing gameplay, visual identity,
+content quantities, screen hierarchy, or required behavior.
+
+=====================================================================
+00. PRIORITIES AND CONFLICT RESOLUTION
+=====================================================================
+
+Resolve conflicts in this order:
+
+1. Correct, playable, recoverable game.
+2. Readable and accessible interactions.
+3. Exact mechanics and information architecture.
+4. Art-directed visual identity.
+5. Responsive layouts.
+6. Motion and sound.
+7. Decorative extras.
+
+Do not sacrifice the first five for elaborate particles or animation.
+
+Measurements below are target values, not permission to cause overflow.
+When text zoom, a small viewport, or accessibility requires more space,
+allow content to grow and scroll while preserving hierarchy.
+
+The finished result must resemble an illustrated postal game,
+not a collection of styled form controls.
+
+=====================================================================
+01. PRODUCT DEFINITION — FIXED
+=====================================================================
+
+Name:
+DEAD LETTER
+
+Subtitle:
+The night post between worlds.
+
+Primary hook:
+Somebody mailed a lie to the afterlife. Find it.
+
+Player role:
+Night clerk at a small supernatural post office.
+
+Core task:
+Each letter contains four factual statements.
+Exactly one is false.
+Select the false statement and stamp RETURN TO SENDER.
+
+Session:
+Six letters.
+
+Default answering time:
+25 seconds of active answering time per letter.
+
+Default mode:
+Daily Shift.
+
+Other modes:
+Practice Shift.
+Relaxed Practice.
+
+Confidence mechanic:
+Two wax seals per shift.
+A seal doubles the points for one correct submitted answer.
+
+Scoring:
+Correct, no seal: 100.
+Correct, seal: 200.
+Incorrect: 0.
+Unanswered timeout: 0.
+Maximum score: 800.
+No speed bonus.
+No negative score.
+No streak multiplier.
+
+No:
+Accounts.
+Multiplayer.
+Live AI.
+Open-answer judging.
+Crowd rarity estimates.
+Paid items.
+Ads.
+Social feeds.
+Online leaderboards.
+Fake player counts.
+Artificial loading delays.
+Backend requirements.
+
+Audience:
+People who enjoy short daily knowledge games, attractive tactile interfaces,
+interesting factual corrections, and spoiler-free result sharing.
+
+Mood:
+Cozy supernatural bureaucracy.
+Inviting, witty, quiet, slightly uncanny.
+Never gore, jump scares, punishment-heavy horror, or grim dystopia.
+
+=====================================================================
+02. TECHNICAL STACK — FIXED
+=====================================================================
+
+Inspect the repository before modifying it.
+Preserve unrelated user work.
+
+For an empty repository use:
+- React
+- TypeScript, strict mode
+- Vite
+- npm
+- ordinary CSS with custom properties
+- Motion via motion/react
+- Radix React primitives
+- Vitest
+- React Testing Library
+- Playwright
+- axe-core integration for browser accessibility checks
+
+Radix packages:
+- @radix-ui/react-dialog
+- @radix-ui/react-alert-dialog
+- @radix-ui/react-radio-group
+- @radix-ui/react-switch
+- @radix-ui/react-tooltip
+
+Use native HTML where it already provides correct behavior.
+Do not install a component framework for ordinary buttons or typography.
+
+Use:
+- inline SVG for original illustrated assets;
+- CSS for surfaces and textures;
+- one small canvas for decorative particles if needed;
+- Web Audio for original synthesized sound.
+
+Do not use:
+- Tailwind as a substitute for a considered design system;
+- Three.js;
+- a full game engine;
+- PixiJS;
+- stock illustration libraries;
+- remote-image dependencies;
+- a second animation library;
+- a second dialog library;
+- default shadcn visual styling;
+- arbitrary icon packs for principal artwork.
+
+Use stable compatible package releases available in the environment.
+Install, resolve, and retain the actual lockfile.
+Do not guess version numbers.
+
+Required commands:
+npm run dev
+npm run build
+npm run preview
+npm run typecheck
+npm run test
+npm run test:e2e
+npm run validate:content
+
+The production build must work as a static site.
+
+=====================================================================
+03. OPEN-SOURCE UI/UX REFERENCE LIBRARY
+=====================================================================
+
+The following references have assigned jobs.
+Study applicable examples when browsing is available.
+Do not import every library.
+Do not copy proprietary assets or assume a public website is open source.
+Verify the license of any code or asset actually copied.
+Record imported material in THIRD_PARTY_NOTICES.md.
+
+IMPLEMENT THESE FOUNDATIONS:
+
+A. Radix Primitives repository
+https://github.com/radix-ui/primitives
+Purpose:
+Accessible interaction foundations, not visual styling.
+
+B. Radix documentation
+https://www.radix-ui.com/primitives/docs
+Purpose:
+Controlled components, portals, accessible names, focus behavior.
+
+C. Radix Radio Group
+https://www.radix-ui.com/primitives/docs/components/radio-group
+Purpose:
+The four claim choices.
+Retain arrow-key and space-key behavior.
+
+D. Radix Dialog
+https://www.radix-ui.com/primitives/docs/components/dialog
+Purpose:
+Settings, About, Collection, Review, Resume.
+Require title, description, close control, focus containment,
+and focus restoration.
+
+E. Radix Alert Dialog
+https://www.radix-ui.com/primitives/docs/components/alert-dialog
+Purpose:
+Destructive reset confirmation.
+Cancel receives initial focus.
+
+F. Radix Switch
+https://www.radix-ui.com/primitives/docs/components/switch
+Purpose:
+Sound and ambient-sound preferences.
+
+G. Radix Tooltip
+https://www.radix-ui.com/primitives/docs/components/tooltip
+Purpose:
+Supplementary descriptions for compact utility controls.
+Never put essential instructions only in tooltips.
+
+H. Motion source
+https://github.com/motiondivision/motion
+Purpose:
+AnimatePresence, restrained enter/exit choreography,
+interruptible state transitions.
+
+I. Motion reduced-motion guidance
+https://motion.dev/docs/react-use-reduced-motion
+https://motion.dev/docs/react-accessibility
+Purpose:
+A true reduced-motion branch, not merely shortened shaking.
+
+STUDY THESE OPEN-SOURCE EXAMPLES, BUT DO NOT ADD THEIR PACKAGES:
+
+J. shadcn/ui source
+https://github.com/shadcn-ui/ui
+Purpose:
+Composition patterns and explicit component variants.
+Do not copy its black/white dashboard aesthetic.
+Recreate the necessary behavior using the chosen Radix primitives.
+
+K. Vaul source
+https://github.com/emilkowalski/vaul
+Purpose:
+Study mobile drawer spacing, reachable close controls,
+scrolling content, and bottom-safe-area handling.
+Build our mobile sheet using the existing Radix Dialog.
+Do not introduce draggable dismissal as a requirement.
+
+L. Sonner source
+https://github.com/emilkowalski/sonner
+Purpose:
+Study unobtrusive notification placement and stacking restraint.
+Implement our small local status toast.
+Do not add Sonner.
+
+VISUAL/CRAFT REFERENCES — NOT AUTOMATICALLY CODE-REUSE SOURCES:
+
+M. Papers, Please
+https://papersplea.se/
+Purpose:
+A document can be the central game object.
+Do not copy layout, assets, characters, or political setting.
+
+N. Papers, Please development log
+https://fguillen.github.io/PapersPleaseDevlogScrap/
+Purpose:
+A compact workspace with clear document inspection and stamping.
+
+O. A Short Hike
+https://ashorthike.com/
+Purpose:
+Friendly environmental personality and restrained cozy atmosphere.
+Do not copy assets or characters.
+
+P. fffuel paper noise
+https://www.fffuel.co/nnnoise/
+Purpose:
+Low-opacity texture.
+Generate original local SVG rather than depending on hosted images.
+
+Q. fffuel grain
+https://www.fffuel.co/gggrain/
+Purpose:
+Subtle analog light gradients.
+Never put noisy contrast behind small text.
+
+R. Codrops SVG distortion
+https://tympanus.net/codrops/2019/03/12/image-distortion-effects-with-svg-filters/
+Purpose:
+A tiny supernatural distortion on decorative wisps.
+Do not distort reading surfaces or import unreviewed demo code.
+
+S. Fraunces
+https://fonts.google.com/specimen/Fraunces
+Purpose:
+Title and display typography.
+
+T. Special Elite
+https://fonts.google.com/specimen/Special+Elite
+Purpose:
+Sparse postal metadata and rubber-stamp lettering.
+
+U. Krillion
+https://www.krillion.org/
+Purpose:
+Short daily ritual and concise result sharing.
+Do not copy ocean visuals, rarity scoring, or its answer mechanic.
+
+Create REFERENCES.md with:
+reference;
+assigned purpose;
+actual implementation;
+whether source/assets were imported;
+applicable license notice.
+
+If reference browsing is unavailable, proceed from this specification.
+Do not spend the whole implementation session researching.
+
+=====================================================================
+04. DESIGN SYSTEM — EXACT TOKENS
+=====================================================================
+
+Create src/styles/tokens.css.
+
+COLORS
+
+--night-950: #0B141A;
+--night-900: #101E26;
+--night-800: #172C34;
+--teal-700: #23464B;
+--teal-500: #4B7775;
+--ghost-300: #A8DAD0;
+--ghost-100: #DDF2E9;
+
+--paper-100: #F7EEDC;
+--paper-200: #EFE1C5;
+--paper-300: #DAC49B;
+--paper-400: #B99D73;
+
+--ink-900: #25302D;
+--ink-600: #5E665C;
+
+--brass-400: #D7B66F;
+--brass-600: #98743D;
+
+--seal-500: #B74435;
+--seal-700: #81372E;
+
+--success-700: #285B4F;
+--danger-700: #8F332D;
+
+These are base tokens.
+Use accessible foreground/background pairings.
+If a specified pairing fails contrast, fix the pairing without changing
+the overall palette.
+
+TYPOGRAPHY
+
+Locally bundle:
+Fraunces for display.
+A readable open-source sans serif, specifically Source Sans 3, for body.
+Special Elite for small postal marks only.
+
+Obtain fonts through licensed local packages or local files.
+Retain licenses.
+Fallbacks:
+Fraunces → Georgia, serif.
+Source Sans 3 → system-ui, sans-serif.
+Special Elite → Courier New, monospace.
+
+Desktop:
+Display title: 64px / 0.98, weight 600.
+Screen heading: 36px / 1.12, weight 600.
+Letter recipient: 28px / 1.15.
+Body/claims: 18px / 1.45.
+Supporting body: 15px / 1.5.
+Metadata: 12px / 1.4, letter spacing 0.08em.
+Buttons: 16px / 1.2, weight 650.
+
+Mobile:
+Display title: 44px / 1.
+Screen heading: 30px / 1.12.
+Letter recipient: 24px / 1.2.
+Claims: 17px / 1.45.
+Supporting body: 15px / 1.45.
+Never shrink main claim text below 17px to force fit.
+
+SPACING
+
+Base scale:
+4, 8, 12, 16, 20, 24, 32, 40, 48, 64.
+
+Reading content max-width:
+680px.
+
+App scene max-width:
+1180px.
+
+Desktop page gutters:
+32px.
+
+Tablet gutters:
+24px.
+
+Mobile gutters:
+16px.
+
+RADII
+
+Paper main corners: 3px.
+Claim rows: 6px.
+Utility buttons: 8px.
+Modal paper: 8px.
+Wax seal: irregular SVG shape, not a perfect pill.
+Primary stamp action: 5px.
+
+SHADOWS
+
+Paper contact shadow:
+0 2px 2px rgba(0,0,0,.16).
+
+Paper lifted shadow:
+0 16px 38px rgba(0,0,0,.24).
+
+Modal:
+0 24px 80px rgba(0,0,0,.45).
+
+Do not use large shadows on every component.
+
+BORDERS
+
+Paper dividers:
+1px solid rgba(37,48,45,.15).
+
+Decorative brass borders:
+1px solid rgba(215,182,111,.35).
+
+Focus:
+3px solid #D7B66F on dark surfaces.
+3px solid #285B4F on light surfaces.
+Offset 3px.
+
+Z-INDEX
+
+world: 0
+desk: 10
+paper: 20
+game-controls: 30
+decorative-effects: 35, pointer-events none
+utility-header: 40
+modal-backdrop: 100
+modal: 110
+toast: 120
+
+Keep effects beneath modal controls.
+
+=====================================================================
+05. VISUAL COMPOSITION — DO NOT SUBSTITUTE
+=====================================================================
+
+The game is a scene with an interface integrated into it.
+
+Background:
+A midnight teal room.
+An arched postal window centered above the desk.
+Three silhouetted buildings outside.
+A moon partially hidden by a cloud.
+Sparse rain confined to the window.
+Warm light enters from a brass lamp on the left.
+
+Desk:
+Dark desaturated wood.
+Horizontal surface with a subtle front lip.
+Not photorealistic.
+No large stock wood texture.
+
+Main letter:
+Warm cream.
+Slightly uneven original SVG edge treatment.
+Stable rectangular reading area.
+Two offset sheets visible beneath it.
+Paper texture opacity approximately 0.025–0.04.
+No distressed overlay that degrades glyphs.
+
+Right of the letter on wide screens:
+A wooden stamp resting diagonally.
+Two physical-looking wax seals.
+A small open pigeonhole.
+
+Mobile:
+Show only a cropped lamp glow and a reduced window scene.
+Move all essential controls into normal document flow.
+Never preserve desktop decorative positioning at the cost of reading space.
+
+Illustration style:
+Original flat vector with subtle shading.
+Rounded but not childish.
+Limited outlines.
+Slightly imperfect geometry.
+Three levels of detail:
+- large silhouettes;
+- medium material shapes;
+- sparse small accents.
+
+No emoji artwork.
+No photographic collage.
+No generic SaaS hero.
+No neon.
+No purple.
+No floating glass cards.
+No giant gradient blobs.
+
+=====================================================================
+06. ORIGINAL ART ASSET MANIFEST
+=====================================================================
+
+Create reusable SVG components with deterministic IDs.
+All decorative SVGs use aria-hidden=true and focusable=false.
+Meaningful art has a text alternative outside the SVG.
+
+Required assets:
+
+PostalCrest:
+Envelope inside a crescent-shaped postmark.
+Two small stars.
+No skull imagery.
+
+PostOfficeWindow:
+Tall arch.
+Four panes.
+A brass lower service rail.
+Three-building skyline.
+Moon and cloud.
+
+DeskLamp:
+Brass base, curved neck, green-teal shade.
+Warm cone of light.
+Light is a gradient, not a giant CSS blur.
+
+Moth:
+Cream wings.
+Tiny body.
+Two-wing silhouette recognizable at 14–20px.
+
+Postmaster:
+Small friendly ghost.
+Dark teal cap.
+Brass envelope pin.
+Two dot eyes.
+Expressive eyebrows.
+No mouth required.
+
+Recipient portraits:
+1. Professor Vesper: round glasses, folded star chart.
+2. Mabel Moss: little leaf brooch, gardening hat.
+3. Captain Elsewhere: scarf and folded map.
+4. Ada Ink: spectacles and a pencil.
+5. Doctor Spark: brass goggles.
+6. Madame Encore: bow tie and music sheet.
+
+Envelope:
+Separate body, back flap, front fold, paper insert.
+Use transform-origin correctly for the flap.
+
+RubberStamp:
+Dark wood handle.
+Brass collar.
+Vermilion rubber base.
+
+WaxSeal:
+Irregular edge with 12–16 shallow lobes.
+Embossed envelope symbol.
+Highlights limited to two simple paths.
+
+DeadLetterDrawer:
+Dark wood frame.
+Brass label holder.
+Paper corner visible.
+
+Receipt:
+Cream narrow strip.
+Perforation line.
+Slightly jagged bottom edge.
+
+Six collectible stamps:
+First Class: envelope.
+Night Scholar: crescent and spectacles.
+Sealed With Certainty: wax seal.
+Regular Correspondent: three small stars.
+Quiet Hours: lamp.
+Worldly Spirit: globe.
+
+Give every asset a viewBox and responsive dimensions.
+Do not make SVG artwork intercept inputs.
+
+=====================================================================
+07. RESPONSIVE LAYOUT CONTRACT
+=====================================================================
+
+BREAKPOINTS
+
+Compact: below 640px.
+Intermediate: 640–1023px.
+Wide: 1024px and above.
+
+WIDE GAMEPLAY
+
+At 1440x900:
+- outer content centered, max-width 1180px;
+- utility header height approximately 72px;
+- atmospheric window band approximately 160px;
+- letter width 680px;
+- right tool area width 180px;
+- gap 32px;
+- route strip beneath or above the paper, not over claims;
+- full page may scroll if content grows.
+
+INTERMEDIATE
+
+- main reading area max-width 680px;
+- remove right tool column;
+- seals and stamp move beneath claims;
+- atmospheric band approximately 130px.
+
+COMPACT
+
+- utility header 56px minimum;
+- atmospheric band 96px maximum during gameplay;
+- letter width available viewport minus 32px;
+- letter padding 20px;
+- claim padding 14px;
+- claim gap 8px;
+- controls below the letter in document flow;
+- action area may be sticky only when it does not obscure content;
+- if sticky, reserve its full measured space and respect safe-area insets;
+- otherwise ordinary flow is the required fallback.
+
+DO NOT:
+- give the page a fixed 100vh that clips content;
+- absolutely position claims;
+- make the whole letter an unscrollable fixed-height panel;
+- hide body overflow outside a modal;
+- use hover as the only way to reveal information.
+
+At 200% zoom:
+Content reflows.
+Controls remain reachable.
+Horizontal page scrolling is not introduced by fixed-width components.
+
+=====================================================================
+08. INFORMATION ARCHITECTURE
+=====================================================================
+
+Routes:
+/
+ /play
+ /results
+
+Modal overlays, not separate routes:
+Settings.
+About.
+Collection.
+Review.
+Reset confirmation.
+Resume.
+Tutorial.
+
+Use a lightweight history solution consistent with static hosting.
+Configure routing so direct navigation does not require undocumented server setup.
+A hash router is acceptable and preferred for a bare static deployment.
+
+The current run must survive navigation and reload.
+A URL must never be the only store of game state.
+
+Persistent header:
+Left: small PostalCrest + DEAD LETTER wordmark.
+Right:
+Collection button.
+Sound toggle.
+Settings button.
+
+On compact screens:
+Wordmark may shrink.
+Utility buttons retain 44x44px hit areas.
+Visible icon shapes are original SVG, with accessible text labels.
+
+=====================================================================
+09. SCREEN: HOME
+=====================================================================
+
+Composition:
+Illustrated postal window above a small counter.
+One envelope waits under the lamp.
+Postmaster peeks from the lower-right window corner.
+
+Text:
+DEAD LETTER
+The night post between worlds.
+“Somebody mailed a lie to the afterlife. Find it.”
+
+Primary action:
+“Begin tonight’s shift”
+If unfinished daily:
+“Resume tonight’s shift”
+If completed daily:
+“View tonight’s receipt”
+
+Secondary actions:
+“Practice shift”
+“Relaxed practice”
+
+Supporting line:
+“Six letters. One lie in each. Two seals to trust your instincts.”
+
+Small status row:
+UTC date.
+Local streak.
+“Daily resets at 00:00 UTC.”
+
+Below:
+“How to play”
+“About the post office”
+
+No giant empty space on mobile.
+No automatic tutorial modal before the user takes an action.
+
+First Daily start:
+If tutorial not completed or skipped, open the tutorial first.
+After tutorial completion/skip, continue to the intended Daily start.
+
+Practice buttons remain directly usable.
+
+=====================================================================
+10. SCREEN: TUTORIAL
+=====================================================================
+
+A two-step paper dialog.
+
+Step 1:
+Heading: “Find the letter’s lie”
+Body:
+“Each letter contains four statements. Three are true. One is false.”
+Show a clearly labeled fictional training example:
+A. This post office opens at night.
+B. Ghosts collect the mail.
+C. The postmaster wears a cap.
+D. This is an ordinary daytime post office.
+The exercise uses the fictional scene, not scored factual trivia.
+D is the expected choice.
+
+After selecting D:
+Show “Exactly. That statement goes back to the sender.”
+
+After another selection:
+Show “Take another look at the night post office.”
+No score, timer, or penalty.
+
+Step 2:
+Heading: “Stamp it. Trust it. Send it.”
+Explain:
+“Select a statement, then stamp RETURN TO SENDER.”
+“Two wax seals can double two correct answers.”
+“A wrong answer still lets you finish your shift.”
+
+Buttons:
+Back.
+“Start my shift”.
+“Skip tutorial” as a secondary text button.
+
+Tutorial state cannot modify Daily answers, seals, score, or achievements.
+
+=====================================================================
+11. SCREEN: GAMEPLAY
+=====================================================================
+
+Reading hierarchy, in order:
+
+1. Small metadata:
+DAILY SHIFT or PRACTICE / RELAXED PRACTICE
+LETTER 1 OF 6
+
+2. Recipient row:
+48px portrait.
+Recipient name.
+Fictional address.
+Category on the opposite side when space allows.
+
+3. Divider.
+
+4. Instruction:
+“One of these statements is false.”
+
+5. Four claim rows.
+
+6. Selection helper:
+Before selection:
+“Choose the statement to return.”
+After selection:
+“Statement B selected.”
+
+7. Confidence row:
+Two seal illustrations.
+Label:
+“Use a wax seal”
+Supporting text:
+“Double the points if you’re right.”
+Remaining count:
+“2 remaining”
+
+8. Primary button:
+“RETURN TO SENDER”
+Small supporting keyboard hint on keyboard-capable layouts:
+“Enter to stamp”
+
+9. Secondary status:
+Current score.
+Timer if timed.
+Six-stop route progress.
+
+CLAIM ROW STRUCTURE
+
+Entire row is one radio-group item or an associated accessible label.
+Do not nest interactive buttons inside radio items.
+
+Left:
+28px letter marker A/B/C/D.
+
+Center:
+Claim text.
+
+Right:
+Selection indicator, 18px.
+Reserve its space in all states.
+
+Minimum row height:
+68px desktop.
+72px compact, growing naturally with text.
+
+Unselected:
+Transparent paper-tinted background.
+1px subtle ink border.
+
+Hover:
+Slightly darker paper.
+No movement greater than 1px.
+
+Selected:
+2px teal border, implemented without layout shift.
+Faint teal wash.
+Visible filled indicator.
+Letter marker changes from outline to filled.
+
+Focus-visible:
+Distinct outer focus ring, not merely selected styling.
+
+Locked:
+Readable, not faded into illegibility.
+
+Stamp button:
+Disabled before selection.
+Disabled label remains readable.
+No click sound or animation while disabled.
+Enabled state has vermilion surface and cream label.
+Pressed state moves down 2px.
+It must be a real button.
+
+No drag-and-drop required.
+
+=====================================================================
+12. TIMER AND SEAL BEHAVIOR
+=====================================================================
+
+Timer display:
+A small circular SVG track plus numeric seconds.
+Text alternative states remaining seconds.
+Do not announce every second.
+
+25–11 seconds:
+Quiet ink/teal.
+
+10–6 seconds:
+Brass accent.
+
+5–1 seconds:
+Vermilion accent and a visible “Time remaining” label.
+No flashing.
+No alarm sounds.
+No shaking.
+
+At 0:
+Resolve exactly once as unanswered.
+Show the reveal screen.
+Do not submit a merely selected answer.
+
+Timer starts:
+Only after the letter has opened and claims are ready.
+
+Timer stops:
+Immediately on valid submit.
+When any modal opens.
+When document becomes hidden.
+When navigation leaves active answering.
+When Resume overlay is active.
+
+After hiding or reloading:
+Show Resume.
+Do not restart automatically.
+
+After closing ordinary Settings/About/Collection:
+Resume active answering with the preserved remaining time.
+No extra Resume dialog is necessary unless the app was hidden/reloaded.
+
+Seal:
+Clicking the seal control arms/disarms it.
+Arming does not consume it.
+Submit consumes it atomically.
+An incorrect sealed answer still consumes it.
+Timeout does not consume an armed but unsubmitted seal.
+Clear armed state before the next round.
+Cannot arm when none remain.
+Tooltip/help text must not be the only rule explanation.
+
+=====================================================================
+13. SCREEN: ANSWER REVEAL
+=====================================================================
+
+Keep the same paper in place.
+Do not replace the whole screen with an unrelated panel.
+
+Top label:
+Correct:
+“Lie intercepted”
+Incorrect:
+“That one slipped through”
+Timeout:
+“The collection bell rang”
+
+Display:
+Player choice, if any.
+The actual false statement.
+Correction.
+Explanation.
+Source links.
+Points earned.
+Recipient reaction.
+
+Visually distinguish:
+Player chose wrong → selected row has X and “Your choice”.
+Actual false row → stamp mark and “The false statement”.
+Correct choice → one clear successful treatment, not competing markers.
+
+Do not label the three true statements as false simply because the player
+did not choose them.
+
+Source links:
+Real anchors.
+Open in a new tab.
+rel="noopener noreferrer".
+Descriptive source titles.
+No fabricated “verified” checkmarks.
+
+Primary action:
+“Next letter”
+On last letter:
+“Close the post office”
+
+No automatic advance.
+No reveal timer.
+Enter continues only after focus/state is ready.
+Held Enter must not skip the next letter.
+
+=====================================================================
+14. SCREEN: RESULTS
+=====================================================================
+
+A receipt centered against the same scene.
+The window is now calmer.
+The postmaster is visible beside the receipt.
+
+Receipt header:
+DEAD LETTER
+SHIFT RECEIPT
+UTC daily date or practice label.
+
+Headline:
+6 correct: “Every spirit got the truth.”
+4–5 correct: “A fine night’s correspondence.”
+2–3 correct: “Some letters took the scenic route.”
+0–1 correct: “The dead are a patient audience.”
+
+Metrics:
+“Delivered” x / 6.
+“Score” n / 800.
+“Seals used” x / 2.
+
+Six outcome marks:
+Delivered: outlined postal square with check.
+Missed: postal square with X.
+Use accessible per-round labels.
+
+Then:
+Unlocked stamp if any.
+Otherwise a small existing stamp illustration, not a fake unlock.
+
+Primary:
+“Copy shift receipt”
+
+Secondary:
+“Review letters”
+“Practice another shift”
+“Back to post office”
+
+Daily only:
+Next-reset countdown, clearly UTC.
+If the run ended after midnight, offer the new Daily.
+
+Copy:
+Only show “Copied to clipboard” after success.
+On failure, open a selectable text field with the exact result text.
+
+Share format:
+DEAD LETTER — {UTC date}
+Delivered {correct}/6 | {score}/800
+{six [O] or [X] groups}
+Two worlds. One questionable postal service.
+
+Practice labels must say Practice.
+No answer text.
+No false-statements spoilers.
+No invented deployed URL.
+
+=====================================================================
+15. COLLECTION
+=====================================================================
+
+Title:
+“Postage from the other side”
+
+Description:
+“Small souvenirs from your shifts at the night post.”
+
+Grid:
+3 columns on wide modal.
+2 columns on compact.
+Each stamp cell includes art, title, and unlock condition.
+
+Six stamps and exact rules:
+
+First Class:
+Complete any shift.
+
+Night Scholar:
+Deliver all six letters correctly in one shift.
+
+Sealed With Certainty:
+Submit at least one correct sealed answer.
+
+Regular Correspondent:
+Complete three distinct Daily dates, not necessarily consecutive.
+
+Quiet Hours:
+Complete one Relaxed Practice shift.
+
+Worldly Spirit:
+Complete any shift containing all six categories.
+
+Daily and Practice selection must each include one puzzle from each category,
+making Worldly Spirit achievable.
+
+Locked stamps:
+Quiet monochrome silhouette.
+Visible condition text.
+Do not hide conditions behind hover.
+
+Unlocks:
+Persist once.
+No duplicate award animation on reload.
+If multiple unlock at once, show a compact list, not six blocking dialogs.
+No manufactured rarity percentages.
+
+=====================================================================
+16. SETTINGS, ABOUT, REVIEW, RESET
+=====================================================================
+
+SETTINGS
+
+Title:
+“Post office settings”
+
+Controls:
+Sound effects — switch.
+Atmosphere — switch, default off.
+Motion — three radios:
+System.
+Reduced.
+Full.
+
+Text:
+“Scores and progress stay in this browser.”
+
+Danger zone:
+“Reset local records”
+
+RESET CONFIRMATION
+
+Title:
+“Clear this post office’s records?”
+Body:
+“This removes saved shifts, streaks, collected stamps, and preferences
+from this browser. It cannot be undone.”
+
+Buttons:
+“Keep records” — default focus.
+“Clear local records” — destructive.
+
+On confirm:
+Clear only app-owned keys.
+Reset memory state.
+Return home.
+Show honest status message.
+
+ABOUT
+
+Rules.
+Scoring.
+UTC reset rule.
+Finite content-bank disclosure.
+Local-only persistence disclosure.
+Credits.
+Content verification status.
+No claims of server verification.
+
+REVIEW
+
+Show six completed letters in order.
+Each can expand to:
+four original claims in played order;
+player choice;
+actual false claim;
+correction;
+explanation;
+sources.
+
+Review never changes score or current progress.
+
+MODAL PRESENTATION
+
+Wide:
+Centered paper dialog.
+Maximum width 560px for Settings/About.
+Maximum width 760px for Collection/Review.
+Maximum height calc(100dvh - 64px).
+Scrollable body.
+
+Compact:
+Bottom-aligned paper sheet.
+Maximum height calc(100dvh - 16px).
+Rounded top corners 12px.
+Visible heading and close button.
+Scrollable content.
+Safe-area bottom padding.
+No drag-only dismissal.
+
+Backdrop:
+rgba(5,12,16,.72).
+Optional subtle 2px backdrop blur.
+Respect reduced transparency where feasible.
+
+=====================================================================
+17. CONTENT BANK — LOCKED EDITORIAL PLAN
+=====================================================================
+
+Exactly 36 puzzles.
+Six categories.
+Six puzzles per category.
+Exactly four claims per puzzle.
+Exactly one false claim per puzzle.
+
+Use these fixed IDs and subject assignments:
+
+SPACE
+space-01: Venus rotation, orbit, and direction.
+space-02: The Sun as a star and Earth's orbit.
+space-03: Moonlight and Earth's Moon.
+space-04: Jupiter, Saturn, and planetary features.
+space-05: Mercury and Neptune's relative solar positions.
+space-06: Stars, constellations, and the Milky Way.
+
+ANIMALS
+animals-01: Mammal and bird classification.
+animals-02: Insects and spiders.
+animals-03: Whales and dolphins as air-breathing mammals.
+animals-04: Penguin and ostrich flightlessness.
+animals-05: Frog metamorphosis.
+animals-06: Octopus anatomy.
+
+GEOGRAPHY
+geo-01: Capital cities: France, Japan, Italy.
+geo-02: Oceans and continents.
+geo-03: Egypt, the Nile, and the Sahara.
+geo-04: Australia and New Zealand.
+geo-05: Mountains versus rivers and lakes.
+geo-06: Northern and Southern Hemispheres.
+
+LANGUAGE
+language-01: English plurals with unambiguous examples.
+language-02: Standard English contractions.
+language-03: Palindromes using exact letter strings.
+language-04: Nouns, verbs, and adjectives in explicit sentences.
+language-05: Alphabetical order.
+language-06: Literal word letter counts.
+
+SCIENCE
+science-01: H2O, CO2, and chemical symbols.
+science-02: Metric unit relationships.
+science-03: Solid, liquid, and gas.
+science-04: Light, sound, and vacuum.
+science-05: Plant photosynthesis.
+science-06: Basic magnets and poles.
+
+ARTS & HISTORY
+culture-01: Shakespeare's plays.
+culture-02: Austen's novels.
+culture-03: Mozart, Beethoven, and musical composition.
+culture-04: Leonardo and Michelangelo's identified works.
+culture-05: Ancient Egyptian writing and monuments.
+culture-06: Instruments and how sound is produced.
+
+Recipient assignment is fixed:
+SPACE → Professor Vesper.
+ANIMALS → Mabel Moss.
+GEOGRAPHY → Captain Elsewhere.
+LANGUAGE → Ada Ink.
+SCIENCE → Doctor Spark.
+ARTS & HISTORY → Madame Encore.
+
+Addresses:
+Professor Vesper:
+“Observatory, Last Window Before Dawn”
+
+Mabel Moss:
+“The Greenhouse Beyond the Gate”
+
+Captain Elsewhere:
+“Platform Zero, Elsewhere Station”
+
+Ada Ink:
+“Room 4, The Unfinished Library”
+
+Doctor Spark:
+“Laboratory Beneath the Lamplight”
+
+Madame Encore:
+“Balcony Seat, The Silent Theatre”
+
+Content writing is constrained editorial execution:
+- select stable, unambiguous statements within the assigned subject;
+- three true statements and one plausible false statement;
+- no subjective interpretation;
+- no controversial or temporary facts;
+- no unnecessary trick wording;
+- no “all/always/never” traps unless logically central and fair;
+- no common myth presented as truth;
+- no question that depends on a hidden definition.
+
+Statements:
+Aim for <=90 characters.
+Maximum 140 characters.
+Corrections:
+<=220 characters.
+Explanations:
+1–3 short sentences.
+Recipient reactions:
+<=90 characters, original, warm, non-mocking.
+
+For each category:
+2 easy.
+3 medium.
+1 hard.
+Hard means plausible competing knowledge, not obscure wording.
+
+SOURCE VERIFICATION
+
+Verify all four statements, not only the false one's correction.
+Prefer authoritative educational, scientific, institutional,
+museum, dictionary, or primary sources.
+Provide enough source links to support all four claims.
+Never invent titles or URLs.
+Never mark “source-checked” unless the relevant source was actually inspected.
+
+If external browsing is unavailable:
+Implement the full game and all 36 conservative puzzles.
+Mark the bank needs-editorial-review.
+Display an honest About note.
+List the unverified records in CONTENT_REVIEW.md.
+Do not claim production-ready factual verification.
+
+The UI/content design is locked.
+Editorial verification is a real release gate, not something to fake.
+
+Content schema:
+
+type LetterPuzzle = {
+  id: string;
+  category:
+    | "space"
+    | "animals"
+    | "geography"
+    | "language"
+    | "science"
+    | "culture";
+  difficulty: "easy" | "medium" | "hard";
+  recipientId: string;
+  claims: [
+    { id: string; text: string },
+    { id: string; text: string },
+    { id: string; text: string },
+    { id: string; text: string }
+  ];
+  falseClaimId: string;
+  correction: string;
+  explanation: string;
+  sources: {
+    title: string;
+    url: string;
+    supportedClaimIds: string[];
+  }[];
+  verificationStatus: "source-checked" | "needs-editorial-review";
+  reactionCorrect: string;
+  reactionIncorrect: string;
+};
+
+Keep content outside components.
+Never derive truth from answer position.
+Never use runtime AI for judging.
+
+=====================================================================
+18. DAILY AND PRACTICE SELECTION
+=====================================================================
+
+Content version:
+"dead-letter-v1"
+
+UTC date format:
+YYYY-MM-DD.
+
+Daily seed input:
+"dead-letter-v1:" + UTC date.
+
+Use a documented deterministic hash and PRNG.
+For example:
+FNV-1a 32-bit hash.
+Mulberry32 PRNG.
+Implement and unit-test these.
+
+Selection:
+Choose exactly one puzzle from each category.
+Shuffle category order using seeded Fisher–Yates.
+Shuffle each selected puzzle's claim order using the same deterministic
+pipeline with stable iteration order.
+Store claim IDs, not answer indices.
+
+Same date + same content version must yield the same:
+puzzle set;
+puzzle order;
+claim order.
+
+Practice:
+Use a fresh random seed per shift.
+One puzzle from each category.
+Avoid the immediately previous puzzle in each category when possible.
+Persist enough recent history for this behavior.
+No promise of infinite novelty.
+
+Never mutate the canonical puzzle bank.
+
+Daily is local:
+Do not claim cheating prevention or server authority.
+
+=====================================================================
+19. STATE MACHINE AND PERSISTENCE
+=====================================================================
+
+Use a reducer with explicit states:
+
+home
+tutorial
+opening
+answering
+stamping
+reveal
+transitioning
+results
+
+Modal state is separate and typed.
+Document visibility and resume status are separate from the game phase.
+
+Events include:
+START_SHIFT
+OPENING_COMPLETE
+SELECT_CLAIM
+TOGGLE_SEAL
+SUBMIT
+TIMEOUT
+STAMP_COMPLETE
+NEXT
+TRANSITION_COMPLETE
+PAUSE
+RESUME
+RESTORE
+COMPLETE_SHIFT
+
+Atomic resolution:
+SUBMIT/TIMEOUT must produce at most one resolved result.
+Ignore duplicate resolution events.
+Animation completion cannot be the only place score is committed.
+
+On valid SUBMIT:
+Compute result.
+Consume armed seal if applicable.
+Save immutable answer.
+Update score.
+Stop timer.
+Persist.
+Then play stamp choreography.
+
+If animation fails or reduced motion is active:
+State still resolves correctly.
+
+Save key namespace:
+dead-letter:
+
+Save schema:
+Versioned and runtime-validated.
+
+Persist:
+Daily runs by UTC date.
+Current practice run.
+Played puzzle/claim order.
+Current phase suitable for restoration.
+Round index.
+Answer records.
+Remaining time.
+Score.
+Seals.
+Completed dates.
+Collection.
+Preferences.
+Recent practice selections.
+
+On restoring mid-animation:
+Normalize safely to the last committed stable phase.
+Never require replaying a decorative animation to recover.
+
+Timer:
+Use performance.now() for active elapsed time.
+Use requestAnimationFrame or a modest UI refresh cadence.
+Do not decrement a counter with blind one-second intervals.
+
+Checkpoint:
+On state transitions.
+On page hide.
+At approximately one-second intervals during answering.
+Do not write every frame.
+
+Storage errors:
+Catch them.
+Continue in memory.
+Show:
+“Progress can’t be saved in this browser.”
+
+Corrupt save:
+Recover to a safe state.
+Show:
+“A saved shift could not be restored. Your other records are still here.”
+Do not delete unrelated records.
+
+Midnight:
+A run retains its start date.
+Completing an old run does not overwrite today's run.
+Compute local streak from actual consecutive UTC completion dates.
+
+=====================================================================
+20. MOTION SPECIFICATION
+=====================================================================
+
+Motion tokens:
+fast: 120ms
+standard: 220ms
+paper: 420ms
+scene: 600ms
+
+Default easing:
+cubic-bezier(.22,1,.36,1)
+
+Exit easing:
+cubic-bezier(.4,0,1,1)
+
+No spring overshoot on readable content.
+
+HOME ENTRY
+Scene opacity 0→1, 450ms.
+Envelope translateY 10→0, 420ms.
+Postmaster opacity 0→1, 300ms after 150ms.
+Buttons available without waiting for decoration.
+
+LETTER OPEN
+0–160ms: envelope moves upward 10px.
+100–360ms: flap rotates open.
+260–620ms: paper rises into position.
+At 620ms: answering ready and timer begins.
+Use transform-style/backface handling where necessary.
+No long 3D cinematic.
+
+CLAIM SELECT
+Border/color 120ms.
+Indicator opacity/scale 120ms.
+No row height or text displacement.
+
+STAMP
+0–100ms: stamp enters above target.
+100–160ms: stamp contacts paper.
+160–230ms: tiny compression/recovery.
+230–360ms: stamp retreats.
+Imprint stays.
+Commit score before animation begins.
+Do not stamp over explanatory text.
+
+CORRECT
+Finite wisp travels toward the window, 600ms.
+12 particles maximum.
+Recipient glows briefly.
+Route stop gains check.
+
+INCORRECT
+Envelope corner settles toward the drawer, 300ms.
+No aggressive red flash.
+Route stop gains X.
+Explanation remains calm and readable.
+
+NEXT LETTER
+Old paper opacity 1→0 and translateX -18px, 180ms.
+New envelope begins.
+Do not keep both interactive.
+
+RESULTS
+Receipt reveals over 500ms.
+Use a clipping reveal without repeatedly changing layout height.
+Final numbers are immediately available to assistive technology.
+Buttons do not wait for a count-up.
+
+AMBIENT
+Moth: slow original loop, low amplitude.
+Rain: sparse, behind window.
+Ghost: occasional blink.
+Lamp: extremely subtle brightness shift.
+No constant floating of the main letter.
+
+REDUCED MOTION
+No translation travel.
+No parallax.
+No animated rain or particles.
+No flap rotation.
+Use opacity transitions <=120ms.
+Same states, no lost information.
+Timer fairness remains identical.
+
+=====================================================================
+21. SOUND SPECIFICATION
+=====================================================================
+
+Use original Web Audio sounds.
+No sound asset download is necessary.
+
+SFX default:
+Off until explicit user opt-in or a clearly labeled enabling gesture.
+
+Atmosphere default:
+Off.
+
+Sound levels:
+Quiet and normalized relative to one another.
+Respect a global gain cap.
+No harsh error buzz.
+
+Create:
+Selection: very short soft click.
+Paper: filtered low-volume noise burst.
+Stamp: short low thunk with a subtle noise transient.
+Correct: two soft bell-like notes.
+Incorrect: quiet wooden tap, not a punishment alarm.
+Results: three-note warm chime.
+
+Create/resume AudioContext only after a user gesture.
+Handle failure silently except for a nonblocking settings note.
+Mute stops ongoing ambience.
+Do not create a new AudioContext per sound.
+Clean up nodes and timers.
+
+=====================================================================
+22. ACCESSIBILITY CONTRACT
+=====================================================================
+
+Real semantic buttons.
+One radio group for claims.
+Visible labels.
+Modal titles and descriptions.
+Focus restoration.
+Keyboard navigation.
+No keyboard traps outside proper modal containment.
+
+Shortcuts:
+1/2/3/4 select claims.
+S toggles seal.
+Enter submits valid answer.
+Enter on reveal continues.
+
+Ignore:
+event.repeat.
+Shortcuts while a modal is open.
+Shortcuts originating in text input, textarea, or contenteditable.
+Shortcuts during opening/stamping/transitioning.
+
+Do not let the Enter used for submission also trigger Continue.
+
+Screen reader:
+Announce new letter heading.
+Announce correct/incorrect and points.
+Do not announce every timer tick.
+Do not expose decorative duplicate labels.
+
+Touch:
+44px minimum utility/control targets.
+No hover-only actions.
+No mandatory precise drag.
+
+Color:
+Text contrast at least 4.5:1 for normal text.
+Relevant non-text indicators target 3:1.
+Check actual rendered combinations.
+
+200% zoom:
+Playable without hidden controls.
+
+Automated accessibility testing is necessary but not sufficient.
+Manually inspect focus order and radio behavior.
+
+=====================================================================
+23. MICROCOPY AND ERROR STATES
+=====================================================================
+
+No selection:
+“Choose a statement before stamping.”
+
+No seals:
+“No wax seals remaining.”
+
+Restored:
+“Your shift is waiting.”
+Button:
+“Resume shift”
+
+Offline:
+No warning needed for ordinary play because runtime gameplay is local.
+Do not advertise guaranteed offline reload unless a service worker is
+actually implemented and tested.
+
+Storage unavailable:
+“Progress can’t be saved in this browser.”
+
+Share failure:
+“Copy wasn’t available. Select the receipt below.”
+
+No console-stack error messages in player-facing UI.
+
+No fake loading spinners.
+No random motivational messages.
+No “AI-powered” branding.
+
+=====================================================================
+24. FILE ORGANIZATION
+=====================================================================
+
+src/
+  app/
+    App.tsx
+    routes.tsx
+    providers.tsx
+  components/
+    ui/
+      Button.tsx
+      IconButton.tsx
+      PaperDialog.tsx
+      ConfirmDialog.tsx
+      SettingSwitch.tsx
+      StatusToast.tsx
+    game/
+      LetterPaper.tsx
+      ClaimGroup.tsx
+      ClaimRow.tsx
+      SealControl.tsx
+      StampButton.tsx
+      TimerDial.tsx
+      RouteStrip.tsx
+      RevealPanel.tsx
+      ResultReceipt.tsx
+    world/
+      PostalScene.tsx
+      WindowScene.tsx
+      Lamp.tsx
+      GhostPortrait.tsx
+      AmbientEffects.tsx
+  screens/
+    HomeScreen.tsx
+    PlayScreen.tsx
+    ResultsScreen.tsx
+  overlays/
+    Tutorial.tsx
+    Settings.tsx
+    About.tsx
+    Collection.tsx
+    Review.tsx
+    Resume.tsx
+  game/
+    types.ts
+    reducer.ts
+    scoring.ts
+    daily.ts
+    rng.ts
+    timer.ts
+    persistence.ts
+    achievements.ts
+    selectors.ts
+  content/
+    recipients.ts
+    letters.ts
+    validate.ts
+  art/
+    [original SVG components]
+  audio/
+    engine.ts
+    sounds.ts
+  styles/
+    tokens.css
+    reset.css
+    typography.css
+    layout.css
+    surfaces.css
+    components.css
+    motion.css
+  tests/
+    [unit and component tests]
+
+e2e/
+  game.spec.ts
+  persistence.spec.ts
+  accessibility.spec.ts
+  responsive.spec.ts
+
+Documentation:
+README.md
+REFERENCES.md
+THIRD_PARTY_NOTICES.md
+CONTENT_REVIEW.md
+QA_REPORT.md
+
+Avoid unnecessary abstraction.
+Do not put game rules in JSX handlers.
+Do not create a 1,500-line App.tsx.
+
+=====================================================================
+25. VISUAL QA: REQUIRED SCREENSHOT SET
+=====================================================================
+
+Capture and inspect, if browser tooling is available:
+
+Desktop 1440x900:
+Home.
+Answering with B selected.
+Armed seal.
+Correct reveal.
+Incorrect reveal.
+Results.
+Collection.
+Settings.
+
+Mobile 390x844:
+Home.
+Answering with longest claims.
+Reveal with source links.
+Results.
+Settings sheet.
+Collection.
+
+Narrow 360x800:
+Gameplay.
+Results.
+
+Tablet 768x1024:
+Gameplay.
+Collection.
+
+Short landscape 844x390:
+Gameplay with scrolling and reachable controls.
+
+Reduced motion:
+Gameplay.
+Results.
+
+Text zoom/reflow:
+A representative screen at 200%.
+
+Use deterministic test fixtures for screenshots.
+Never rely on waiting for random ambient positions.
+Add a test-only motion/clock control that cannot alter production scoring.
+
+Inspect for:
+- ugly line breaks;
+- cropped headings;
+- overlapping buttons;
+- paper texture obscuring text;
+- modal content hidden below viewport;
+- inconsistent spacing;
+- blurry scaled text;
+- controls hidden behind decoration;
+- weak disabled states;
+- inaccessible focus;
+- insufficient mobile breathing room.
+
+If screenshots reveal defects, fix them and recapture.
+Do not list screenshots as “reviewed” if you only generated files.
+
+=====================================================================
+26. AUTOMATED TEST REQUIREMENTS
+=====================================================================
+
+UNIT
+
+Scoring:
+100 correct unsealed.
+200 correct sealed.
+0 wrong.
+0 timeout.
+800 maximum.
+
+Seals:
+Arming not consumption.
+Disarming not consumption.
+Consumption exactly once on submit.
+Wrong sealed submit consumes.
+Timeout does not consume unsubmitted seal.
+No negative seal count.
+
+Reducer:
+Duplicate submit ignored.
+Submit/timeout race resolves once.
+Next cannot skip.
+Six rounds end.
+Answer selection cannot change after resolve.
+Reduced-motion completion does not alter results.
+
+Daily:
+Same seed, same run.
+Stable IDs.
+Six categories.
+No duplicate puzzle.
+Claim shuffling preserves truth.
+Canonical bank not mutated.
+
+Persistence:
+Valid round trip.
+Corrupt data recovery.
+Unsupported schema handling.
+Unavailable storage.
+Mid-animation recovery.
+Midnight completion retains original date.
+
+Achievements:
+Each rule.
+No duplicates.
+Practice does not create Daily completion.
+Three distinct dates required for Regular Correspondent.
+
+Content:
+36 records.
+Six per category.
+Four claims each.
+Unique IDs.
+Exactly one valid false ID.
+Required corrections and source metadata.
+Maximum lengths.
+Difficulty distribution.
+
+COMPONENT
+
+Stamp disabled before selection.
+Radio behavior.
+Seal availability.
+Correct reveal labels.
+Incorrect reveal labels.
+Modal focus return.
+Clipboard success and failure.
+
+END TO END
+
+Complete practice.
+Complete relaxed practice.
+Complete Daily.
+Restore incomplete Daily.
+Completed Daily opens results.
+Keyboard-only shift.
+Timeout.
+Pause/resume.
+Settings pause timer.
+Hidden-tab resume where test tooling permits.
+Collection unlock.
+Local reset.
+Mobile overflow check.
+No runtime console errors.
+Accessibility scan on each principal screen.
+
+Run all available checks.
+Do not hide failing tests by deleting assertions or disabling the feature.
+
+=====================================================================
+27. VISUAL QUALITY RUBRIC
+=====================================================================
+
+Score the actual implementation from 0–2 on each item:
+
+1. Instantly recognizable postal identity.
+2. Cohesive warm-paper/night-teal palette.
+3. Clear first action.
+4. Excellent claim readability.
+5. Tactile selection and stamp feedback.
+6. Consistent spacing and typography.
+7. Mobile feels intentionally designed.
+8. Dialogs feel part of the world.
+9. Results feel like a collectible receipt.
+10. Reduced motion and keyboard use remain polished.
+
+0 = missing or broken.
+1 = functional but visibly rough.
+2 = polished and consistent.
+
+Target at least 18/20.
+Any 0 is a mandatory fix.
+Do not treat a self-score as objective proof.
+Include brief concrete observations in QA_REPORT.md.
+
+=====================================================================
+28. DELIVERY PROCEDURE
+=====================================================================
+
+Execute in this order:
+
+1. Inspect repository and preserve existing work.
+2. Set up the stack and scripts.
+3. Create design tokens and typography.
+4. Implement pure rules, content schema, selection, and persistence.
+5. Implement the full playable loop.
+6. Implement original SVG scene and assets.
+7. Implement all required overlays and screens.
+8. Add responsive styling.
+9. Add motion and audio.
+10. Validate all content records.
+11. Run typecheck, unit/component tests, production build.
+12. Run browser tests if environment supports them.
+13. Capture and inspect required screenshots where possible.
+14. Fix defects.
+15. Repeat checks affected by fixes.
+16. Write honest documentation and QA report.
+
+Do not spend all available time on the home screen.
+A gorgeous home screen with a broken game is not the deliverable.
+A working game with default component styling is also not the deliverable.
+
+FINAL RESPONSE FORMAT
+
+Built:
+A concise description of actual delivered features.
+
+Run:
+Exact commands.
+
+Verified:
+Exact checks actually executed and their results.
+
+Limitations:
+Only real remaining limitations.
+Explicitly identify:
+unverified content;
+unavailable browser testing;
+uninspected screenshots;
+any incomplete acceptance criteria.
+
+Never say “production-ready,” “fully accessible,” or “all tests pass”
+unless the evidence genuinely supports the specific claim.
+
+START IMPLEMENTING NOW.

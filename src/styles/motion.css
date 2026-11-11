@@ -1,0 +1,262 @@
+@keyframes moth {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-10deg);
+  }
+  50% {
+    transform: translate(6px, -5px) rotate(9deg);
+  }
+}
+@keyframes rain {
+  0% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(12px);
+  }
+}
+@keyframes home-entry {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes envelope-entry {
+  from {
+    transform: translateY(10px) rotate(-7deg);
+  }
+  to {
+    transform: translateY(0) rotate(-7deg);
+  }
+}
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px) rotate(-15deg) scale(1.15);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0) rotate(-15deg) scale(1);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(2px) rotate(-15deg) scale(0.97);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) rotate(-15deg) scale(1);
+  }
+}
+.moth {
+  animation: moth 8s ease-in-out infinite;
+}
+.rain {
+  animation: rain 2.5s linear infinite;
+}
+.at-home .postal-scene {
+  animation: home-entry 0.45s;
+}
+.home-envelope {
+  animation: envelope-entry 0.42s var(--ease);
+}
+.postmaster {
+  animation: home-entry 0.3s 0.15s both;
+}
+.active-stamp {
+  position: absolute;
+  right: 18px;
+  top: -60px;
+  width: 90px;
+  z-index: 35;
+  pointer-events: none;
+  animation: stamp 0.36s var(--ease) both;
+}
+.claim {
+  position: relative;
+}
+.result-receipt {
+  animation: home-entry 0.5s;
+}
+.envelope-flap {
+  transform-origin: 150px 34px;
+  backface-visibility: hidden;
+}
+.modal-backdrop {
+  animation: home-entry 0.12s;
+}
+.paper-dialog {
+  animation: home-entry 0.15s;
+}
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *:before,
+html[data-motion="reduced"] *:after {
+  animation: none !important;
+  transition-duration: 100ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion="reduced"] .active-stamp {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) *,
+  html:not([data-motion="full"]) *:before,
+  html:not([data-motion="full"]) *:after {
+    animation: none !important;
+    transition-duration: 100ms !important;
+  }
+}
+@keyframes flap-open {
+  0%,
+  16% {
+    transform: rotateX(0deg);
+  }
+  58%,
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+@keyframes envelope-open {
+  0% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  58% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+@keyframes paper-open {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.opening-envelope {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  width: 240px;
+  margin-left: -120px;
+  z-index: 35;
+  pointer-events: none;
+  animation: envelope-open 0.62s var(--ease) both;
+  perspective: 800px;
+}
+.opening-envelope .envelope-flap {
+  animation: flap-open 0.62s var(--ease) both;
+  transform-style: preserve-3d;
+}
+.opening > *:not(.opening-envelope) {
+  animation: paper-open 0.62s var(--ease) both;
+}
+html[data-motion="reduced"] .opening-envelope {
+  display: none;
+}
+@keyframes wisp-out {
+  from {
+    opacity: 0.6;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(calc((var(--i) - 4) * 10px), -130px);
+  }
+}
+@keyframes drawer-settle {
+  from {
+    opacity: 0.65;
+    transform: translate(0, 0) rotate(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(26px, 20px) rotate(12deg);
+  }
+}
+@keyframes recipient-light {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.answer-effects {
+  position: absolute;
+  inset: 20px;
+  z-index: 35;
+  pointer-events: none;
+}
+.answer-effects i {
+  position: absolute;
+  top: 80px;
+  left: calc(45% + var(--i) * 6px);
+  width: 4px;
+  height: 4px;
+  background: var(--ghost-300);
+  border-radius: 50%;
+  animation: wisp-out 0.6s var(--ease) both;
+  animation-delay: calc(var(--i) * 18ms);
+}
+.answer-effects > svg {
+  position: absolute;
+  width: 65px;
+  right: 0;
+  top: 20px;
+  animation: drawer-settle 0.3s var(--ease) both;
+}
+.reveal-correct .recipient-row > svg {
+  animation: recipient-light 0.6s var(--ease);
+}
+html[data-motion="reduced"] .answer-effects {
+  display: none;
+}
+@keyframes ghost-blink {
+  0%,
+  46%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  48% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes lamp-light {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.985);
+  }
+}
+@keyframes receipt-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 -12px 0);
+  }
+}
+.ghost-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ghost-blink 12s ease-in-out infinite;
+}
+.lamp {
+  animation: lamp-light 9s ease-in-out infinite;
+}
+.result-receipt {
+  animation: receipt-reveal 0.5s var(--ease);
+}
