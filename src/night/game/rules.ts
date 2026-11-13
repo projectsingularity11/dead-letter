@@ -1,59 +1,55 @@
 import type { Run, Answer, Save } from "./types";
-import { mysteries, mysteryById } from "../content/mysteries";
-import { hash, mulberry32, shuffle } from "../../game/rng";
+import { dailyMystery, mysteryById } from "../content/mysteries";
+import { answerKey, matchesAnswer, validSubmission } from "./answers";
 export const utcDate = (d = new Date()) => d.toISOString().slice(0, 10);
+export const untilMidnight = (d = new Date()) =>
+  Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1) -
+  d.getTime();
 export const duration = (r: Run) =>
   mysteryById[r.mysteryId].clues[r.clue].seconds * 1000;
+export const clueCount = (r: Run) => mysteryById[r.mysteryId].clues.length;
 export function makeRun(
   mode: Run["mode"] = "daily",
   date = utcDate(),
   mysteryId?: string,
   seed?: string,
 ): Run {
-  const ordinal = Math.floor(
-    new Date(`${date}T00:00:00Z`).getTime() / 86400000,
-  );
   const selected =
-    mysteryId ??
-    mysteries[
-      (((ordinal - Math.floor(Date.UTC(2026, 10, 11) / 86400000)) % 7) + 7) % 7
-    ].id;
-  const id =
-    seed ?? (mode === "daily" ? `night-walk-v3:${date}` : crypto.randomUUID());
-  const random = mulberry32(hash(id));
-  const m = mysteryById[selected];
+    mysteryId ?? (mode === "tutorial" ? "tutorial" : dailyMystery(date)?.id);
+  if (!selected || !mysteryById[selected])
+    throw new Error(
+      "No case is scheduled for this date. Practice is still available.",
+    );
   return {
-    id,
+    id:
+      seed ??
+      (mode === "daily" ? `night-walk-v4:${date}` : crypto.randomUUID()),
     date,
     mode,
     mysteryId: selected,
-    phase: "walking",
+    phase: mode === "tutorial" ? "walking" : "intro",
     clue: 0,
-    remaining: m.clues[0].seconds * 1000,
+    remaining: mysteryById[selected].clues[0].seconds * 1000,
     misses: [],
     answers: [],
     score: 0,
     paused: false,
-    choiceOrder: m.clues.map((c) =>
-      shuffle(
-        c.choices.map((o) => o.id),
-        random,
-      ),
-    ),
   };
 }
 export type Event =
   | { type: "START" | "RESTORE"; run: Run }
   | { type: "RESET" }
-  | { type: "ARRIVE" | "NEXT" | "PAUSE" | "RESUME" | "CATCH" }
+  | { type: "BEGIN" | "ARRIVE" | "NEXT" | "PAUSE" | "RESUME" | "CATCH" }
   | { type: "TICK"; elapsed: number }
-  | { type: "ANSWER"; choiceId: string };
+  | { type: "ANSWER"; values: string[] };
 export function reducer(r: Run | null, e: Event): Run | null {
   if (e.type === "START" || e.type === "RESTORE") return e.run;
   if (e.type === "RESET") return null;
   if (!r) return null;
   if (e.type === "PAUSE") return { ...r, paused: true };
   if (e.type === "RESUME") return { ...r, paused: false };
+  if (e.type === "BEGIN")
+    return r.phase === "intro" && !r.paused ? { ...r, phase: "walking" } : r;
   if (e.type === "ARRIVE")
     return r.phase === "walking" && !r.paused
       ? { ...r, phase: "answering" }
@@ -63,7 +59,8 @@ export function reducer(r: Run | null, e: Event): Run | null {
       r.phase !== "answering" ||
       r.paused ||
       !Number.isFinite(e.elapsed) ||
-      e.elapsed <= 0
+      e.elapsed <= 0 ||
+      (r.mode === "tutorial" && r.clue === 0)
     )
       return r;
     const remaining = Math.max(0, r.remaining - e.elapsed);
@@ -75,7 +72,7 @@ export function reducer(r: Run | null, e: Event): Run | null {
       : r;
   if (e.type === "NEXT") {
     if (r.phase !== "banished" || r.paused) return r;
-    if (r.clue === 7) return { ...r, phase: "escaped" };
+    if (r.clue === clueCount(r) - 1) return { ...r, phase: "escaped" };
     const next = {
       ...r,
       clue: r.clue + 1,
@@ -85,41 +82,54 @@ export function reducer(r: Run | null, e: Event): Run | null {
     return { ...next, remaining: duration(next) };
   }
   if (e.type === "ANSWER") {
-    if (r.phase !== "answering" || r.paused || r.misses.includes(e.choiceId))
-      return r;
+    if (r.phase !== "answering" || r.paused) return r;
     if (r.remaining <= 0) return { ...r, phase: "caught" };
     const clue = mysteryById[r.mysteryId].clues[r.clue];
-    if (!clue.choices.some((c) => c.id === e.choiceId)) return r;
-    const correct = e.choiceId === clue.answerId;
-    const answer: Answer = {
-      clueId: clue.id,
-      choiceId: e.choiceId,
-      correct,
-      remaining: r.remaining,
-    };
+    if (
+      !validSubmission(clue, e.values) ||
+      r.misses.includes(answerKey(clue, e.values))
+    )
+      return r;
+    const correct = matchesAnswer(clue, e.values),
+      answer: Answer = {
+        clueId: clue.id,
+        values: e.values.map((v) => v.trim()),
+        correct,
+        remaining: r.remaining,
+      };
     if (correct)
       return {
         ...r,
         phase: "banished",
         answers: [...r.answers, answer],
-        score: r.score + (r.clue + 1) * 100,
+        score: r.mode === "tutorial" ? 0 : r.score + (r.clue + 1) * 100,
+      };
+    if (r.mode === "tutorial" && r.clue === 0)
+      return {
+        ...r,
+        misses: [...r.misses, answerKey(clue, e.values)],
+        answers: [...r.answers, answer],
       };
     const remaining = Math.max(0, r.remaining - Math.round(duration(r) * 0.35));
     return {
       ...r,
       remaining,
-      misses: [...r.misses, e.choiceId],
+      misses: [...r.misses, answerKey(clue, e.values)],
       answers: [...r.answers, answer],
       phase: remaining === 0 ? "caught" : "answering",
     };
   }
   return r;
 }
-export function solved(r: Run) {
-  return r.answers.filter((a) => a.correct).length;
-}
+export const solved = (r: Run) => r.answers.filter((a) => a.correct).length;
 export function commit(records: Save, run: Run | null): Save {
   if (!run) return records;
+  if (run.mode === "tutorial")
+    return {
+      ...records,
+      active: run,
+      tutorialComplete: records.tutorialComplete || run.phase === "escaped",
+    };
   return {
     ...records,
     active: run,
@@ -130,8 +140,5 @@ export function commit(records: Save, run: Run | null): Save {
   };
 }
 export function resultText(r: Run) {
-  return `DEAD LETTER — ${r.mode === "daily" ? r.date : "Practice"}\n${r.phase === "escaped" ? "Escaped" : "Caught"} | ${solved(r)}/8 clues | ${r.score} points\n${r.answers
-    .filter((a) => a.correct)
-    .map(() => "■")
-    .join("")}${"□".repeat(8 - solved(r))}\nGet Pete home.`;
+  return `DEAD LETTER — ${r.mode === "daily" ? r.date : r.mode === "tutorial" ? "Tutorial" : "Practice"}\n${r.phase === "escaped" ? "Escaped" : "Caught"} | ${solved(r)}/${clueCount(r)} clues | ${r.score} points\n${"■".repeat(solved(r))}${"□".repeat(clueCount(r) - solved(r))}\nGet Pete home.`;
 }

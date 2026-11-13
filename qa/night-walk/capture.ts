@@ -1,7 +1,7 @@
 import { chromium } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 import { fixture, finished, longestRun } from "../../e2e/helpers";
-import { reducer, commit, duration } from "../../src/night/game/rules";
+import { reducer, commit, duration, makeRun } from "../../src/night/game/rules";
 import { emptySave, KEY } from "../../src/night/game/storage";
 import { mysteryById } from "../../src/night/content/mysteries";
 import type { Run } from "../../src/night/game/types";
@@ -15,10 +15,25 @@ const answer = reducer(fixture(), { type: "ARRIVE" })!;
 const close = { ...answer, remaining: duration(answer) * 0.18 };
 const won = reducer(answer, {
   type: "ANSWER",
-  choiceId: mysteryById[answer.mysteryId].clues[0].answerId,
+  values: mysteryById[answer.mysteryId].clues[0].fields.map((f) => f.answer),
 })!;
+let finalRecord = fixture();
+for (let i = 0; i < 7; i++) {
+  finalRecord = reducer(finalRecord, { type: "ARRIVE" })!;
+  finalRecord = reducer(finalRecord, {
+    type: "ANSWER",
+    values: mysteryById[finalRecord.mysteryId].clues[i].fields.map(
+      (f) => f.answer,
+    ),
+  })!;
+  finalRecord = reducer(finalRecord, { type: "NEXT" })!;
+}
+finalRecord = reducer(finalRecord, { type: "ARRIVE" })!;
 const states: [string, Run | null, string?][] = [
   ["home", null],
+  ["intro", makeRun("practice", "2026-11-13", fixture().mysteryId)],
+  ["tutorial", reducer(makeRun("tutorial", "2026-11-13"), { type: "ARRIVE" })!],
+  ["final-record", finalRecord],
   ["answering", answer],
   ["close-ghost", close],
   ["banished", won],
@@ -76,11 +91,16 @@ for (const [name, width, height] of [
         c.getContext("2d")!.getImageData(10, 10, 1, 1).data[3] === 255
       );
     });
-    await page.clock.install({ time: new Date("2026-11-11T00:00:00Z") });
-    await page.clock.pauseAt(new Date("2026-11-11T00:00:00.100Z"));
+    await page.clock.install({ time: new Date("2026-11-13T00:00:00Z") });
+    await page.clock.pauseAt(new Date("2026-11-13T00:00:00.100Z"));
     await page.waitForTimeout(70);
+    await page.evaluate(() => {
+      if (document.activeElement instanceof HTMLElement)
+        document.activeElement.blur();
+      window.scrollTo(0, 0);
+    });
     if (state === "long-clue-scrolled")
-      await page.locator(".answer-option").last().scrollIntoViewIfNeeded();
+      await page.locator(".submit-answer").last().scrollIntoViewIfNeeded();
     const path = `qa/night-walk/${name}-${state}.png`;
     await page.screenshot({
       path,

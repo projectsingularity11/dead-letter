@@ -27,8 +27,17 @@ export function Overlay({
           className="night-dialog"
           onCloseAutoFocus={(e) => {
             e.preventDefault();
-            if (returnTo.current?.isConnected) returnTo.current.focus();
-            else document.querySelector<HTMLElement>("main button")?.focus();
+            if (
+              returnTo.current?.isConnected &&
+              !returnTo.current.matches("body,html")
+            )
+              returnTo.current.focus({ preventScroll: true });
+            else
+              document
+                .querySelector<HTMLElement>(
+                  ".clue-question, .banish-title, #prologue-title, .start-game",
+                )
+                ?.focus({ preventScroll: true });
           }}
         >
           <Dialog.Close

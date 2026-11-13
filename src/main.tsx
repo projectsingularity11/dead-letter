@@ -5,3 +5,5 @@ import "@fontsource/vt323/latin-400.css";
 import "@fontsource/pixelify-sans/latin-400.css";
 import "./night/night.css";
 createRoot(document.getElementById("root")!).render(<NightWalk />);
+
+import "./night/world.css";

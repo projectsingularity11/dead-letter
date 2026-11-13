@@ -1,5 +1,8 @@
 [
   "qa/night-walk/desktop-home.png",
+  "qa/night-walk/desktop-intro.png",
+  "qa/night-walk/desktop-tutorial.png",
+  "qa/night-walk/desktop-final-record.png",
   "qa/night-walk/desktop-answering.png",
   "qa/night-walk/desktop-close-ghost.png",
   "qa/night-walk/desktop-banished.png",
@@ -8,6 +11,9 @@
   "qa/night-walk/desktop-settings.png",
   "qa/night-walk/desktop-case-files.png",
   "qa/night-walk/mobile-home.png",
+  "qa/night-walk/mobile-intro.png",
+  "qa/night-walk/mobile-tutorial.png",
+  "qa/night-walk/mobile-final-record.png",
   "qa/night-walk/mobile-answering.png",
   "qa/night-walk/mobile-close-ghost.png",
   "qa/night-walk/mobile-caught.png",

@@ -1,0 +1,1196 @@
+/* The whole document is the midnight city: brass, timber, cyan lamps, cut pixels. */
+:root {
+  --ink: #101c22;
+  --sky: #101e31;
+  --night: #142d35;
+  --panel: #243c38;
+  --panel-deep: #182d30;
+  --wood: #54402e;
+  --edge: #746044;
+  --sage: #70e0bf;
+  --sage-bright: #b1f4d1;
+  --muted: #bdc9b2;
+  --text: #f1ebcf;
+  --paper: #e3d6ae;
+  --danger: #ffb28a;
+  --ghost: #70e0bf;
+  --gold: #f7c66d;
+  scrollbar-color: #70ab96 #142a30;
+  scrollbar-width: thin;
+}
+body {
+  background: var(--ink)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32'%3E%3Cpath stroke='%2316262c' fill='none' d='M0 0h64M0 16h64M0 32h64M16 0v16m32 0v16'/%3E%3C/svg%3E");
+}
+input {
+  color: var(--text);
+  caret-color: var(--gold);
+  border-radius: 0;
+}
+input:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+input::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+button,
+a,
+input {
+  touch-action: manipulation;
+}
+button:disabled {
+  opacity: 0.55;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 5px;
+}
+a {
+  text-decoration-thickness: 2px;
+}
+.night-app {
+  max-width: 1800px;
+  padding: 24px 28px 0;
+  gap: 0;
+}
+.night-main {
+  border: 4px solid #73573a;
+  background: var(--ink);
+  box-shadow: inset 0 0 0 2px #a48655;
+  position: relative;
+}
+.street-frame {
+  border: 0;
+  height: 440px;
+  overflow: hidden;
+}
+.night-header {
+  height: auto;
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  right: 24px;
+  z-index: 10;
+  gap: 16px;
+  pointer-events: none;
+}
+.night-header > * {
+  pointer-events: auto;
+}
+.night-wordmark {
+  font-size: 9px;
+  gap: 10px;
+  color: var(--gold);
+}
+.night-wordmark > svg {
+  color: var(--gold);
+  width: 24px;
+  height: 24px;
+}
+.header-date {
+  color: var(--paper);
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  gap: 10px;
+  text-shadow: 2px 2px #101e31;
+}
+.night-header nav {
+  gap: 8px;
+}
+.night-icon {
+  border: 2px solid #526d62;
+  background: #142a30;
+  color: var(--sage);
+  width: 44px;
+  height: 44px;
+  box-shadow:
+    inset 2px 2px #29473f,
+    inset -2px -2px #0c1c23;
+}
+.night-icon:hover {
+  color: var(--gold);
+  background: #2c453b;
+}
+.night-icon:active {
+  transform: translateY(2px);
+}
+.on-title .night-wordmark span {
+  display: none;
+}
+.on-title .night-wordmark {
+  padding: 8px;
+  border: 2px solid var(--edge);
+  background: #172c30;
+}
+.on-title .header-date {
+  margin-left: auto;
+  margin-right: 16px;
+}
+.scene-corner {
+  display: none;
+}
+.title-scene {
+  height: clamp(660px, calc(100svh - 100px), 900px);
+  min-height: 660px;
+}
+.title-overlay {
+  left: 5%;
+  top: 14%;
+  right: auto;
+  text-align: left;
+}
+.title-overlay h1 {
+  font: clamp(42px, 5.5vw, 80px)/1.28 var(--pixel);
+  letter-spacing: -0.04em;
+  color: var(--gold);
+  text-shadow:
+    4px 0 #855533,
+    0 4px #855533,
+    4px 4px #855533,
+    8px 8px #15262c;
+}
+.title-overlay h1 > span {
+  display: block;
+  color: var(--text);
+}
+.title-period {
+  color: var(--sage);
+}
+.title-overlay p {
+  font-size: 27px;
+  line-height: 1.2;
+  color: var(--paper);
+  letter-spacing: 0;
+  margin-top: 22px;
+  text-shadow: 2px 2px #101e31;
+}
+.scene-coordinate {
+  left: auto;
+  right: 32px;
+  top: 86px;
+  color: var(--sage);
+  letter-spacing: 0.08em;
+  font-size: 14px;
+}
+.title-start {
+  left: 5%;
+  right: auto;
+  bottom: 8%;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pixel-button {
+  background: var(--gold);
+  color: #18252a;
+  border: 0;
+  min-height: 54px;
+  padding: 18px 22px;
+  box-shadow:
+    inset 0 4px #ffe6a3,
+    inset 0 -4px #a9723e;
+  font-size: 10px;
+  position: relative;
+  isolation: isolate;
+}
+.pixel-button:before,
+.pixel-button:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  top: 4px;
+  bottom: 4px;
+  background: inherit;
+  pointer-events: none;
+}
+.pixel-button:before {
+  left: -4px;
+}
+.pixel-button:after {
+  right: -4px;
+}
+.pixel-button:hover {
+  background: #ffe1a0;
+}
+.pixel-button:active {
+  box-shadow:
+    inset 0 4px #a9723e,
+    inset 0 -2px #ffe6a3;
+  transform: translateY(2px);
+}
+.pixel-button:disabled {
+  transform: none;
+}
+.start-game {
+  min-width: 280px;
+  min-height: 60px;
+  font-size: 12px;
+}
+.tutorial-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  font: 8px/1.7 var(--pixel);
+  background: #132a2a;
+  color: var(--sage);
+  padding: 10px 12px;
+}
+.tutorial-link svg {
+  width: 14px;
+  height: 14px;
+}
+.tutorial-link:hover {
+  color: var(--gold);
+}
+.scene-location {
+  bottom: 20px;
+  left: auto;
+  right: 32px;
+  font-size: 16px;
+  color: var(--gold);
+}
+.scene-weather {
+  display: none;
+}
+.status-dot {
+  background: var(--sage);
+  box-shadow: none;
+  width: 6px;
+  height: 6px;
+}
+.daily-strip {
+  grid-template-columns: 165px minmax(0, 1fr) 235px;
+  gap: 32px;
+  padding: 32px 40px;
+  background: #223735;
+  border-top: 4px solid var(--wood);
+  border-bottom: 4px solid var(--wood);
+}
+.daily-mark {
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--gold);
+}
+.daily-mark small {
+  font: 7px/1.8 var(--pixel);
+  margin-top: 10px;
+  color: var(--paper);
+}
+.daily-mark > svg {
+  margin-top: 4px;
+  color: var(--gold);
+}
+.daily-mark > span {
+  font-size: 22px;
+}
+.reset-countdown {
+  font: 13px/2 var(--pixel);
+  display: block;
+  font-weight: 400;
+  color: var(--sage);
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+.daily-description {
+  border: 0;
+  padding: 0;
+}
+.daily-description > .case-date {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+.daily-description h2 {
+  font-size: 32px;
+  margin-top: 5px;
+  color: var(--text);
+  text-wrap: balance;
+}
+.daily-description p {
+  font-size: 21px;
+  line-height: 1.3;
+  margin-top: 10px;
+  color: var(--paper);
+}
+.daily-actions {
+  gap: 10px;
+}
+.daily-actions button {
+  font-size: 21px;
+  min-height: 44px;
+  border-bottom: 2px solid #596044;
+}
+.daily-actions button span {
+  color: var(--sage);
+}
+.street-story {
+  padding: 64px 40px;
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr) 235px;
+  gap: 32px;
+  background: #192c2e;
+}
+.story-sign {
+  color: var(--gold);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font: 8px/1.8 var(--pixel);
+}
+.story-sign svg {
+  width: 30px;
+  height: 34px;
+}
+.street-story h2 {
+  font-family: "Pixelify Sans", var(--body);
+  font-size: 39px;
+  font-weight: 400;
+  color: var(--sage-bright);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.street-story p {
+  font-size: 23px;
+  line-height: 1.4;
+  max-width: 62ch;
+  margin-top: 18px;
+  color: var(--paper);
+}
+.street-story .flat-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 0;
+  margin-top: 12px;
+  color: var(--gold);
+}
+.story-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  font: 8px/1.7 var(--pixel);
+  color: var(--muted);
+}
+.story-rules i {
+  height: 16px;
+  width: 4px;
+  background: #53735e;
+  display: block;
+  margin-left: 4px;
+}
+.story-rules span:last-child {
+  color: var(--sage);
+}
+.run-hud {
+  top: 86px;
+  left: 28px;
+  right: 28px;
+  max-width: calc(100% - 56px);
+}
+.run-hud > div:first-child {
+  max-width: 65%;
+}
+.run-hud strong {
+  font-size: 27px;
+  max-width: 600px;
+  text-wrap: balance;
+  color: var(--text);
+}
+.hud-label {
+  color: var(--paper);
+  font-size: 7px;
+}
+.hud-right strong {
+  color: var(--gold);
+  font-size: 22px;
+}
+.pursuit-readout {
+  top: 180px;
+  left: 28px;
+  color: var(--sage);
+  background: #142a30e6;
+  padding: 10px 12px;
+  width: 308px;
+  border: 2px solid #42675d;
+}
+.pete-caption {
+  color: #f8e8b5;
+}
+.stage-bottom {
+  color: var(--paper);
+  font-size: 14px;
+}
+.distance-track {
+  height: 7px;
+  border-color: #6a9a86;
+  background: #102b2e;
+}
+.distance-track > i {
+  background: var(--sage);
+}
+.prologue {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 32px;
+  padding: 40px;
+  background: var(--panel);
+  border-top: 4px solid var(--wood);
+}
+.prologue-voice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 8px/1.8 var(--pixel);
+  color: var(--gold);
+}
+.prologue h1 {
+  font:
+    28px/1.3 "Pixelify Sans",
+    var(--body);
+  color: var(--sage-bright);
+  text-wrap: balance;
+}
+.prologue p {
+  font-size: 23px;
+  line-height: 1.4;
+  margin-top: 16px;
+  max-width: 65ch;
+}
+.prologue .pixel-button {
+  margin-top: 24px;
+}
+.prologue .flat-button {
+  margin-left: 16px;
+}
+.clue-console {
+  border: 0;
+  border-top: 4px solid var(--wood);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  background: #243832;
+}
+.clue-evidence {
+  background: #343a2c;
+  border-right: 2px solid #746044;
+  padding: 32px;
+}
+.clue-evidence h1 {
+  font:
+    32px/1.2 "Pixelify Sans",
+    var(--body);
+  color: var(--gold);
+  margin-top: 22px;
+}
+.clue-meta {
+  color: var(--paper);
+  font-size: 8px;
+}
+.evidence-text {
+  font-size: 24px;
+  line-height: 1.35;
+  color: var(--text);
+  margin-top: 20px;
+  white-space: pre-line;
+}
+.clue-interaction {
+  padding: 32px;
+  background: #1c3635;
+}
+.clue-question {
+  color: var(--sage-bright);
+  font-size: 25px;
+  line-height: 1.25;
+  margin-bottom: 22px;
+}
+.deduction-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 24px;
+}
+.deduction-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.deduction-fields:has(> .deduction-field:only-child) {
+  grid-template-columns: 1fr;
+}
+.deduction-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.deduction-field label {
+  font-size: 21px;
+  color: var(--text);
+}
+.answer-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  background: #102b2f;
+  border: 2px solid #6a9a86;
+  border-bottom: 4px solid #9dbd9f;
+  box-shadow: inset 3px 3px #0d1b24;
+  padding: 8px 12px;
+  font: 26px/1 var(--body);
+  letter-spacing: 0.035em;
+}
+.answer-input:hover {
+  border-color: var(--sage);
+}
+.answer-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+.field-hint {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.2;
+}
+.field-error {
+  font-size: 18px;
+  color: var(--danger);
+  line-height: 1.2;
+}
+.deduction-submit {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.deduction-submit > span {
+  font: 6px/1.8 var(--pixel);
+  color: var(--muted);
+}
+.submit-answer {
+  font-size: 8px;
+  gap: 18px;
+  padding: 18px;
+}
+.deduction-feedback {
+  font-size: 19px;
+  line-height: 1.3;
+  max-width: 55ch;
+  color: var(--muted);
+  margin-top: auto;
+}
+.wrong-feedback {
+  color: var(--danger);
+}
+.tutorial-coach {
+  color: var(--gold);
+  font-size: 20px;
+  line-height: 1.35;
+  margin-top: 20px;
+  border-top: 2px solid #6b7353;
+  padding-top: 16px;
+}
+.earlier-pages {
+  color: var(--sage-bright);
+  font-size: 20px;
+}
+.mobile-threat {
+  background: #142d31;
+  border-color: var(--edge);
+}
+.banish-title {
+  color: var(--sage);
+  font-size: 12px;
+}
+.banish-actions > span {
+  color: var(--gold);
+}
+.run-result {
+  border: 0;
+  border-top: 4px solid var(--wood);
+  background: #213c37;
+  padding: 32px;
+}
+.result-stats strong {
+  color: var(--gold);
+}
+.night-footer {
+  padding: 12px 24px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  min-height: 64px;
+  color: var(--paper);
+}
+.night-footer > button {
+  color: var(--sage);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+.night-dialog {
+  background: #203c37;
+  border: 4px solid #a58a53;
+  box-shadow:
+    inset 0 0 0 2px #3e6251,
+    8px 8px #0b1920;
+  padding: 32px;
+  max-width: 720px;
+}
+.night-dialog > h2 {
+  color: var(--gold);
+  font-size: 15px;
+}
+.night-dialog-body p {
+  white-space: pre-line;
+}
+.case-row {
+  gap: 14px;
+}
+.case-row p {
+  font-size: 16px;
+  line-height: 1.3;
+}
+.case-row h3 {
+  font-size: 24px;
+}
+.case-row button:disabled {
+  color: var(--muted);
+  background: none;
+}
+.case-row > span {
+  color: var(--gold);
+}
+.case-list details {
+  border-top: 2px solid #617753;
+}
+.case-list summary {
+  color: var(--gold);
+}
+.night-toast {
+  border: 2px solid var(--gold);
+  background: #142d31;
+  color: var(--text);
+}
+.reset-button {
+  color: var(--danger);
+}
+.night-setting {
+  border-bottom-color: #617753;
+}
+.pixel-switch:before {
+  background: #203232;
+  border-color: var(--muted);
+}
+.pixel-switch[data-state="checked"]:before {
+  background: #398b76;
+}
+.pixel-switch[data-state="checked"] > span {
+  background: var(--sage);
+}
+@media (min-width: 1600px) {
+  .night-app {
+    padding: 24px 40px 0;
+  }
+  .clue-evidence,
+  .clue-interaction {
+    padding: 36px 40px;
+  }
+}
+@media (max-width: 1050px) {
+  .night-app {
+    padding: 16px 16px 0;
+  }
+  .title-overlay h1 {
+    font-size: 60px;
+  }
+  .daily-strip,
+  .street-story {
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 24px;
+    padding: 32px;
+  }
+  .daily-actions {
+    grid-column: 2;
+    flex-direction: row;
+    gap: 24px;
+  }
+  .daily-actions button {
+    flex: 1;
+  }
+  .story-rules {
+    grid-column: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .story-rules i {
+    height: 4px;
+    width: 14px;
+    margin: 0;
+  }
+  .clue-console {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .clue-evidence,
+  .clue-interaction {
+    padding: 24px;
+  }
+  .deduction-fields {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .many-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .header-date {
+    font-size: 14px;
+    gap: 8px;
+  }
+  .clue-meta {
+    font-size: 7px;
+  }
+  .prologue {
+    grid-template-columns: 130px minmax(0, 1fr);
+    padding: 32px;
+    gap: 24px;
+  }
+}
+@media (max-width: 850px) {
+  .night-app {
+    padding: 8px 8px 0;
+  }
+  .night-main {
+    border-width: 4px;
+  }
+  .night-header {
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    gap: 10px;
+  }
+  .night-header nav {
+    gap: 6px;
+  }
+  .night-header .night-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .night-wordmark {
+    font-size: 8px;
+    gap: 7px;
+  }
+  .night-wordmark > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .on-title .header-date {
+    display: block;
+    font-size: 14px;
+    margin: 0;
+    max-width: 100px;
+    line-height: 1.2;
+  }
+  .header-date > span {
+    display: none;
+  }
+  .title-scene {
+    height: 700px;
+    min-height: 0;
+    max-height: none;
+  }
+  .title-overlay {
+    left: 7%;
+    top: 18%;
+    right: 16px;
+  }
+  .title-overlay h1 {
+    font-size: clamp(34px, 7.6vw, 60px);
+    line-height: 1.32;
+    letter-spacing: -0.04em;
+    text-shadow:
+      3px 0 #855533,
+      0 3px #855533,
+      3px 3px #855533,
+      6px 6px #15262c;
+  }
+  .title-overlay p {
+    font-size: 23px;
+    line-height: 1.25;
+    margin-top: 18px;
+  }
+  .scene-coordinate {
+    top: 83px;
+    right: auto;
+    left: 7%;
+    font-size: 12px;
+  }
+  .title-start {
+    left: 7%;
+    bottom: 8%;
+    right: 7%;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .start-game {
+    font-size: 10px;
+    min-width: 255px;
+    min-height: 56px;
+  }
+  .tutorial-link {
+    font-size: 7px;
+    max-width: 100%;
+    gap: 10px;
+    line-height: 1.8;
+  }
+  .scene-location {
+    font-size: 12px;
+    left: 7%;
+    right: auto;
+    bottom: 16px;
+  }
+  .daily-strip {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 28px 24px;
+  }
+  .daily-mark {
+    display: flex;
+    gap: 12px;
+  }
+  .daily-mark > span {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    align-items: center;
+    font-size: 20px;
+  }
+  .daily-mark small {
+    font-size: 7px;
+    grid-column: 2;
+    margin: 0;
+  }
+  .reset-countdown {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 11px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .daily-mark small:first-child {
+    display: none;
+  }
+  .daily-mark > svg {
+    width: 25px;
+    height: 28px;
+  }
+  .daily-description h2 {
+    font-size: 30px;
+  }
+  .daily-description p {
+    font-size: 21px;
+  }
+  .daily-description > .case-date {
+    font-size: 15px;
+  }
+  .daily-actions {
+    grid-column: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .daily-actions button {
+    font-size: 21px;
+    flex: none;
+  }
+  .street-story {
+    grid-template-columns: 1fr;
+    padding: 40px 24px;
+    gap: 22px;
+  }
+  .story-sign {
+    font-size: 8px;
+    align-items: center;
+  }
+  .story-sign svg {
+    height: 25px;
+    width: 24px;
+  }
+  .street-story h2 {
+    font-size: 34px;
+  }
+  .street-story p {
+    font-size: 23px;
+  }
+  .story-rules {
+    grid-column: auto;
+    gap: 12px;
+    font-size: 7px;
+  }
+  .story-rules i {
+    width: 8px;
+  }
+  .street-frame:not(.title-scene) {
+    height: 390px;
+  }
+  .run-hud {
+    top: 82px;
+    left: 18px;
+    right: 18px;
+    max-width: none;
+    gap: 10px;
+  }
+  .run-hud strong {
+    font-size: 23px;
+    max-width: 280px;
+  }
+  .run-hud > div:first-child {
+    max-width: 74%;
+  }
+  .hud-label {
+    font-size: 6px;
+  }
+  .hud-right strong {
+    font-size: 14px;
+  }
+  .pursuit-readout {
+    top: 180px;
+    left: 18px;
+    width: 260px;
+    padding: 8px 10px;
+  }
+  .pete-caption {
+    font-size: 10px;
+  }
+  .stage-bottom {
+    font-size: 12px;
+  }
+  .prologue {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+  .prologue h1 {
+    font-size: 29px;
+  }
+  .prologue p {
+    font-size: 23px;
+  }
+  .prologue .pixel-button {
+    font-size: 9px;
+    gap: 14px;
+  }
+  .prologue .flat-button {
+    display: block;
+    margin: 12px 0 0;
+    padding-left: 0;
+  }
+  .clue-console {
+    grid-template-columns: 1fr;
+  }
+  .clue-evidence {
+    border-right: 0;
+    border-bottom: 2px solid var(--edge);
+    padding: 24px;
+  }
+  .clue-evidence h1 {
+    font-size: 31px;
+    margin-top: 20px;
+  }
+  .clue-meta {
+    font-size: 7px;
+  }
+  .evidence-text {
+    font-size: 24px;
+    line-height: 1.35;
+    margin-top: 18px;
+  }
+  .clue-interaction {
+    padding: 28px 24px;
+  }
+  .clue-question {
+    font-size: 25px;
+  }
+  .deduction-fields,
+  .many-fields {
+    grid-template-columns: 1fr;
+  }
+  .deduction-submit {
+    gap: 14px;
+  }
+  .submit-answer {
+    font-size: 8px;
+    padding: 18px 16px;
+    gap: 16px;
+  }
+  .deduction-submit > span {
+    display: none;
+  }
+  .answer-input {
+    min-height: 54px;
+  }
+  .deduction-field label {
+    font-size: 23px;
+  }
+  .field-hint {
+    font-size: 18px;
+  }
+  .deduction-feedback {
+    font-size: 20px;
+  }
+  .night-footer {
+    padding: 12px 8px;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0;
+    align-items: center;
+  }
+  .night-footer > button {
+    font-size: 12px;
+    padding: 0;
+  }
+  .night-footer > span:first-child {
+    max-width: 65%;
+    line-height: 1.2;
+  }
+  .night-dialog {
+    width: calc(100% - 32px);
+    padding: 28px 20px;
+    max-height: calc(100dvh - 32px);
+  }
+  .night-dialog > h2 {
+    font-size: 13px;
+  }
+  .close-dialog {
+    right: 10px;
+    top: 12px;
+  }
+  .result-stats {
+    gap: 28px;
+  }
+  .result-stats strong {
+    font-size: 38px;
+  }
+  .result-stats span {
+    font-size: 6px;
+  }
+  .run-result {
+    padding: 28px 20px;
+  }
+  .result-buttons {
+    gap: 16px;
+  }
+  .result-buttons .pixel-button {
+    font-size: 9px;
+  }
+  .ending-overlay {
+    padding: 80px 20px 30px;
+  }
+  .ending-overlay h1 {
+    font-size: 17px;
+  }
+  .ending-overlay p {
+    font-size: 21px;
+  }
+}
+@media (max-width: 420px) {
+  .on-title .header-date {
+    display: none;
+  }
+  .on-title .night-header nav {
+    margin-left: auto;
+  }
+  .night-wordmark span {
+    display: none;
+  }
+  .title-scene {
+    height: 660px;
+  }
+  .title-overlay {
+    top: 19%;
+  }
+  .title-overlay h1 {
+    font-size: clamp(30px, 8vw, 36px);
+  }
+  .scene-coordinate {
+    top: 82px;
+  }
+  .title-overlay p {
+    font-size: 23px;
+  }
+  .title-start {
+    bottom: 9%;
+  }
+  .tutorial-link {
+    font-size: 6px;
+  }
+  .start-game {
+    min-width: 0;
+    width: 100%;
+    font-size: 10px;
+  }
+  .night-header nav {
+    gap: 5px;
+  }
+  .night-header .night-icon {
+    width: 44px;
+  }
+  .daily-strip,
+  .street-story,
+  .clue-evidence,
+  .clue-interaction,
+  .prologue {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .run-hud strong {
+    font-size: 22px;
+  }
+  .pursuit-readout {
+    top: 190px;
+    width: 245px;
+  }
+  .clue-meta {
+    font-size: 6px;
+    gap: 7px;
+  }
+  .evidence-text {
+    font-size: 23px;
+  }
+  .story-rules {
+    font-size: 6px;
+  }
+  .prologue .pixel-button {
+    font-size: 8px;
+  }
+}
+@media (max-height: 500px) and (min-width: 600px) {
+  .title-scene {
+    height: 620px;
+  }
+  .street-frame:not(.title-scene) {
+    height: 360px;
+  }
+}
+
+.pixel-button::before,
+.pixel-button::after {
+  opacity: 1;
+  border: 0;
+  transition: none;
+}
+.pixel-button::before {
+  right: auto;
+}
+.pixel-button::after {
+  left: auto;
+}
+
+@media (max-width: 850px) {
+  .run-hud > div:first-child > strong {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}

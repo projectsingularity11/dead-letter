@@ -16,7 +16,7 @@ for (const [width, height] of [
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    const answer = page.locator(".answer-option").last();
+    const answer = page.locator(".submit-answer").last();
     await answer.scrollIntoViewIfNeeded();
     await expect(answer).toBeInViewport();
     await page.getByRole("button", { name: "Settings", exact: true }).click();
@@ -33,8 +33,8 @@ test("200 percent reflow keeps answers reachable without page overflow", async (
   await page.setViewportSize({ width: 720, height: 450 });
   await begin(page);
   await page.addStyleTag({ content: "body{zoom:2}" });
-  await page.locator(".answer-option").last().scrollIntoViewIfNeeded();
-  await expect(page.locator(".answer-option").last()).toBeInViewport();
+  await page.locator(".submit-answer").last().scrollIntoViewIfNeeded();
+  await expect(page.locator(".submit-answer").last()).toBeInViewport();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -56,11 +56,11 @@ for (const [width, height] of [
     await page
       .getByRole("button", { name: "RESUME GAME", exact: true })
       .click();
-    await page.locator(".answer-option").last().scrollIntoViewIfNeeded();
-    await expect(page.locator(".answer-option").last()).toBeInViewport();
+    await page.locator(".submit-answer").last().scrollIntoViewIfNeeded();
+    await expect(page.locator(".submit-answer").last()).toBeInViewport();
     await expect(page.locator(".mobile-threat")).toBeInViewport();
     const bar = await page.locator(".mobile-threat").boundingBox(),
-      answer = await page.locator(".answer-option").last().boundingBox();
+      answer = await page.locator(".submit-answer").last().boundingBox();
     expect(bar!.height).toBeLessThanOrEqual(48);
     expect(answer!.y).toBeGreaterThanOrEqual(bar!.y + bar!.height);
   });
@@ -88,7 +88,10 @@ test("the city paints on first load and a paused scene avoids repeated painting"
     return canvas.getContext("2d")!.getImageData(10, 10, 1, 1).data[3] === 255;
   });
   await page.getByRole("button", { name: "START GAME", exact: true }).click();
-  await expect(page.locator(".answer-option").first()).toBeEnabled();
+  await page
+    .getByRole("button", { name: "PICK UP THE PAGE", exact: true })
+    .click();
+  await expect(page.locator(".submit-answer").first()).toBeEnabled();
   await page.getByRole("button", { name: "Pause game", exact: true }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.waitForTimeout(150);

@@ -18,7 +18,10 @@ test("home, answering, banished, settings and instructions have no axe violation
   await page.goto("/");
   await scan(page);
   await page.getByRole("button", { name: "START GAME", exact: true }).click();
-  await expect(page.locator(".answer-option").first()).toBeEnabled();
+  await page
+    .getByRole("button", { name: "PICK UP THE PAGE", exact: true })
+    .click();
+  await expect(page.locator(".submit-answer").first()).toBeEnabled();
   await scan(page);
   await solve(page);
   await scan(page);

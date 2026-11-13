@@ -20,16 +20,24 @@ import {
   commit,
   duration,
   solved,
-  utcDate,
+  clueCount,
   resultText,
 } from "./game/rules";
 import type { Event } from "./game/rules";
 import { readSave, writeSave, clearSave, emptySave } from "./game/storage";
-import { mysteries, mysteryById } from "./content/mysteries";
+import {
+  mysteries,
+  practiceMysteries,
+  mysteryById,
+  dailyMystery,
+  SCHEDULE_END,
+} from "./content/mysteries";
 import { StreetScene } from "./art/StreetScene";
 import { PixelIcon } from "./components/PixelIcon";
 import { activate, sound, atmosphere } from "../audio/engine";
 import { useRoute, navigate } from "../app/routes";
+import { AnswerForm } from "./components/AnswerForm";
+import { useDailyClock } from "./components/DailyClock";
 const GameOverlays = lazy(() => import("./components/GameOverlays"));
 function useSystemReducedMotion() {
   const [reduced, setReduced] = useState(
@@ -71,7 +79,7 @@ export function NightWalk() {
       loaded.message.includes("cannot be saved"),
     ),
     [copiedFallback, setCopiedFallback] = useState(false);
-  const [today, setToday] = useState(utcDate);
+  const { today, countdown } = useDailyClock();
   const systemReduced = useSystemReducedMotion();
   const reduced =
     records.preferences.motion === "reduced" ||
@@ -118,10 +126,6 @@ export function NightWalk() {
   useEffect(() => {
     document.documentElement.dataset.motion = reduced ? "reduced" : "full";
   }, [reduced]);
-  useEffect(() => {
-    const t = setInterval(() => setToday(utcDate()), 15000);
-    return () => clearInterval(t);
-  }, []);
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(""), 4500);
@@ -187,6 +191,10 @@ export function NightWalk() {
   }, [route, run]);
   useEffect(() => {
     if (route !== "/play") return;
+    if (run?.phase === "intro")
+      document
+        .querySelector<HTMLElement>("#prologue-title")
+        ?.focus({ preventScroll: true });
     if (run?.phase === "answering")
       document.querySelector<HTMLElement>(".clue-question")?.focus();
     if (run?.phase === "banished")
@@ -212,19 +220,13 @@ export function NightWalk() {
       )
         return;
       const target = e.target as HTMLElement;
-      if (target.closest("input,textarea,[contenteditable=true]")) return;
       if (e.key === "Escape") {
         e.preventDefault();
         pause("pause");
         return;
       }
-      if (run.phase === "answering" && /^[1-4]$/.test(e.key)) {
-        e.preventDefault();
-        dispatch({
-          type: "ANSWER",
-          choiceId: run.choiceOrder[run.clue][Number(e.key) - 1],
-        });
-      } else if (
+      if (target.closest("input,textarea,[contenteditable=true]")) return;
+      if (
         run.phase === "banished" &&
         e.key === "Enter" &&
         !target.closest("button")
@@ -260,17 +262,27 @@ export function NightWalk() {
       resume(existing);
       return;
     }
-    const practicePool = mysteries.filter(
+    const practicePool = [
+      ...practiceMysteries,
+      ...mysteries.filter((m) => m.date < today),
+    ].filter(
       (m) =>
         m.id !== records.practice?.mysteryId &&
-        m.id !== mysteryById[makeRun("daily", today).mysteryId].id,
+        m.id !== dailyMystery(today)?.id,
     );
     const id =
       mode === "practice"
         ? (sameMystery ??
           practicePool[Math.floor(Math.random() * practicePool.length)].id)
         : undefined;
-    dispatch({ type: "START", run: makeRun(mode, today, id) });
+    if (mode === "daily" && !dailyMystery(today)) {
+      setToast("No case is scheduled for today. Practice is available.");
+      return;
+    }
+    dispatch({
+      type: "START",
+      run: makeRun(mode, today, mode === "tutorial" ? "tutorial" : id),
+    });
     setCopiedFallback(false);
     setOverlay(null);
     navigate("/play");
@@ -312,10 +324,14 @@ export function NightWalk() {
     }
   }
   const daily = records.daily[today];
-  const preview = mysteryById[makeRun("daily", today).mysteryId];
+  const scheduled = dailyMystery(today);
+  const preview = scheduled ?? mysteries.at(-1)!;
   const mystery = run ? mysteryById[run.mysteryId] : preview;
   const clue = run ? mystery.clues[run.clue] : null;
   const atHome = route === "/";
+  const total = run ? clueCount(run) : 8;
+  const intro = run?.phase === "intro";
+  const safeLesson = run?.mode === "tutorial" && run.clue === 0;
   const result = route === "/results" && run && terminal(run);
   const answering = run?.phase === "answering";
   const banished = run?.phase === "banished";
@@ -337,69 +353,6 @@ export function NightWalk() {
       >
         Skip to game
       </a>
-      <header className="night-header">
-        <a
-          className="night-wordmark"
-          href="#/"
-          onClick={() => {
-            dispatch({ type: "PAUSE" });
-            setOverlay(null);
-          }}
-          aria-label="Dead Letter home"
-        >
-          <PixelIcon name="ghost" />
-          <span>DEAD LETTER</span>
-        </a>
-        <span className="header-date">
-          {dateLabel(atHome ? today : (run?.date ?? today))} <span>·</span>{" "}
-          {atHome || run?.mode !== "practice"
-            ? "DAILY MYSTERY"
-            : "PRACTICE RUN"}
-        </span>
-        <nav
-          aria-label="Game controls"
-          onPointerEnter={() => void import("./components/GameOverlays")}
-        >
-          {route === "/play" && (
-            <button
-              className="night-icon"
-              aria-label="Pause game"
-              onClick={() => pause("pause")}
-            >
-              <PixelIcon name="pause" />
-            </button>
-          )}
-          <button
-            className="night-icon"
-            aria-label={
-              records.preferences.sound ? "Mute sound" : "Enable sound"
-            }
-            aria-pressed={records.preferences.sound}
-            onClick={() =>
-              void changePreferences({
-                ...records.preferences,
-                sound: !records.preferences.sound,
-              })
-            }
-          >
-            <PixelIcon name={records.preferences.sound ? "sound" : "mute"} />
-          </button>
-          <button
-            className="night-icon"
-            aria-label="How to play"
-            onClick={() => pause("how")}
-          >
-            <PixelIcon name="help" />
-          </button>
-          <button
-            className="night-icon"
-            aria-label="Settings"
-            onClick={() => pause("settings")}
-          >
-            <PixelIcon name="settings" />
-          </button>
-        </nav>
-      </header>
       <main id="night-main" className="night-main">
         <section
           className={`street-frame ${atHome ? "title-scene" : ""} ${result ? "result-scene" : ""}`}
@@ -410,6 +363,73 @@ export function NightWalk() {
             reduced={reduced}
             home={atHome}
           />
+          <header className="night-header">
+            <a
+              className="night-wordmark"
+              href="#/"
+              onClick={() => {
+                dispatch({ type: "PAUSE" });
+                setOverlay(null);
+              }}
+              aria-label="Dead Letter home"
+            >
+              <PixelIcon name="ghost" />
+              <span>DEAD LETTER</span>
+            </a>
+            <span className="header-date">
+              {dateLabel(atHome ? today : (run?.date ?? today))} <span>·</span>{" "}
+              {atHome || run?.mode === "daily"
+                ? "DAILY MYSTERY"
+                : run?.mode === "tutorial"
+                  ? "TUTORIAL"
+                  : "PRACTICE RUN"}
+            </span>
+            <nav
+              aria-label="Game controls"
+              onPointerEnter={() => void import("./components/GameOverlays")}
+            >
+              {route === "/play" && (
+                <button
+                  className="night-icon"
+                  aria-label="Pause game"
+                  onClick={() => pause("pause")}
+                >
+                  <PixelIcon name="pause" />
+                </button>
+              )}
+              <button
+                className="night-icon"
+                aria-label={
+                  records.preferences.sound ? "Mute sound" : "Enable sound"
+                }
+                aria-pressed={records.preferences.sound}
+                onClick={() =>
+                  void changePreferences({
+                    ...records.preferences,
+                    sound: !records.preferences.sound,
+                  })
+                }
+              >
+                <PixelIcon
+                  name={records.preferences.sound ? "sound" : "mute"}
+                />
+              </button>
+              <button
+                className="night-icon"
+                aria-label="How to play"
+                onClick={() => pause("how")}
+              >
+                <PixelIcon name="help" />
+              </button>
+              <button
+                className="night-icon"
+                aria-label="Settings"
+                onClick={() => pause("settings")}
+              >
+                <PixelIcon name="settings" />
+              </button>
+            </nav>
+          </header>
           <div className="scene-corner corner-tl" />
           <div className="scene-corner corner-tr" />
           <div className="scene-corner corner-bl" />
@@ -418,26 +438,41 @@ export function NightWalk() {
             <>
               <div className="title-overlay">
                 <h1 data-title="DEAD LETTER">
-                  DEAD LETTER<span className="title-period">.</span>
+                  DEAD
+                  <span>
+                    LETTER<span className="title-period">.</span>
+                  </span>
                 </h1>
-                <p>A daily mystery. A long walk home.</p>
+                <p>
+                  The city has a secret.
+                  <br />
+                  Get Pete home before it catches him.
+                </p>
               </div>
-              <span className="scene-coordinate">
-                BRIAR CITY / AFTER MIDNIGHT
-              </span>
               <div className="title-start">
                 <button
                   className="pixel-button start-game"
+                  disabled={!scheduled}
                   onClick={() => start("daily")}
                 >
                   {daily
                     ? terminal(daily)
                       ? "VIEW TODAY’S RUN"
                       : "RESUME GAME"
-                    : "START GAME"}
+                    : scheduled
+                      ? "START GAME"
+                      : "SEASON COMPLETE"}
                   <PixelIcon name="arrow" />
                 </button>
-                <p>Solve the clues before the ghost reaches Pete.</p>
+                <button
+                  className="tutorial-link"
+                  onClick={() => start("tutorial")}
+                >
+                  {records.tutorialComplete
+                    ? "REPLAY TUTORIAL"
+                    : "FIRST NIGHT? PLAY THE TUTORIAL"}
+                  <PixelIcon name="arrow" />
+                </button>
               </div>
               <div className="scene-location">
                 <span className="status-dot" /> {preview.location}
@@ -453,7 +488,9 @@ export function NightWalk() {
               </span>
               <h1>
                 {run.phase === "escaped"
-                  ? "PETE MADE IT HOME."
+                  ? run.mode === "tutorial"
+                    ? "YOU KNOW THE WAY."
+                    : "PETE MADE IT HOME."
                   : "THE GHOST GOT PETE."}
               </h1>
               <p>
@@ -468,8 +505,12 @@ export function NightWalk() {
                 <div className="run-hud">
                   <div>
                     <span className="hud-label">
-                      {run.mode === "daily" ? "DAILY" : "PRACTICE"} /{" "}
-                      {mystery.location}
+                      {run.mode === "daily"
+                        ? "DAILY"
+                        : run.mode === "tutorial"
+                          ? "TUTORIAL"
+                          : "PRACTICE"}{" "}
+                      / {mystery.location}
                     </span>
                     <strong>{mystery.title}</strong>
                   </div>
@@ -478,35 +519,43 @@ export function NightWalk() {
                     <strong>{String(run.score).padStart(4, "0")}</strong>
                   </div>
                 </div>
-                <div
-                  className={`pursuit-readout ${meters <= 8 ? "danger" : ""}`}
-                >
-                  <PixelIcon name="ghost" />
-                  <div>
-                    <span>
-                      {run.phase === "walking"
-                        ? "THE STREET IS QUIET"
-                        : banished
-                          ? "GHOST BANISHED"
-                          : run.paused || overlay
-                            ? "CHASE PAUSED"
-                            : "IT’S GETTING CLOSER"}
-                    </span>
-                    <div className="distance-track" aria-hidden="true">
-                      <i
-                        style={{
-                          width: `${run.phase === "banished" ? 0 : (run.remaining / duration(run)) * 100}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <strong
-                    role="timer"
-                    aria-label={`Ghost ${meters} metres away`}
+                {!intro && (
+                  <div
+                    className={`pursuit-readout ${meters <= 8 ? "danger" : ""}`}
                   >
-                    {banished ? "—" : `${meters}m`}
-                  </strong>
-                </div>
+                    <PixelIcon name="ghost" />
+                    <div>
+                      <span>
+                        {safeLesson
+                          ? "SAFE STREET · NO TIMER"
+                          : run.phase === "walking"
+                            ? "THE STREET IS QUIET"
+                            : banished
+                              ? "GHOST BANISHED"
+                              : run.paused || overlay
+                                ? "CHASE PAUSED"
+                                : "IT’S GETTING CLOSER"}
+                      </span>
+                      <div className="distance-track" aria-hidden="true">
+                        <i
+                          style={{
+                            width: `${run.phase === "banished" ? 0 : (run.remaining / duration(run)) * 100}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <strong
+                      role="timer"
+                      aria-label={
+                        safeLesson
+                          ? "Safe tutorial. No timer."
+                          : `Ghost ${meters} metres away`
+                      }
+                    >
+                      {safeLesson ? "SAFE" : banished ? "—" : `${meters}m`}
+                    </strong>
+                  </div>
+                )}
                 {run.phase === "walking" && (
                   <div className="walking-caption" role="status">
                     <PixelIcon name="note" />
@@ -524,7 +573,9 @@ export function NightWalk() {
                 </span>
                 <div className="stage-bottom">
                   <span>
-                    BLOCK {String(run.clue + 1).padStart(2, "0")} / 08
+                    {run.mode === "tutorial" ? "LESSON" : "BLOCK"}{" "}
+                    {String(run.clue + 1).padStart(2, "0")} /{" "}
+                    {String(total).padStart(2, "0")}
                   </span>
                   <span>{clue?.difficulty.toUpperCase()}</span>
                 </div>
@@ -539,31 +590,70 @@ export function NightWalk() {
                 <PixelIcon name="note" />
                 <span>
                   {dateLabel(today)}
-                  <small>00:00 UTC RESET</small>
+                  <small>NEXT CASE IN</small>
+                  <strong className="reset-countdown">{countdown}</strong>
+                  <small>MIDNIGHT UTC</small>
                 </span>
               </div>
               <div className="daily-description">
-                <span>TODAY’S MYSTERY</span>
+                <span className="case-date">
+                  CASE {String(preview.number).padStart(3, "0")} ·{" "}
+                  {dateLabel(today)}
+                </span>
                 <h2>{preview.title}</h2>
-                <p>{preview.intro}</p>
+                <p>
+                  {scheduled
+                    ? preview.intro
+                    : `This 100-night season ended ${SCHEDULE_END}. Every case remains available in Practice.`}
+                </p>
               </div>
               <div className="daily-actions">
                 <button onClick={() => start("practice")}>
-                  Play another mystery <span aria-hidden="true">↗</span>
+                  Play another mystery <PixelIcon name="arrow" />
                 </button>
                 <button onClick={() => pause("casebook")}>
-                  Case files <span>07</span>
+                  Case files <span>100</span>
                 </button>
               </div>
             </section>
+            <section className="street-story" aria-labelledby="meet-pete">
+              <div className="story-sign">
+                <PixelIcon name="note" />
+              </div>
+              <div>
+                <h2 id="meet-pete">He only wanted to get home.</h2>
+                <p>
+                  An empty street. A page in a puddle. A ghost that moves every
+                  time Pete stops. Eight pages connect tonight’s mystery. Read
+                  carefully, follow the evidence, and type your deductions to
+                  keep him alive.
+                </p>
+                <button
+                  className="flat-button"
+                  onClick={() => start("tutorial")}
+                >
+                  Walk the first street with Pete <PixelIcon name="arrow" />
+                </button>
+              </div>
+              <div className="story-rules">
+                <span>READ THE PAGE</span>
+                <i />
+                <span>MAKE THE CONNECTION</span>
+                <i />
+                <span>BANISH THE GHOST</span>
+              </div>
+            </section>
             {records.active &&
-              records.active.mode === "practice" &&
+              (records.active.mode === "practice" ||
+                records.active.date !== today) &&
               !terminal(records.active) && (
                 <button
                   className="resume-practice"
                   onClick={() => resume(records.active!)}
                 >
-                  Resume your practice run
+                  Resume unfinished{" "}
+                  {records.active.mode === "practice" ? "practice" : "Daily"}{" "}
+                  run
                 </button>
               )}
           </>
@@ -574,7 +664,7 @@ export function NightWalk() {
                 <span>CLUES SOLVED</span>
                 <strong>
                   {solved(run)}
-                  <small>/8</small>
+                  <small>/{total}</small>
                 </strong>
               </div>
               <div>
@@ -606,9 +696,15 @@ export function NightWalk() {
             <div className="result-buttons">
               <button
                 className="pixel-button"
-                onClick={() => start("practice", mystery.id)}
+                onClick={() =>
+                  start(
+                    run.mode === "tutorial" ? "daily" : "practice",
+                    run.mode === "tutorial" ? undefined : mystery.id,
+                  )
+                }
               >
-                TRY AGAIN <PixelIcon name="arrow" />
+                {run.mode === "tutorial" ? "START DAILY MYSTERY" : "TRY AGAIN"}{" "}
+                <PixelIcon name="arrow" />
               </button>
               <button className="flat-button" onClick={copy}>
                 Copy result
@@ -631,6 +727,33 @@ export function NightWalk() {
               </label>
             )}
           </section>
+        ) : intro ? (
+          <section className="prologue" aria-labelledby="prologue-title">
+            <div className="prologue-voice">
+              <PixelIcon name="note" />
+              <span>PETE / 00:07</span>
+            </div>
+            <div>
+              <h1 id="prologue-title" tabIndex={-1}>
+                “That page wasn’t here a moment ago.”
+              </h1>
+              <p>{mystery.intro}</p>
+              <p>
+                A light flickers. Something moves behind Pete. Eight pieces of
+                evidence will lead him home. The ghost starts moving when you
+                pick up the first page.
+              </p>
+              <button
+                className="pixel-button"
+                onClick={() => dispatch({ type: "BEGIN" })}
+              >
+                PICK UP THE PAGE <PixelIcon name="arrow" />
+              </button>
+              <button className="flat-button" onClick={() => start("tutorial")}>
+                Learn on a safe street first
+              </button>
+            </div>
+          </section>
         ) : (
           run &&
           clue && (
@@ -644,11 +767,13 @@ export function NightWalk() {
               >
                 <PixelIcon name="ghost" />
                 <span>
-                  {banished
-                    ? "BANISHED"
-                    : run.paused || overlay
-                      ? "PAUSED"
-                      : "GHOST"}
+                  {safeLesson
+                    ? "SAFE"
+                    : banished
+                      ? "BANISHED"
+                      : run.paused || overlay
+                        ? "PAUSED"
+                        : "GHOST"}
                 </span>
                 <div className="distance-track">
                   <i
@@ -657,12 +782,16 @@ export function NightWalk() {
                     }}
                   />
                 </div>
-                <strong>{banished ? "—" : `${meters}m`}</strong>
+                <strong>{safeLesson || banished ? "—" : `${meters}m`}</strong>
               </div>
               <div className="clue-evidence">
                 <div className="clue-meta">
                   <PixelIcon name="note" />
-                  <span>CLUE {String(run.clue + 1).padStart(2, "0")} / 08</span>
+                  <span>
+                    {run.mode === "tutorial" ? "LESSON" : "CLUE"}{" "}
+                    {String(run.clue + 1).padStart(2, "0")} /{" "}
+                    {String(total).padStart(2, "0")}
+                  </span>
                   <span>
                     {clue.difficulty === "final"
                       ? "THE LAST QUESTION"
@@ -691,7 +820,7 @@ export function NightWalk() {
                     className="earlier-pages"
                     onClick={() => pause("casebook")}
                   >
-                    Earlier pages <span aria-hidden="true">↗</span>
+                    Earlier pages <PixelIcon name="arrow" />
                   </button>
                 )}
               </div>
@@ -703,12 +832,18 @@ export function NightWalk() {
                     </h3>
                     <p>{clue.explanation}</p>
                     <div className="banish-actions">
-                      <span>+{(run.clue + 1) * 100} POINTS</span>
+                      <span>
+                        {run.mode === "tutorial"
+                          ? "LESSON COMPLETE"
+                          : `+${(run.clue + 1) * 100} POINTS`}
+                      </span>
                       <button
                         className="pixel-button"
                         onClick={() => dispatch({ type: "NEXT" })}
                       >
-                        {run.clue === 7 ? "GET PETE HOME" : "NEXT BLOCK"}
+                        {run.clue === total - 1
+                          ? "GET PETE HOME"
+                          : "NEXT BLOCK"}
                         <PixelIcon name="arrow" />
                       </button>
                     </div>
@@ -718,47 +853,23 @@ export function NightWalk() {
                     <h2 className="clue-question" tabIndex={-1}>
                       {clue.question}
                     </h2>
-                    <div
-                      className="answer-list"
-                      role="group"
-                      aria-label="Choose an answer"
-                    >
-                      {run.choiceOrder[run.clue].map((id, i) => {
-                        const option = clue.choices.find((o) => o.id === id)!;
-                        const missed = run.misses.includes(id);
-                        return (
-                          <button
-                            key={id}
-                            className={`answer-option ${missed ? "wrong-answer" : ""}`}
-                            disabled={
-                              !answering || run.paused || !!overlay || missed
-                            }
-                            onClick={() =>
-                              dispatch({ type: "ANSWER", choiceId: id })
-                            }
-                          >
-                            <kbd>{i + 1}</kbd>
-                            <span>{option.text}</span>
-                            <span className="answer-arrow" aria-hidden="true">
-                              {missed ? "×" : <PixelIcon name="arrow" />}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <div className="answer-bottom">
-                      <span
-                        className={run.misses.length ? "wrong-feedback" : ""}
-                        role="status"
-                      >
-                        {run.misses.length
-                          ? "Wrong turn. The ghost gained ground."
-                          : run.phase === "walking"
-                            ? "Pete is picking up the page."
-                            : "Choose an answer. Keep Pete alive."}
-                      </span>
-                      <span>KEYS 1–4</span>
-                    </div>
+                    <AnswerForm
+                      key={`${run.id}:${clue.id}`}
+                      clue={clue}
+                      disabled={!answering || run.paused || !!overlay}
+                      misses={run.misses}
+                      safe={safeLesson}
+                      onAnswer={(values) =>
+                        dispatch({ type: "ANSWER", values })
+                      }
+                    />
+                    {run.mode === "tutorial" && (
+                      <p className="tutorial-coach">
+                        {run.clue === 0
+                          ? "SAFE STREET · No timer on this page. Type 24 and MOTH, then submit."
+                          : "The ghost is moving. Type 01:10 and submit to banish it. Pause with Escape, even while typing."}
+                      </p>
+                    )}
                   </>
                 )}
               </div>

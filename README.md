@@ -27,24 +27,30 @@ The cloud npm cache can be set with `npm --cache /workspace/.npm-cache ci` if th
 
 ## Play
 
-Click an answer or use1–4. Correct answers banish the ghost. Wrong answers cost35% of that clue’s original distance. The same wrong answer cannot cost distance twice. Three wrong choices or an expired chase end the run. Escape pauses. Earlier solved pages are available during later clues; opening them pauses too. Resume after reload/tab hiding is explicit.
+Pete walks into a pixel city and finds eight connected evidence pages. Start Daily to read the opening, then pick up the page. Type every requested fact and press Enter or Submit deduction. There are no multiple-choice answers. Capitalization, harmless spaces, switch ordering, time separators and route arrows are normalized. Field hints show the expected format. Invalid or empty formats cost nothing; a complete wrong deduction costs 35% of that page’s initial time. Three distinct wrong submissions or ghost contact end the run. Identical wrong answers cannot charge twice.
 
-Score comes from progress:100 for the first clue,200 for the second, and so on, with3600 for all eight. Speed matters through survival rather than a separate score bonus. Difficulty and chase timing grow together, with 40–75 seconds of active time per page.
+Escape pauses, including while typing. Settings, hidden tabs and Earlier pages pause too. Reload requires Resume. Score is progress: 100, 200, …, 800 per solved page, maximum 3600. Page budgets grow from 65 to 150 seconds.
 
-Daily rotates through seven mysteries at00:00 UTC; choices use a deterministic FNV-1a / Mulberry32 seed. Practice chooses another mystery, and Retry replays the same mystery in Practice. The finite bank contains56 connected clues, with no live AI judging or outside factual knowledge required. All settings and runs are local. No online leaderboard or anti-cheat claim.
+The two-page tutorial has an untimed, penalty-free first lesson and a real second chase. It is replayable from Home or How to play. It never uses Daily or changes best score.
+
+## Daily calendar
+
+`src/night/content/calendar.json` is a checked-in 100-record content database, dated **2026-11-13 through 2027-02-20**. Persisted seeds build 800 connected evidence puzzles, using varied case data across shared mechanisms. `node scripts/build-calendar.mjs` reproduces this fixed season. Everyone gets the same dated case at **00:00 UTC**, with a countdown, a precise boundary timer and a visibility refresh for sleeping tabs. Existing runs retain their original date. No backend, nightly server task or runtime AI request is needed.
+
+Future cases are locked in the interface. Released cases and three standalone Practice cases can be replayed. After the last scheduled day, Daily is marked season complete and Practice continues. Publish a new calendar to extend the season. Dates and records use the browser; there is no server-authoritative leaderboard or anti-cheat claim.
 
 ## Implementation
 
 - `src/night/art`: original integer pixel character matrices and deterministic canvas city renderer. Native semantic HTML remains outside canvas.
-- `src/night/content`: seven authored mysteries, choices, explanations, solution audits and structural validator.
-- `src/night/game`: reducer, score/progression, seeded choices, validated v3 storage.
+- `src/night/content`: 100 dated case plans, deterministic evidence, explanations, computed solutions and validators.
+- `src/night/game`: reducer, score/progression, seeded choices, validated v4 storage.
 - `src/night/NightWalk.tsx`: screen and chase controller, overlays, preference handling.
-- `src/night/night.css`: the single pixel UI system and responsive layouts.
+- `src/night/night.css`, `world.css`: pixel UI foundations and the whole-site city styling.
 - `src/game/rng.ts`, `src/audio/engine.ts`: deterministic RNG and original opt-in Web Audio.
 - `src/tests`, `e2e`: meaningful rules/content, recovery, browser, accessibility and viewport tests.
 - `qa/night-walk/capture.ts`: deterministic capture harness. `npx tsx qa/night-walk/capture.ts` recreates the current screenshot matrix.
 
-Current save key: `dead-letter:night-walk:v3`. The app validates all saved runs, checkpoints results before presentation, saves about once per second while active, and handles blocked storage. Reset clears only the v3 key. Only sound/motion preferences migrate from v2; easier-bank runs and scores do not carry over. Legacy postal and v2 saves remain untouched. The old postal implementation and tests were retired because the user replaced those mechanics; its original specification is retained in `docs/archive` and its source remains in Git history.
+Current save key: `dead-letter:night-walk:v4`. The app validates all submitted evidence and states, checkpoints outcomes before animation and requires Resume after reload. Only preferences migrate from v3; its old bank scores stay archived. Reset clears only v4. Legacy postal and v3 keys remain untouched. The archived original specification remains in `docs/archive` and source history.
 
 See [NIGHT_WALK_SPEC.md](NIGHT_WALK_SPEC.md), [DESIGN.md](DESIGN.md), [REFERENCES.md](REFERENCES.md), [CONTENT_REVIEW.md](CONTENT_REVIEW.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), and [QA_REPORT.md](QA_REPORT.md).
 

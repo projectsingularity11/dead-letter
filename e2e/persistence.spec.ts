@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test";
-import { begin, runState, solve, seed, fixture } from "./helpers";
+import { begin, runState, solve, seed, fixture, enter } from "./helpers";
 import { KEY } from "../src/night/game/storage";
 test("reload requires Resume and keeps wrong choices, distance and score", async ({
   page,
 }) => {
   await begin(page);
   const r = await runState(page);
-  await page.locator(".answer-option").nth(0).click();
+  await enter(page, ["9999", "WRONG"]);
+  await page.locator(".submit-answer").click();
   await page.waitForTimeout(150);
   const before = await runState(page);
   await page.reload();
@@ -91,7 +92,10 @@ test("denied storage getter remains playable", async ({ page }) => {
   );
   await page.goto("/");
   await page.getByRole("button", { name: "START GAME", exact: true }).click();
-  await expect(page.locator(".answer-option").first()).toBeEnabled();
+  await page
+    .getByRole("button", { name: "PICK UP THE PAGE", exact: true })
+    .click();
+  await expect(page.locator(".submit-answer").first()).toBeEnabled();
   await expect(page.locator(".night-toast")).toContainText("cannot be saved");
   expect(errors).toEqual([]);
 });

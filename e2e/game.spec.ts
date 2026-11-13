@@ -7,6 +7,7 @@ import {
   seed,
   fixture,
   finished,
+  enter,
 } from "./helpers";
 import { mysteryById } from "../src/night/content/mysteries";
 test("Daily start, eight connected clues, escape and saved result", async ({
@@ -48,13 +49,9 @@ test("wrong answers move the ghost closer and three unique mistakes kill Pete", 
   page,
 }) => {
   await begin(page);
-  const r = await runState(page),
-    c = mysteryById[r.mysteryId].clues[0];
-  for (const id of r.choiceOrder[0].filter((id) => id !== c.answerId)) {
-    const i = r.choiceOrder[0].indexOf(id);
-    await page.locator(".answer-option").nth(i).click();
-    if (i !== -1 && (await page.locator(".answer-option").count()))
-      await expect(page.locator(".answer-option").nth(i)).toBeDisabled();
+  for (let n = 0; n < 3; n++) {
+    await enter(page, [String(9000 + n), "WRONG"]);
+    await page.locator(".submit-answer").click();
   }
   await expect(
     page.getByRole("heading", { name: "THE GHOST GOT PETE." }),
@@ -78,7 +75,7 @@ test("solved earlier pages can be consulted without spending chase time", async 
   await begin(page);
   await solve(page);
   await page.getByRole("button", { name: "NEXT BLOCK", exact: true }).click();
-  await expect(page.locator(".answer-option").first()).toBeEnabled();
+  await expect(page.locator(".submit-answer").first()).toBeEnabled();
   await page
     .getByRole("button", { name: "Earlier pages", exact: false })
     .click();
@@ -109,16 +106,25 @@ test("result copy uses clipboard and fallback remains selectable", async ({
   await page.getByRole("button", { name: "Copy result", exact: true }).click();
   await expect(page.getByRole("textbox")).toContainText("3600");
 });
-test("held/repeated keys do not answer another question", async ({ page }) => {
+test("number keys do not guess; format errors and duplicate submissions do not spend distance", async ({
+  page,
+}) => {
   await begin(page);
-  const r = await runState(page),
-    c = mysteryById[r.mysteryId].clues[0],
-    key = String(r.choiceOrder[0].indexOf(c.answerId) + 1);
-  await page.keyboard.down(key);
-  await page.keyboard.down(key);
-  await page.keyboard.up(key);
+  await page.clock.install();
+  await page.keyboard.press("1");
+  expect((await runState(page)).answers).toHaveLength(0);
+  await page.locator(".submit-answer").click();
   await expect(
-    page.getByRole("heading", { name: "You bought another block." }),
+    page.getByText("Complete this field before submitting.").first(),
   ).toBeVisible();
+  expect((await runState(page)).answers).toHaveLength(0);
+  await enter(page, ["9999", "WRONG"]);
+  await page.locator(".submit-answer").click();
+  const first = await runState(page);
+  await page.locator(".submit-answer").click();
   expect((await runState(page)).answers).toHaveLength(1);
+  await expect(
+    page.getByText("Already tried.", { exact: false }),
+  ).toBeVisible();
+  expect((await runState(page)).remaining).toBe(first.remaining);
 });

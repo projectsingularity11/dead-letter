@@ -1,69 +1,509 @@
 {
   "schemaVersion": 2,
-  "title": "Design System: DEAD LETTER \u2014 Night Walk",
+  "generatedAt": "2026-11-13T02:24:13.790980+00:00",
+  "title": "Design System: DEAD LETTER — Night Walk",
   "extensions": {
-    "breakpoints": [
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0207 230.58)",
+          "oklch(26% 0.0207 230.58)",
+          "oklch(38% 0.0207 230.58)",
+          "oklch(49% 0.0207 230.58)",
+          "oklch(61% 0.0207 230.58)",
+          "oklch(72% 0.0207 230.58)",
+          "oklch(84% 0.0207 230.58)",
+          "oklch(95% 0.0207 230.58)"
+        ]
+      },
+      "sky": {
+        "role": "neutral",
+        "displayName": "Sky",
+        "tonalRamp": [
+          "oklch(15% 0.0418 256.36)",
+          "oklch(26% 0.0418 256.36)",
+          "oklch(38% 0.0418 256.36)",
+          "oklch(49% 0.0418 256.36)",
+          "oklch(61% 0.0418 256.36)",
+          "oklch(72% 0.0418 256.36)",
+          "oklch(84% 0.0418 256.36)",
+          "oklch(95% 0.0418 256.36)"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "tonalRamp": [
+          "oklch(15% 0.0342 221.03)",
+          "oklch(26% 0.0342 221.03)",
+          "oklch(38% 0.0342 221.03)",
+          "oklch(49% 0.0342 221.03)",
+          "oklch(61% 0.0342 221.03)",
+          "oklch(72% 0.0342 221.03)",
+          "oklch(84% 0.0342 221.03)",
+          "oklch(95% 0.0342 221.03)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0308 182.76)",
+          "oklch(26% 0.0308 182.76)",
+          "oklch(38% 0.0308 182.76)",
+          "oklch(49% 0.0308 182.76)",
+          "oklch(61% 0.0308 182.76)",
+          "oklch(72% 0.0308 182.76)",
+          "oklch(84% 0.0308 182.76)",
+          "oklch(95% 0.0308 182.76)"
+        ]
+      },
+      "panel-deep": {
+        "role": "neutral",
+        "displayName": "Panel Deep",
+        "tonalRamp": [
+          "oklch(15% 0.0274 207.30)",
+          "oklch(26% 0.0274 207.30)",
+          "oklch(38% 0.0274 207.30)",
+          "oklch(49% 0.0274 207.30)",
+          "oklch(61% 0.0274 207.30)",
+          "oklch(72% 0.0274 207.30)",
+          "oklch(84% 0.0274 207.30)",
+          "oklch(95% 0.0274 207.30)"
+        ]
+      },
+      "wood": {
+        "role": "neutral",
+        "displayName": "Wood",
+        "tonalRamp": [
+          "oklch(15% 0.0399 63.21)",
+          "oklch(26% 0.0399 63.21)",
+          "oklch(38% 0.0399 63.21)",
+          "oklch(49% 0.0399 63.21)",
+          "oklch(61% 0.0399 63.21)",
+          "oklch(72% 0.0399 63.21)",
+          "oklch(84% 0.0399 63.21)",
+          "oklch(95% 0.0399 63.21)"
+        ]
+      },
+      "edge": {
+        "role": "neutral",
+        "displayName": "Edge",
+        "tonalRamp": [
+          "oklch(15% 0.0488 75.60)",
+          "oklch(26% 0.0488 75.60)",
+          "oklch(38% 0.0488 75.60)",
+          "oklch(49% 0.0488 75.60)",
+          "oklch(61% 0.0488 75.60)",
+          "oklch(72% 0.0488 75.60)",
+          "oklch(84% 0.0488 75.60)",
+          "oklch(95% 0.0488 75.60)"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sage",
+        "tonalRamp": [
+          "oklch(15% 0.1142 171.81)",
+          "oklch(26% 0.1142 171.81)",
+          "oklch(38% 0.1142 171.81)",
+          "oklch(49% 0.1142 171.81)",
+          "oklch(61% 0.1142 171.81)",
+          "oklch(72% 0.1142 171.81)",
+          "oklch(84% 0.1142 171.81)",
+          "oklch(95% 0.1142 171.81)"
+        ]
+      },
+      "sage-bright": {
+        "role": "secondary",
+        "displayName": "Sage Bright",
+        "tonalRamp": [
+          "oklch(15% 0.0826 161.41)",
+          "oklch(26% 0.0826 161.41)",
+          "oklch(38% 0.0826 161.41)",
+          "oklch(49% 0.0826 161.41)",
+          "oklch(61% 0.0826 161.41)",
+          "oklch(72% 0.0826 161.41)",
+          "oklch(84% 0.0826 161.41)",
+          "oklch(95% 0.0826 161.41)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0342 129.77)",
+          "oklch(26% 0.0342 129.77)",
+          "oklch(38% 0.0342 129.77)",
+          "oklch(49% 0.0342 129.77)",
+          "oklch(61% 0.0342 129.77)",
+          "oklch(72% 0.0342 129.77)",
+          "oklch(84% 0.0342 129.77)",
+          "oklch(95% 0.0342 129.77)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Text",
+        "tonalRamp": [
+          "oklch(15% 0.0374 97.09)",
+          "oklch(26% 0.0374 97.09)",
+          "oklch(38% 0.0374 97.09)",
+          "oklch(49% 0.0374 97.09)",
+          "oklch(61% 0.0374 97.09)",
+          "oklch(72% 0.0374 97.09)",
+          "oklch(84% 0.0374 97.09)",
+          "oklch(95% 0.0374 97.09)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15% 0.0547 92.17)",
+          "oklch(26% 0.0547 92.17)",
+          "oklch(38% 0.0547 92.17)",
+          "oklch(49% 0.0547 92.17)",
+          "oklch(61% 0.0547 92.17)",
+          "oklch(72% 0.0547 92.17)",
+          "oklch(84% 0.0547 92.17)",
+          "oklch(95% 0.0547 92.17)"
+        ]
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Danger",
+        "tonalRamp": [
+          "oklch(15% 0.1050 48.27)",
+          "oklch(26% 0.1050 48.27)",
+          "oklch(38% 0.1050 48.27)",
+          "oklch(49% 0.1050 48.27)",
+          "oklch(61% 0.1050 48.27)",
+          "oklch(72% 0.1050 48.27)",
+          "oklch(84% 0.1050 48.27)",
+          "oklch(95% 0.1050 48.27)"
+        ]
+      },
+      "ghost": {
+        "role": "secondary",
+        "displayName": "Ghost",
+        "tonalRamp": [
+          "oklch(15% 0.1142 171.81)",
+          "oklch(26% 0.1142 171.81)",
+          "oklch(38% 0.1142 171.81)",
+          "oklch(49% 0.1142 171.81)",
+          "oklch(61% 0.1142 171.81)",
+          "oklch(72% 0.1142 171.81)",
+          "oklch(84% 0.1142 171.81)",
+          "oklch(95% 0.1142 171.81)"
+        ]
+      },
+      "gold": {
+        "role": "primary",
+        "displayName": "Gold",
+        "tonalRamp": [
+          "oklch(15% 0.1208 80.89)",
+          "oklch(26% 0.1208 80.89)",
+          "oklch(38% 0.1208 80.89)",
+          "oklch(49% 0.1208 80.89)",
+          "oklch(61% 0.1208 80.89)",
+          "oklch(72% 0.1208 80.89)",
+          "oklch(84% 0.1208 80.89)",
+          "oklch(95% 0.1208 80.89)"
+        ]
+      },
+      "gold-hover": {
+        "role": "primary",
+        "displayName": "Gold Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0886 85.90)",
+          "oklch(26% 0.0886 85.90)",
+          "oklch(38% 0.0886 85.90)",
+          "oklch(49% 0.0886 85.90)",
+          "oklch(61% 0.0886 85.90)",
+          "oklch(72% 0.0886 85.90)",
+          "oklch(84% 0.0886 85.90)",
+          "oklch(95% 0.0886 85.90)"
+        ]
+      },
+      "action-ink": {
+        "role": "neutral",
+        "displayName": "Action Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0202 223.75)",
+          "oklch(26% 0.0202 223.75)",
+          "oklch(38% 0.0202 223.75)",
+          "oklch(49% 0.0202 223.75)",
+          "oklch(61% 0.0202 223.75)",
+          "oklch(72% 0.0202 223.75)",
+          "oklch(84% 0.0202 223.75)",
+          "oklch(95% 0.0202 223.75)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field",
+        "tonalRamp": [
+          "oklch(15% 0.0335 208.20)",
+          "oklch(26% 0.0335 208.20)",
+          "oklch(38% 0.0335 208.20)",
+          "oklch(49% 0.0335 208.20)",
+          "oklch(61% 0.0335 208.20)",
+          "oklch(72% 0.0335 208.20)",
+          "oklch(84% 0.0335 208.20)",
+          "oklch(95% 0.0335 208.20)"
+        ]
+      },
+      "field-edge": {
+        "role": "neutral",
+        "displayName": "Field Edge",
+        "tonalRamp": [
+          "oklch(15% 0.0600 166.68)",
+          "oklch(26% 0.0600 166.68)",
+          "oklch(38% 0.0600 166.68)",
+          "oklch(49% 0.0600 166.68)",
+          "oklch(61% 0.0600 166.68)",
+          "oklch(72% 0.0600 166.68)",
+          "oklch(84% 0.0600 166.68)",
+          "oklch(95% 0.0600 166.68)"
+        ]
+      },
+      "evidence": {
+        "role": "neutral",
+        "displayName": "Evidence",
+        "tonalRamp": [
+          "oklch(15% 0.0251 126.58)",
+          "oklch(26% 0.0251 126.58)",
+          "oklch(38% 0.0251 126.58)",
+          "oklch(49% 0.0251 126.58)",
+          "oklch(61% 0.0251 126.58)",
+          "oklch(72% 0.0251 126.58)",
+          "oklch(84% 0.0251 126.58)",
+          "oklch(95% 0.0251 126.58)"
+        ]
+      },
+      "interaction": {
+        "role": "neutral",
+        "displayName": "Interaction",
+        "tonalRamp": [
+          "oklch(15% 0.0321 192.45)",
+          "oklch(26% 0.0321 192.45)",
+          "oklch(38% 0.0321 192.45)",
+          "oklch(49% 0.0321 192.45)",
+          "oklch(61% 0.0321 192.45)",
+          "oklch(72% 0.0321 192.45)",
+          "oklch(84% 0.0321 192.45)",
+          "oklch(95% 0.0321 192.45)"
+        ]
+      },
+      "menu": {
+        "role": "neutral",
+        "displayName": "Menu",
+        "tonalRamp": [
+          "oklch(15% 0.0354 181.34)",
+          "oklch(26% 0.0354 181.34)",
+          "oklch(38% 0.0354 181.34)",
+          "oklch(49% 0.0354 181.34)",
+          "oklch(61% 0.0354 181.34)",
+          "oklch(72% 0.0354 181.34)",
+          "oklch(84% 0.0354 181.34)",
+          "oklch(95% 0.0354 181.34)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "City title",
+        "purpose": "Stacked entry title with responsive pixel scale."
+      },
+      "evidence": {
+        "displayName": "Evidence",
+        "purpose": "Stable, wrapping clue text."
+      },
+      "input": {
+        "displayName": "Typed deduction",
+        "purpose": "Readable native answer values."
+      }
+    },
+    "shadows": [
       {
-        "name": "compact",
-        "value": "850px"
+        "name": "city-frame",
+        "value": "inset 0 0 0 2px #a48655",
+        "purpose": "Brass rule inside the timber frame."
       },
       {
-        "name": "intermediate",
-        "value": "1050px"
+        "name": "amber-button",
+        "value": "inset 0 4px #ffe6a3, inset 0 -4px #a9723e",
+        "purpose": "Crisp top and bottom material edges."
+      },
+      {
+        "name": "field-inset",
+        "value": "inset 3px 3px #0d1b24",
+        "purpose": "Recessed typed field."
+      },
+      {
+        "name": "menu-frame",
+        "value": "inset 0 0 0 2px #3e6251, 8px 8px #0b1920",
+        "purpose": "Pixel menu framing."
+      },
+      {
+        "name": "city-title",
+        "value": "4px 0 #855533, 0 4px #855533, 4px 4px #855533, 8px 8px #15262c",
+        "purpose": "Authored stepped title depth."
       }
     ],
     "motion": [
       {
         "name": "scene",
-        "value": "30fps",
-        "purpose": "One canvas loop with static/offscreen skips."
+        "value": "approximately 30fps",
+        "purpose": "One capped drawing loop with static and offscreen skips."
       },
       {
         "name": "title",
         "value": "380ms steps(2,end)",
-        "purpose": "One finite title tune-in."
+        "purpose": "One finite tune-in."
       },
       {
         "name": "menu",
         "value": "140ms ease-out",
-        "purpose": "Menu appearance."
+        "purpose": "Brief dialog entry."
       },
       {
-        "name": "answer",
-        "value": "180ms ease-out",
-        "purpose": "Answer readiness."
+        "name": "page",
+        "value": "220ms ease-out",
+        "purpose": "Finite page pickup."
+      },
+      {
+        "name": "action-icon",
+        "value": "120ms steps(2,end)",
+        "purpose": "Small hover arrow movement."
+      },
+      {
+        "name": "reduced",
+        "value": "none",
+        "purpose": "System or explicit reduced motion disables UI animation and ambient travel."
       }
     ],
-    "shadows": [
+    "breakpoints": [
       {
-        "name": "pixel-title",
-        "value": "4px 4px 0 #3b4132",
-        "purpose": "Pixel lettering depth."
+        "name": "wide",
+        "value": "1600px"
+      },
+      {
+        "name": "intermediate",
+        "value": "1050px"
+      },
+      {
+        "name": "compact",
+        "value": "850px"
+      },
+      {
+        "name": "narrow",
+        "value": "420px"
+      },
+      {
+        "name": "short-landscape",
+        "value": "(max-height: 500px) and (min-width: 600px)"
       }
     ]
   },
   "components": [
     {
-      "name": "Primary action",
+      "name": "Amber primary action",
       "kind": "button",
       "refersTo": "button-primary",
-      "html": "<button class=\"ds-action\">START GAME</button>",
-      "css": ".ds-action{background:var(--sage);color:var(--ink);font:11px \"Press Start 2P\",monospace;border:2px solid var(--sage-bright);padding:17px 24px;min-height:50px;border-radius:0}.ds-action:hover{background:var(--sage-bright)}.ds-action:focus-visible{outline:2px solid var(--sage-bright);outline-offset:5px}.ds-action:active{transform:translateY(2px)}"
+      "description": "Stepped amber action shared by entry and deduction submission.",
+      "html": "<button class=\"ds-primary\">START GAME <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" shape-rendering=\"crispEdges\"><path fill=\"currentColor\" d=\"M3 10h12V7h-3V4h4v3h3v3h3v4h-3v3h-3v3h-4v-3h3v-3H3z\"/></svg></button>",
+      "css": ".ds-primary{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:28px;min-height:54px;border:0;border-radius:0;padding:18px 22px;background:var(--gold);color:#18252a;font:10px/1.5 \"Press Start 2P\",monospace;box-shadow:inset 0 4px #ffe6a3,inset 0 -4px #a9723e;cursor:pointer}.ds-primary:before,.ds-primary:after{content:\"\";position:absolute;width:4px;top:4px;bottom:4px;background:inherit}.ds-primary:before{left:-4px}.ds-primary:after{right:-4px}.ds-primary svg{width:18px;height:18px}.ds-primary:hover{background:#ffe1a0}.ds-primary:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-primary:active{transform:translateY(2px);box-shadow:inset 0 4px #a9723e,inset 0 -2px #ffe6a3}.ds-primary:disabled{opacity:.55;cursor:default;transform:none}"
+    },
+    {
+      "name": "Secondary text action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Underlined mint action for supporting navigation.",
+      "html": "<button class=\"ds-secondary\">Earlier pages</button>",
+      "css": ".ds-secondary{font:20px \"VT323\",monospace;color:var(--sage);background:none;border:0;border-radius:0;min-height:46px;padding:9px 14px;text-decoration:underline;text-underline-offset:5px;cursor:pointer}.ds-secondary:hover{color:var(--sage-bright)}.ds-secondary:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-secondary:active{transform:translateY(2px)}"
+    },
+    {
+      "name": "Typed deduction",
+      "kind": "input",
+      "refersTo": "answer-input",
+      "description": "Native labeled input with a persistent explicit format hint.",
+      "html": "<label class=\"ds-label\" for=\"ds-answer\">Arrival time</label><input class=\"ds-input\" id=\"ds-answer\" aria-describedby=\"ds-hint\"/><span class=\"ds-hint\" id=\"ds-hint\">Use HH:MM</span>",
+      "css": ".ds-label{display:block;color:var(--text);font:21px \"VT323\",monospace;margin-bottom:8px}.ds-input{display:block;width:240px;min-height:52px;background:#102b2f;color:var(--text);border:2px solid #6a9a86;border-bottom:4px solid #9dbd9f;border-radius:0;box-shadow:inset 3px 3px #0d1b24;padding:8px 12px;font:26px/1 \"VT323\",monospace;letter-spacing:.035em;caret-color:var(--gold)}.ds-input:hover{border-color:var(--sage)}.ds-input:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.ds-input[aria-invalid=\"true\"]{border-color:var(--danger)}.ds-hint{display:block;margin-top:8px;font:17px/1.2 \"VT323\",monospace;color:var(--muted)}"
+    },
+    {
+      "name": "In-scene utilities",
+      "kind": "nav",
+      "description": "44px brass-edged utility targets inside the scene.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Game utilities\"><button aria-label=\"Pause game\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" shape-rendering=\"crispEdges\"><path fill=\"currentColor\" d=\"M5 4h5v16H5zm9 0h5v16h-5z\"/></svg></button></nav>",
+      "css": ".ds-nav{display:flex;gap:8px}.ds-nav button{display:grid;place-items:center;width:44px;height:44px;padding:10px;border:2px solid #526d62;border-radius:0;background:#142a30;color:var(--sage);box-shadow:inset 2px 2px #29473f,inset -2px -2px #0c1c23;cursor:pointer}.ds-nav svg{width:20px;height:20px}.ds-nav button:hover{color:var(--gold);background:#2c453b}.ds-nav button:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-nav button:active{transform:translateY(2px)}"
+    },
+    {
+      "name": "Evidence room",
+      "kind": "card",
+      "refersTo": "evidence-panel",
+      "description": "Warm reading surface within the contiguous divided console.",
+      "html": "<article class=\"ds-evidence\"><h2>The found page</h2><p>Read the evidence. Every field must fit.</p></article>",
+      "css": ".ds-evidence{background:#343a2c;color:var(--text);border-right:2px solid var(--edge);border-radius:0;padding:32px;max-width:380px}.ds-evidence h2{margin:0;color:var(--gold);font:32px/1.2 \"Pixelify Sans\",\"VT323\",monospace}.ds-evidence p{margin:20px 0 0;font:24px/1.35 \"VT323\",monospace;white-space:pre-line}"
+    },
+    {
+      "name": "Brass menu frame",
+      "kind": "custom",
+      "refersTo": "menu",
+      "description": "Material appearance of the Radix dialog; runtime owns focus behavior.",
+      "html": "<section class=\"ds-menu\" aria-label=\"Paused menu preview\"><h2>PAUSED</h2><p>The street can wait.</p><button class=\"ds-secondary\">Back to street</button></section>",
+      "css": ".ds-menu{position:relative;background:#203c37;color:var(--text);border:4px solid #a58a53;border-radius:0;box-shadow:inset 0 0 0 2px #3e6251,8px 8px #0b1920;padding:32px;max-width:500px}.ds-menu h2{margin:0;color:var(--gold);font:15px/1.7 \"Press Start 2P\",monospace}.ds-menu p{font:21px/1.4 \"VT323\",monospace;margin:15px 0}.ds-secondary{font:20px \"VT323\",monospace;color:var(--sage);background:none;border:0;padding:9px 14px;min-height:46px;text-decoration:underline;cursor:pointer}.ds-secondary:hover{color:var(--sage-bright)}.ds-secondary:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-secondary:active{transform:translateY(2px)}"
+    },
+    {
+      "name": "Compact threat strip",
+      "kind": "custom",
+      "description": "Sticky compact pursuit readout with textual state and numeric distance.",
+      "html": "<div class=\"ds-threat\"><span>GHOST</span><div class=\"ds-track\"><i></i></div><strong>18m</strong></div>",
+      "css": ".ds-threat{position:sticky;top:0;display:flex;align-items:center;gap:10px;min-height:44px;padding:9px 18px;background:#142d31;border-bottom:1px solid var(--edge);color:var(--ghost);font:15px \"VT323\",monospace;letter-spacing:.04em}.ds-track{flex:1;height:5px;background:#102b2e;border:1px solid #6a9a86}.ds-track i{display:block;width:60%;height:100%;background:var(--sage)}.ds-threat strong{font:22px \"VT323\",monospace;min-width:40px;text-align:right;font-variant-numeric:tabular-nums}"
     }
   ],
   "narrative": {
-    "northStar": "The midnight street",
-    "overview": "An8-bit city frames a survival mystery. Brown brick and wet pavement sit beneath a blue-green sky; Pete and the ghost carry the drama.",
+    "northStar": "Pete's midnight pixel city",
+    "overview": "Pete's midnight pixel city is the whole document. Ink-blue sky, wet pavement, brass frames, timber edges, amber signs and mint ghosts continue through the street, evidence console, typed forms and menus. Utility controls belong inside the scene rather than in a separate website header.\n\nOriginal low-resolution art and local pixel type make the world specific. HTML remains the readable, stable interaction layer: evidence stays still while the bounded street animation carries the chase. Interfaces share the city's material language without becoming rounded web cards.",
     "keyCharacteristics": [
-      "Original pixel city",
-      "Readable local pixel typography",
-      "Flat HTML controls",
-      "Bounded motion and persistent threat"
+      "Original integer pixel sprites and a broad city scene.",
+      "Amber actions and signage; mint ghost, progress and secondary controls.",
+      "Readable local pixel type and square, stepped HTML controls.",
+      "Stable evidence, explicit typed fields and compact persistent threat feedback.",
+      "Bounded canvas motion, reduced-motion support and deferred menus."
     ],
-    "dos": ["Keep reading text stable.", "Use one bounded scene loop."],
+    "rules": [
+      {
+        "name": "The Same Street Rule",
+        "body": "Forms, menus and utilities inherit the city’s brass, timber and pixel geometry.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stable Page Rule",
+        "body": "Animate the street and brief action feedback; keep evidence and input text stationary.",
+        "section": "typography"
+      },
+      {
+        "name": "The Authored Pixel Rule",
+        "body": "Use original stepped SVG icons and integer sprite drawing; do not substitute Unicode glyph icons.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do carry the amber, brass, timber and ink-blue world through every screen.",
+      "Do use local pixel fonts, original sprite matrices and crisp stepped icons.",
+      "Do retain visible focus, labeled typed fields, explicit formats and readable error feedback.",
+      "Do keep evidence stationary, allow normal scrolling and preserve the compact sticky threat bar.",
+      "Do preserve cached art, the shared bounded drawing loop, deferred menus and reduced-motion behavior."
+    ],
     "donts": [
-      "Do not use scroll hijacking.",
-      "Do not restore the postal theme."
+      "Don't restore the cream postal interface, serif branding or rounded bento cards.",
+      "Don't add decorative eyebrow labels or use text glyphs as icons.",
+      "Don't add scroll hijacking, cursor replacement, repeated flashing or expensive full-screen filters.",
+      "Don't turn typed deductions into multiple-choice answer rows."
     ]
   }
 }

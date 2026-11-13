@@ -6,20 +6,20 @@ import { mulberry32 } from "../../game/rng";
 import { pete, ghost, sprite, ghostPosition } from "./sprites";
 type SceneProps = { run: Run | null; reduced: boolean; home?: boolean };
 const colors = {
-  sky: "#15252d",
-  far: "#1c3037",
-  middle: "#243a3c",
+  sky: "#101e31",
+  far: "#17334a",
+  middle: "#204344",
   dark: "#192626",
-  brick: "#3c3730",
-  brickLight: "#494036",
+  brick: "#423529",
+  brickLight: "#65503b",
   ink: "#182321",
   road: "#292d29",
   pavement: "#45433a",
-  puddle: "#355353",
+  puddle: "#276b73",
   line: "#797360",
-  gold: "#c4ac72",
-  glass: "#9da77c",
-  teal: "#799f91",
+  gold: "#efbe66",
+  glass: "#f3cc79",
+  teal: "#6bd5bf",
 };
 function rect(
   c: CanvasRenderingContext2D,
@@ -40,7 +40,7 @@ function pixelMoon(c: CanvasRenderingContext2D, x: number, y: number) {
     [-12, 9, 24, 4],
     [-8, 13, 16, 3],
   ];
-  for (const [dx, dy, w, h] of spans) rect(c, x + dx, y + dy, w, h, "#a8b39a");
+  for (const [dx, dy, w, h] of spans) rect(c, x + dx, y + dy, w, h, "#d3e6bd");
   rect(c, x - 7, y - 7, 7, 6, "#8b9b88");
   rect(c, x + 5, y + 4, 5, 4, "#8b9b88");
   rect(c, x - 3, y + 10, 4, 2, "#8b9b88");
@@ -71,8 +71,8 @@ function facade(
   for (let yy = top + 19; yy < ground - 50; yy += 32) {
     for (let xx = x + 10; xx < x + w - 13; xx += 25) {
       rect(c, xx, yy, 13, 21, "#162527");
-      rect(c, xx + 2, yy + 2, 9, 16, r() > 0.69 ? "#7a8060" : "#2e4544");
-      if (r() > 0.72) rect(c, xx + 3, yy + 3, 7, 4, "#94966f");
+      rect(c, xx + 2, yy + 2, 9, 16, r() > 0.69 ? "#a08b55" : "#2e4544");
+      if (r() > 0.72) rect(c, xx + 3, yy + 3, 7, 4, "#d9b767");
       rect(c, xx, yy + 19, 14, 2, near ? "#6e6250" : "#40514a");
       rect(c, xx + 6, yy, 1, 19, "#21312e");
     }
@@ -105,7 +105,7 @@ function lamp(
   rect(c, x - 5, ground - 4, 13, 4, "#1b2722");
   rect(c, x - 8, top - 5, 20, 3, "#6f6c4e");
   rect(c, x - 6, top - 14, 16, 9, "#333c30");
-  rect(c, x - 4, top - 12, 12, 6, light ? "#ccba79" : "#696d51");
+  rect(c, x - 4, top - 12, 12, 6, light ? "#f7cc70" : "#696d51");
   rect(c, x - 8, top - 17, 20, 3, "#62664c");
   rect(c, x - 5, top - 20, 14, 3, "#454e3b");
   if (light) {
@@ -365,7 +365,8 @@ export function StreetScene({ run, reduced, home = false }: SceneProps) {
         }
       }
       // The found scrap is visible before it is picked up; then held in Pete's hand.
-      const paperOnGround = isHome || (walking && walkProgress < 0.82);
+      const paperOnGround =
+        isHome || phase === "intro" || (walking && walkProgress < 0.82);
       const paperX = paperOnGround ? px + 40 : peteX + 24;
       const paperY = paperOnGround ? ground + 7 : py + 17;
       rect(c, paperX, paperY, 9, 6, "#c7bf9a");
@@ -386,7 +387,11 @@ export function StreetScene({ run, reduced, home = false }: SceneProps) {
             c.globalAlpha = 1;
           }
         }
-      } else if (!walking) {
+      } else if (
+        !walking &&
+        phase !== "intro" &&
+        !(r?.mode === "tutorial" && r.clue === 0)
+      ) {
         sprite(c, ghost, gx, gy, 2, phase === "home" ? 0.6 : 1);
         if (!reduce) {
           rect(c, gx + 6, ground + 11, 20, 1, "#42625a");

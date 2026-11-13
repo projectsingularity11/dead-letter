@@ -27,3 +27,12 @@ The separate awards-web skill was not found in mounted user files, the local ski
 - [Animate.css flash source](https://github.com/animate-css/animate.css/blob/main/source/attention_seekers/flash.css): inspected as an attention-effect reference. Repeated flashing was not imported; the title uses one short stepped tune-in and reading content remains stable.
 
 The original effects are intentionally pixel-based: layered rain, small puddle ripples, drifting fog ribbons, eight lamp motes, a restrained ghost wake, a finite banish pulse, five-pixel maximum background pointer movement and brief UI transitions. No scroll hijacking, mandatory custom cursor, remote animation assets or WebGL dependency. All ambient effects stop under reduced motion; the chase remains functional.
+
+## Whole-site pixel world
+
+The current pass extends the pixel aesthetic through the entire document and uses these additional GitHub sources, actually fetched and inspected:
+
+- [98.css native button styling](https://github.com/jdan/98.css/blob/main/style.css), specifically raised/sunken border variables, zero-radius controls, and distinct pressed states. Applied as original brass-edged pixel controls and inset text fields. The Windows palette, tiny target sizes and CSS were not imported.
+- [Phaser 3.90 canvas SetTransform](https://github.com/phaserjs/phaser/blob/v3.90.0/src/renderer/canvas/utils/SetTransform.js), specifically explicit image-smoothing policy and avoiding invisible draw work. Used to confirm the renderer's existing nearest-neighbour/cached approach while expanding the visual world. No Phaser runtime or copied source was added.
+
+A NES.css distribution-path probe returned 404; it is not claimed as inspected or imported. All street, character, border and brick material remains original code. The palette is intentionally brighter at focal points: amber actions/windows, cyan puddles and mint spectres against the brown/blue-green city.

@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "case-2026-11-13",
+    "date": "2026-11-13",
+    "number": 1,
+    "seed": 23117,
+    "title": "The borrowed hour at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-11-14",
+    "date": "2026-11-14",
+    "number": 2,
+    "seed": 31036,
+    "title": "The borrowed hour at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-11-15",
+    "date": "2026-11-15",
+    "number": 3,
+    "seed": 38955,
+    "title": "The borrowed hour at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-11-16",
+    "date": "2026-11-16",
+    "number": 4,
+    "seed": 46874,
+    "title": "The borrowed hour at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-11-17",
+    "date": "2026-11-17",
+    "number": 5,
+    "seed": 54793,
+    "title": "The borrowed hour at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-11-18",
+    "date": "2026-11-18",
+    "number": 6,
+    "seed": 62712,
+    "title": "The borrowed hour at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-11-19",
+    "date": "2026-11-19",
+    "number": 7,
+    "seed": 70631,
+    "title": "The borrowed hour at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-11-20",
+    "date": "2026-11-20",
+    "number": 8,
+    "seed": 78550,
+    "title": "The borrowed hour at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-11-21",
+    "date": "2026-11-21",
+    "number": 9,
+    "seed": 86469,
+    "title": "The borrowed hour at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-11-22",
+    "date": "2026-11-22",
+    "number": 10,
+    "seed": 94388,
+    "title": "The borrowed hour at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-11-23",
+    "date": "2026-11-23",
+    "number": 11,
+    "seed": 102307,
+    "title": "The missing passenger at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-11-24",
+    "date": "2026-11-24",
+    "number": 12,
+    "seed": 110226,
+    "title": "The missing passenger at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-11-25",
+    "date": "2026-11-25",
+    "number": 13,
+    "seed": 118145,
+    "title": "The missing passenger at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-11-26",
+    "date": "2026-11-26",
+    "number": 14,
+    "seed": 126064,
+    "title": "The missing passenger at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-11-27",
+    "date": "2026-11-27",
+    "number": 15,
+    "seed": 133983,
+    "title": "The missing passenger at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-11-28",
+    "date": "2026-11-28",
+    "number": 16,
+    "seed": 141902,
+    "title": "The missing passenger at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-11-29",
+    "date": "2026-11-29",
+    "number": 17,
+    "seed": 149821,
+    "title": "The missing passenger at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-11-30",
+    "date": "2026-11-30",
+    "number": 18,
+    "seed": 157740,
+    "title": "The missing passenger at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-01",
+    "date": "2026-12-01",
+    "number": 19,
+    "seed": 165659,
+    "title": "The missing passenger at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-02",
+    "date": "2026-12-02",
+    "number": 20,
+    "seed": 173578,
+    "title": "The missing passenger at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-03",
+    "date": "2026-12-03",
+    "number": 21,
+    "seed": 181497,
+    "title": "The second key at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-04",
+    "date": "2026-12-04",
+    "number": 22,
+    "seed": 189416,
+    "title": "The second key at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-05",
+    "date": "2026-12-05",
+    "number": 23,
+    "seed": 197335,
+    "title": "The second key at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-06",
+    "date": "2026-12-06",
+    "number": 24,
+    "seed": 205254,
+    "title": "The second key at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-07",
+    "date": "2026-12-07",
+    "number": 25,
+    "seed": 213173,
+    "title": "The second key at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-08",
+    "date": "2026-12-08",
+    "number": 26,
+    "seed": 221092,
+    "title": "The second key at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-09",
+    "date": "2026-12-09",
+    "number": 27,
+    "seed": 229011,
+    "title": "The second key at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-10",
+    "date": "2026-12-10",
+    "number": 28,
+    "seed": 236930,
+    "title": "The second key at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-11",
+    "date": "2026-12-11",
+    "number": 29,
+    "seed": 244849,
+    "title": "The second key at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-12",
+    "date": "2026-12-12",
+    "number": 30,
+    "seed": 252768,
+    "title": "The second key at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-13",
+    "date": "2026-12-13",
+    "number": 31,
+    "seed": 260687,
+    "title": "The impossible delivery at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-14",
+    "date": "2026-12-14",
+    "number": 32,
+    "seed": 268606,
+    "title": "The impossible delivery at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-15",
+    "date": "2026-12-15",
+    "number": 33,
+    "seed": 276525,
+    "title": "The impossible delivery at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-16",
+    "date": "2026-12-16",
+    "number": 34,
+    "seed": 284444,
+    "title": "The impossible delivery at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-17",
+    "date": "2026-12-17",
+    "number": 35,
+    "seed": 292363,
+    "title": "The impossible delivery at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-18",
+    "date": "2026-12-18",
+    "number": 36,
+    "seed": 300282,
+    "title": "The impossible delivery at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-19",
+    "date": "2026-12-19",
+    "number": 37,
+    "seed": 308201,
+    "title": "The impossible delivery at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-20",
+    "date": "2026-12-20",
+    "number": 38,
+    "seed": 316120,
+    "title": "The impossible delivery at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-21",
+    "date": "2026-12-21",
+    "number": 39,
+    "seed": 324039,
+    "title": "The impossible delivery at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-22",
+    "date": "2026-12-22",
+    "number": 40,
+    "seed": 331958,
+    "title": "The impossible delivery at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-23",
+    "date": "2026-12-23",
+    "number": 41,
+    "seed": 339877,
+    "title": "The last light at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-24",
+    "date": "2026-12-24",
+    "number": 42,
+    "seed": 347796,
+    "title": "The last light at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-25",
+    "date": "2026-12-25",
+    "number": 43,
+    "seed": 355715,
+    "title": "The last light at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-26",
+    "date": "2026-12-26",
+    "number": 44,
+    "seed": 363634,
+    "title": "The last light at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-27",
+    "date": "2026-12-27",
+    "number": 45,
+    "seed": 371553,
+    "title": "The last light at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 0
+  },
+  {
+    "id": "case-2026-12-28",
+    "date": "2026-12-28",
+    "number": 46,
+    "seed": 379472,
+    "title": "The last light at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 1
+  },
+  {
+    "id": "case-2026-12-29",
+    "date": "2026-12-29",
+    "number": 47,
+    "seed": 387391,
+    "title": "The last light at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 2
+  },
+  {
+    "id": "case-2026-12-30",
+    "date": "2026-12-30",
+    "number": 48,
+    "seed": 395310,
+    "title": "The last light at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 3
+  },
+  {
+    "id": "case-2026-12-31",
+    "date": "2026-12-31",
+    "number": 49,
+    "seed": 403229,
+    "title": "The last light at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-01",
+    "date": "2027-01-01",
+    "number": 50,
+    "seed": 411148,
+    "title": "The last light at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-02",
+    "date": "2027-01-02",
+    "number": 51,
+    "seed": 419067,
+    "title": "The empty photograph at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-03",
+    "date": "2027-01-03",
+    "number": 52,
+    "seed": 426986,
+    "title": "The empty photograph at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-04",
+    "date": "2027-01-04",
+    "number": 53,
+    "seed": 434905,
+    "title": "The empty photograph at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-05",
+    "date": "2027-01-05",
+    "number": 54,
+    "seed": 442824,
+    "title": "The empty photograph at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-06",
+    "date": "2027-01-06",
+    "number": 55,
+    "seed": 450743,
+    "title": "The empty photograph at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-07",
+    "date": "2027-01-07",
+    "number": 56,
+    "seed": 458662,
+    "title": "The empty photograph at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-08",
+    "date": "2027-01-08",
+    "number": 57,
+    "seed": 466581,
+    "title": "The empty photograph at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-09",
+    "date": "2027-01-09",
+    "number": 58,
+    "seed": 474500,
+    "title": "The empty photograph at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-10",
+    "date": "2027-01-10",
+    "number": 59,
+    "seed": 482419,
+    "title": "The empty photograph at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-11",
+    "date": "2027-01-11",
+    "number": 60,
+    "seed": 490338,
+    "title": "The empty photograph at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-12",
+    "date": "2027-01-12",
+    "number": 61,
+    "seed": 498257,
+    "title": "The midnight receipt at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-13",
+    "date": "2027-01-13",
+    "number": 62,
+    "seed": 506176,
+    "title": "The midnight receipt at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-14",
+    "date": "2027-01-14",
+    "number": 63,
+    "seed": 514095,
+    "title": "The midnight receipt at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-15",
+    "date": "2027-01-15",
+    "number": 64,
+    "seed": 522014,
+    "title": "The midnight receipt at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-16",
+    "date": "2027-01-16",
+    "number": 65,
+    "seed": 529933,
+    "title": "The midnight receipt at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-17",
+    "date": "2027-01-17",
+    "number": 66,
+    "seed": 537852,
+    "title": "The midnight receipt at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-18",
+    "date": "2027-01-18",
+    "number": 67,
+    "seed": 545771,
+    "title": "The midnight receipt at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-19",
+    "date": "2027-01-19",
+    "number": 68,
+    "seed": 553690,
+    "title": "The midnight receipt at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-20",
+    "date": "2027-01-20",
+    "number": 69,
+    "seed": 561609,
+    "title": "The midnight receipt at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-21",
+    "date": "2027-01-21",
+    "number": 70,
+    "seed": 569528,
+    "title": "The midnight receipt at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-22",
+    "date": "2027-01-22",
+    "number": 71,
+    "seed": 577447,
+    "title": "The vanished room at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-23",
+    "date": "2027-01-23",
+    "number": 72,
+    "seed": 585366,
+    "title": "The vanished room at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-24",
+    "date": "2027-01-24",
+    "number": 73,
+    "seed": 593285,
+    "title": "The vanished room at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-25",
+    "date": "2027-01-25",
+    "number": 74,
+    "seed": 601204,
+    "title": "The vanished room at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-26",
+    "date": "2027-01-26",
+    "number": 75,
+    "seed": 609123,
+    "title": "The vanished room at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-27",
+    "date": "2027-01-27",
+    "number": 76,
+    "seed": 617042,
+    "title": "The vanished room at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-01-28",
+    "date": "2027-01-28",
+    "number": 77,
+    "seed": 624961,
+    "title": "The vanished room at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-01-29",
+    "date": "2027-01-29",
+    "number": 78,
+    "seed": 632880,
+    "title": "The vanished room at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-01-30",
+    "date": "2027-01-30",
+    "number": 79,
+    "seed": 640799,
+    "title": "The vanished room at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-01-31",
+    "date": "2027-01-31",
+    "number": 80,
+    "seed": 648718,
+    "title": "The vanished room at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-01",
+    "date": "2027-02-01",
+    "number": 81,
+    "seed": 656637,
+    "title": "The unclaimed voice at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-02",
+    "date": "2027-02-02",
+    "number": 82,
+    "seed": 664556,
+    "title": "The unclaimed voice at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-03",
+    "date": "2027-02-03",
+    "number": 83,
+    "seed": 672475,
+    "title": "The unclaimed voice at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-02-04",
+    "date": "2027-02-04",
+    "number": 84,
+    "seed": 680394,
+    "title": "The unclaimed voice at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-02-05",
+    "date": "2027-02-05",
+    "number": 85,
+    "seed": 688313,
+    "title": "The unclaimed voice at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-06",
+    "date": "2027-02-06",
+    "number": 86,
+    "seed": 696232,
+    "title": "The unclaimed voice at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-07",
+    "date": "2027-02-07",
+    "number": 87,
+    "seed": 704151,
+    "title": "The unclaimed voice at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-02-08",
+    "date": "2027-02-08",
+    "number": 88,
+    "seed": 712070,
+    "title": "The unclaimed voice at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-02-09",
+    "date": "2027-02-09",
+    "number": 89,
+    "seed": 719989,
+    "title": "The unclaimed voice at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-10",
+    "date": "2027-02-10",
+    "number": 90,
+    "seed": 727908,
+    "title": "The unclaimed voice at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-11",
+    "date": "2027-02-11",
+    "number": 91,
+    "seed": 735827,
+    "title": "The locked reflection at Briar Station",
+    "location": "BRIAR STATION",
+    "intro": "A departure is stamped before its passenger arrived. Someone altered the station record.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-12",
+    "date": "2027-02-12",
+    "number": 92,
+    "seed": 743746,
+    "title": "The locked reflection at Hollow Exchange",
+    "location": "HOLLOW EXCHANGE",
+    "intro": "A dead telephone rang from inside a sealed booth. Its caller left a trail of service slips.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-02-13",
+    "date": "2027-02-13",
+    "number": 93,
+    "seed": 751665,
+    "title": "The locked reflection at Mercer Street",
+    "location": "MERCER STREET",
+    "intro": "A witness entered a boarded-up shop. Four people remember a different entrance.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-02-14",
+    "date": "2027-02-14",
+    "number": 94,
+    "seed": 759584,
+    "title": "The locked reflection at Marlow Hotel",
+    "location": "MARLOW HOTEL",
+    "intro": "A guest left a key for a room absent from the hotel plan. The porter hid the original register.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-15",
+    "date": "2027-02-15",
+    "number": 95,
+    "seed": 767503,
+    "title": "The locked reflection at Lantern Works",
+    "location": "LANTERN WORKS",
+    "intro": "The district went dark. One maintenance route stayed open throughout the blackout.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-16",
+    "date": "2027-02-16",
+    "number": 96,
+    "seed": 775422,
+    "title": "The locked reflection at Bellwether Row",
+    "location": "BELLWETHER ROW",
+    "intro": "A letter addressed to Pete arrived with tomorrow’s postmark. Its sender wants the delivery record erased.",
+    "variant": 2
+  },
+  {
+    "id": "case-2027-02-17",
+    "date": "2027-02-17",
+    "number": 97,
+    "seed": 783341,
+    "title": "The locked reflection at Saint Elmo Arcade",
+    "location": "SAINT ELMO ARCADE",
+    "intro": "An unplugged cabinet printed a receipt. Its final player walked out before the score appeared.",
+    "variant": 3
+  },
+  {
+    "id": "case-2027-02-18",
+    "date": "2027-02-18",
+    "number": 98,
+    "seed": 791260,
+    "title": "The locked reflection at Canal Observatory",
+    "location": "CANAL OBSERVATORY",
+    "intro": "The observatory recorded a light below the canal. Someone moved the night watch’s equipment.",
+    "variant": 0
+  },
+  {
+    "id": "case-2027-02-19",
+    "date": "2027-02-19",
+    "number": 99,
+    "seed": 799179,
+    "title": "The locked reflection at North Quay",
+    "location": "NORTH QUAY",
+    "intro": "A ferry docked without a crew. Four witnesses left conflicting time-stamped route cards.",
+    "variant": 1
+  },
+  {
+    "id": "case-2027-02-20",
+    "date": "2027-02-20",
+    "number": 100,
+    "seed": 807098,
+    "title": "The locked reflection at Ash Archive",
+    "location": "ASH ARCHIVE",
+    "intro": "A sealed file contains Pete’s signature. The archive’s own records conceal who brought it in.",
+    "variant": 2
+  }
+]

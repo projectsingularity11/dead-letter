@@ -9,8 +9,12 @@ import type {
   Overlay as OverlayName,
 } from "../game/types";
 import type { Event } from "../game/rules";
-import { mysteries, mysteryById } from "../content/mysteries";
-import { solved } from "../game/rules";
+import {
+  mysteries,
+  practiceMysteries,
+  mysteryById,
+} from "../content/mysteries";
+import { solved, utcDate } from "../game/rules";
 import { navigate } from "../../app/routes";
 import { PixelIcon } from "./PixelIcon";
 import { Overlay } from "./Overlay";
@@ -25,7 +29,7 @@ type Props = {
   setOverlay: Dispatch<SetStateAction<OverlayName>>;
   setConfirm: Dispatch<SetStateAction<boolean>>;
   changePreferences: (p: Preferences) => Promise<void>;
-  start: (mode: "daily" | "practice", id?: string) => void;
+  start: (mode: Run["mode"], id?: string) => void;
   reset: () => void;
 };
 export default function GameOverlays({
@@ -137,8 +141,8 @@ export default function GameOverlays({
           ) : overlay === "how" ? (
             <div className="how-rules">
               <p>
-                <b>1.</b> Pete finds eight pages from one mystery. Each clue is
-                harder than the last.
+                <b>1.</b> Pete finds eight connected pages. Each clue is harder
+                than the last.
               </p>
               <p>
                 <b>2.</b> The ghost advances while you think. A correct answer
@@ -149,14 +153,26 @@ export default function GameOverlays({
                 from how far you get: 100, 200, 300… points per solved clue.
               </p>
               <p>
-                Use 1–4 or choose an answer. Pause with Escape. Questions refer
-                only to the fictional evidence on the pages; the final clue may
-                refer to earlier pages.
+                Type every requested fact, then press Enter or Submit deduction.
+                Wrong deductions cost 35% of the page’s time; three different
+                wrong deductions are fatal. Formatting errors cost nothing.
+                Pause with Escape. Questions refer only to the fictional
+                evidence on the pages; the final clue may refer to earlier
+                pages.
               </p>
               <p>
-                Daily resets at 00:00 UTC. Practice can be replayed. Seven
-                mysteries rotate; records stay in this browser.
+                100 cases are scheduled from 13 November 2026 through 20
+                February 2027. Daily changes at 00:00 UTC, including in an open
+                tab. An unfinished run keeps its original date. Practice and the
+                tutorial never use your Daily attempt. Records stay in this
+                browser.
               </p>
+              <button
+                className="pixel-button"
+                onClick={() => start("tutorial")}
+              >
+                PLAY TUTORIAL <PixelIcon name="arrow" />
+              </button>
             </div>
           ) : (
             <div className="case-list">
@@ -189,10 +205,9 @@ export default function GameOverlays({
                               </p>
                               <p>
                                 Answer:{" "}
-                                {
-                                  c.choices.find((o) => o.id === c.answerId)
-                                    ?.text
-                                }
+                                {c.fields
+                                  .map((f) => `${f.label}: ${f.answer}`)
+                                  .join(" · ")}
                               </p>
                               <p>{c.explanation}</p>
                             </>
@@ -205,15 +220,24 @@ export default function GameOverlays({
                   )}
                 </>
               ) : (
-                mysteries.map((m, i) => (
+                [...practiceMysteries, ...mysteries].map((m, i) => (
                   <div className="case-row" key={m.id}>
                     <span>{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <h3>{m.title}</h3>
-                      <p>{m.location}</p>
+                      <p>
+                        {m.location} · {m.number ? m.date : "PRACTICE"}
+                        {m.date > utcDate() ? " · LOCKED" : ""}
+                      </p>
                     </div>
                     <button
                       aria-label={`Practice ${m.title}`}
+                      disabled={m.date > utcDate()}
+                      title={
+                        m.date > utcDate()
+                          ? `Unlocks ${m.date} at 00:00 UTC`
+                          : undefined
+                      }
                       onClick={() => start("practice", m.id)}
                     >
                       <PixelIcon name="arrow" />

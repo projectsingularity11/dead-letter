@@ -1,13 +1,15 @@
 import type { Run, Save } from "./types";
 import { mysteryById } from "../content/mysteries";
-import { duration, solved } from "./rules";
-export const KEY = "dead-letter:night-walk:v3";
+import { duration, solved, clueCount } from "./rules";
+import { answerKey, matchesAnswer, validSubmission } from "./answers";
+export const KEY = "dead-letter:night-walk:v4";
 export const emptySave = (): Save => ({
-  version: 3,
+  version: 4,
   active: null,
   daily: {},
   practice: null,
   best: 0,
+  tutorialComplete: false,
   preferences: { sound: false, motion: "system" },
 });
 export function validRun(value: unknown): value is Run {
@@ -16,32 +18,28 @@ export function validRun(value: unknown): value is Run {
       m = mysteryById[r.mysteryId];
     if (
       !m ||
+      (r.mode === "tutorial") !== (m.id === "tutorial") ||
+      (r.mode === "daily" && (m.date !== r.date || m.number === 0)) ||
       typeof r.id !== "string" ||
       !/^\d{4}-\d{2}-\d{2}$/.test(r.date) ||
-      !["daily", "practice"].includes(r.mode) ||
-      !["walking", "answering", "banished", "caught", "escaped"].includes(
-        r.phase,
-      ) ||
+      !["daily", "practice", "tutorial"].includes(r.mode) ||
+      ![
+        "intro",
+        "walking",
+        "answering",
+        "banished",
+        "caught",
+        "escaped",
+      ].includes(r.phase) ||
       !Number.isInteger(r.clue) ||
       r.clue < 0 ||
-      r.clue > 7 ||
+      r.clue >= m.clues.length ||
       !Number.isFinite(r.remaining) ||
       r.remaining < 0 ||
       r.remaining > duration(r) ||
       typeof r.paused !== "boolean" ||
       !Array.isArray(r.misses) ||
-      !Array.isArray(r.answers) ||
-      !Array.isArray(r.choiceOrder) ||
-      r.choiceOrder.length !== 8
-    )
-      return false;
-    if (
-      !r.choiceOrder.every(
-        (ids, i) =>
-          ids.length === 4 &&
-          new Set(ids).size === 4 &&
-          ids.every((id) => m.clues[i].choices.some((c) => c.id === id)),
-      )
+      !Array.isArray(r.answers)
     )
       return false;
     if (
@@ -49,8 +47,9 @@ export function validRun(value: unknown): value is Run {
         const c = m.clues.find((c) => c.id === a.clueId);
         return (
           c &&
-          c.choices.some((o) => o.id === a.choiceId) &&
-          a.correct === (a.choiceId === c.answerId) &&
+          Array.isArray(a.values) &&
+          validSubmission(c, a.values) &&
+          a.correct === matchesAnswer(c, a.values) &&
           Number.isFinite(a.remaining) &&
           a.remaining > 0 &&
           a.remaining <= c.seconds * 1000
@@ -67,26 +66,33 @@ export function validRun(value: unknown): value is Run {
     if (
       wins.length !==
         r.clue + (["banished", "escaped"].includes(r.phase) ? 1 : 0) ||
-      (r.phase === "escaped" && wins.length !== 8)
+      (r.phase === "escaped" && wins.length !== clueCount(r))
     )
       return false;
     if (
       (r.phase === "caught" && r.remaining !== 0) ||
-      (["answering", "walking", "banished", "escaped"].includes(r.phase) &&
+      (["intro", "answering", "walking", "banished", "escaped"].includes(
+        r.phase,
+      ) &&
         r.remaining <= 0)
     )
       return false;
-    if (r.score !== wins.reduce((n, _, i) => n + (i + 1) * 100, 0))
+    if (
+      r.score !==
+      (r.mode === "tutorial"
+        ? 0
+        : wins.reduce((n, _, i) => n + (i + 1) * 100, 0))
+    )
       return false;
     const current = r.answers
       .filter((a) => a.clueId === m.clues[r.clue].id && !a.correct)
-      .map((a) => a.choiceId);
+      .map((a) => answerKey(m.clues[r.clue], a.values));
     return (
       new Set(current).size === current.length &&
       new Set(r.misses).size === r.misses.length &&
       r.misses.every((id) => current.includes(id)) &&
       r.misses.length === current.length &&
-      solved(r) <= 8
+      solved(r) <= clueCount(r)
     );
   } catch {
     return false;
@@ -98,7 +104,7 @@ export function readSave(storage?: Pick<Storage, "getItem">) {
     const raw = (storage ?? window.localStorage).getItem(KEY);
     if (!raw) {
       const legacy = (storage ?? window.localStorage).getItem(
-        "dead-letter:night-walk:v2",
+        "dead-letter:night-walk:v3",
       );
       if (legacy) {
         try {
@@ -119,8 +125,9 @@ export function readSave(storage?: Pick<Storage, "getItem">) {
       return { save, message: "" };
     }
     const v = JSON.parse(raw) as Save;
-    if (!v || v.version !== 3 || !v.daily || typeof v.daily !== "object")
+    if (!v || v.version !== 4 || !v.daily || typeof v.daily !== "object")
       throw Error("invalid");
+    save.tutorialComplete = v.tutorialComplete === true;
     let damaged = false;
     const restore = (r: Run) => ({
       ...r,
