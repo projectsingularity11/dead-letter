@@ -135,8 +135,10 @@ The palette pairs amber light and warm brass with blue-black night, damp green s
 
 ## Typography
 
-**Display Font:** Press Start 2P, monospace fallback.  
-**Body Font:** VT323, monospace fallback.  
+**Display Font:** Press Start 2P, monospace fallback.
+
+**Body Font:** VT323, monospace fallback.
+
 **Title Font:** Pixelify Sans, VT323 and monospace fallbacks.
 
 All three are local Latin 400 font packages; retain their OFL licenses. Press Start 2P is the sparse display and control voice, Pixelify Sans shapes readable headings, and VT323 carries longer evidence, instructions and typed values.
