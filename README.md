@@ -41,7 +41,7 @@ Future cases are locked in the interface. Released cases and three standalone Pr
 
 ## Implementation
 
-- `src/night/art`: original integer pixel character matrices and deterministic canvas city renderer. Native semantic HTML remains outside canvas.
+- `src/night/art`: original integer pixel character matrices, cached street dressing and deterministic canvas city renderer. Native semantic HTML remains outside canvas.
 - `src/night/content`: 100 dated case plans, deterministic evidence, explanations, computed solutions and validators.
 - `src/night/game`: reducer, score/progression, seeded choices, validated v4 storage.
 - `src/night/NightWalk.tsx`: screen and chase controller, overlays, preference handling.
@@ -59,3 +59,5 @@ Performance measurements and current budgets: see [PERF.md](PERF.md). Menus load
 ## Vercel
 
 `vercel.json` selects the Vite build and `dist` output, caches fingerprinted assets for one year, and revalidates the root HTML. Push `main` to deploy through the existing Vercel Git integration. Deployment readiness must be checked in Vercel; a successful Git push alone does not establish a live release.
+
+The city runs edge-to-edge without a page frame or outer gutters. Original street dressing and sparse window/steam/runoff animation deepen the gloomy setting; motion shares the existing renderer and respects pause/reduced motion.

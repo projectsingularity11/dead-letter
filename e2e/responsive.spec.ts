@@ -103,3 +103,40 @@ test("the city paints on first load and a paused scene avoids repeated painting"
     before,
   );
 });
+
+for (const width of [360, 390, 1440, 2560]) {
+  test(`city reaches the browser edges on Home and in play at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await seed(page);
+    await page.goto("/");
+    const checkEdges = async () => {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      const surface = await page.locator(".street-frame").boundingBox();
+      const viewport = await page.evaluate(
+        () => document.documentElement.clientWidth,
+      );
+      expect(surface!.x).toBe(0);
+      expect(surface!.y).toBe(0);
+      expect(surface!.width).toBe(viewport);
+      expect(
+        await page
+          .locator(".night-main")
+          .evaluate((el) => getComputedStyle(el).borderLeftWidth),
+      ).toBe("0px");
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+    };
+    await checkEdges();
+    await page.getByRole("button", { name: "START GAME", exact: true }).click();
+    await page
+      .getByRole("button", { name: "PICK UP THE PAGE", exact: true })
+      .click();
+    await expect(page.locator(".submit-answer")).toBeEnabled();
+    await checkEdges();
+  });
+}

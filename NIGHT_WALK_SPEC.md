@@ -15,3 +15,9 @@ Tutorial: two pages, first untimed and penalty-free with explicit instructions, 
 v4 saves retain typed submissions, normalized misses, active elapsed time, original run date, tutorial completion and preferences. v3 preferences migrate without importing its easier scores. Old keys remain untouched. Reload requires Resume. Score remains progress-based, 100 through 800 per page, maximum 3600; tutorial score is zero.
 
 The renderer preserves integer pixel sprites, cached backgrounds, bounded effects, one frame loop, static/offscreen skips and reduced-motion behavior. At compact widths a 44px sticky threat readout stays visible while reading and typing. All fields, menus and actions remain available at 200% zoom. No new animation dependency is added.
+
+## Edge-to-edge city
+
+The app and main surface have zero exterior padding, no perimeter border or inset shadow, and no maximum width. The scene starts at the browser’s top-left edge and fills its available width on Home and during play, including 2560px desktop. Internal field and notebook boundaries remain functional UI. The body has no surrounding brick wallpaper.
+
+Original cached street dressing adds a laundry, fire escape, overhead wires, damaged notices, lodging sign, bicycle, shelter bench, shopping bag, sleeping cat and dented car. Cloud cover obscures part of the moon; the distant skyline is more muted. A slow window silhouette, three steam plumes and four runoff drops use the existing scene loop and freeze with pause/reduced motion. Mouse-following camera drift is removed.

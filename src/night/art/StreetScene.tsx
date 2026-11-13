@@ -1,3 +1,4 @@
+import { streetDetails, cityLife } from "./cityDetails";
 import { atmosphereFX } from "./effects";
 import { useEffect, useRef } from "react";
 import type { Run } from "../game/types";
@@ -6,9 +7,9 @@ import { mulberry32 } from "../../game/rng";
 import { pete, ghost, sprite, ghostPosition } from "./sprites";
 type SceneProps = { run: Run | null; reduced: boolean; home?: boolean };
 const colors = {
-  sky: "#101e31",
-  far: "#17334a",
-  middle: "#204344",
+  sky: "#121d29",
+  far: "#1c303a",
+  middle: "#293e3d",
   dark: "#192626",
   brick: "#423529",
   brickLight: "#65503b",
@@ -40,7 +41,7 @@ function pixelMoon(c: CanvasRenderingContext2D, x: number, y: number) {
     [-12, 9, 24, 4],
     [-8, 13, 16, 3],
   ];
-  for (const [dx, dy, w, h] of spans) rect(c, x + dx, y + dy, w, h, "#d3e6bd");
+  for (const [dx, dy, w, h] of spans) rect(c, x + dx, y + dy, w, h, "#a9bba8");
   rect(c, x - 7, y - 7, 7, 6, "#8b9b88");
   rect(c, x + 5, y + 4, 5, 4, "#8b9b88");
   rect(c, x - 3, y + 10, 4, 2, "#8b9b88");
@@ -126,7 +127,7 @@ function background(
   const r = mulberry32(seed);
   const ground = Math.round(h * 0.76);
   rect(c, 0, 0, w, h, colors.sky);
-  for (let i = 0; i < 70; i++) {
+  for (let i = 0; i < 24; i++) {
     const x = Math.floor(r() * w),
       y = Math.floor(r() * h * 0.42);
     if (r() > 0.42) rect(c, x, y, 1, 1, r() > 0.8 ? "#7a9486" : "#3e595b");
@@ -138,6 +139,10 @@ function background(
   rect(c, w * 0.73, h * 0.19 + 4, w * 0.12, 3, "#263b40");
   rect(c, w * 0.14, h * 0.27, w * 0.24, 3, "#273c40");
   rect(c, w * 0.19, h * 0.27 - 3, w * 0.11, 3, "#273c40");
+  // Heavy low cloud breaks the moonlight and closes the sky over the street.
+  rect(c, w * 0.66, h * 0.155, w * 0.22, 5, "#25373d");
+  rect(c, w * 0.7, h * 0.155 - 4, w * 0.12, 4, "#25373d");
+  rect(c, w * 0.61, h * 0.155 + 5, w * 0.3, 3, "#1f3139");
   // Distant skyline, water towers, rooftop silhouettes.
   for (let x = -8; x < w; x += 26 + Math.floor(r() * 24)) {
     const bw = 20 + r() * 32,
@@ -243,6 +248,7 @@ function background(
   lamp(c, w * 0.15, ground);
   lamp(c, w * 0.6, ground);
   lamp(c, w * 0.91, ground, false);
+  streetDetails(c, w, ground);
   return ground;
 }
 export function StreetScene({ run, reduced, home = false }: SceneProps) {
@@ -263,21 +269,6 @@ export function StreetScene({ run, reduced, home = false }: SceneProps) {
       painted = "",
       visible = true,
       destroyed = false;
-    let pointerX = 0,
-      pointerY = 0;
-    const move = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse" || latest.current.reduced) return;
-      const box = el.getBoundingClientRect();
-      pointerX = (e.clientX - box.left) / box.width - 0.5;
-      pointerY = (e.clientY - box.top) / box.height - 0.5;
-    };
-    const leave = () => {
-      pointerX = 0;
-      pointerY = 0;
-    };
-    const surface = el.parentElement!;
-    surface.addEventListener("pointermove", move, { passive: true });
-    surface.addEventListener("pointerleave", leave);
     const intersection = new IntersectionObserver((entries) => {
       visible = entries[0]?.isIntersecting ?? true;
     });
@@ -341,11 +332,13 @@ export function StreetScene({ run, reduced, home = false }: SceneProps) {
           : isHome
             ? 0
             : 32;
-      c.drawImage(
-        backing,
-        -scroll + (frozen ? 0 : Math.round(pointerX * 5)),
-        frozen ? 0 : Math.round(pointerY * 2),
-      );
+      c.drawImage(backing, -scroll, 0);
+      if (!frozen) {
+        c.save();
+        c.translate(-scroll, 0);
+        cityLife(c, w + 64, ground, t);
+        c.restore();
+      }
       const px = Math.round(w * (w < 300 ? 0.59 : 0.51));
       const py = ground - 46;
       const walking = phase === "walking";
@@ -425,8 +418,6 @@ export function StreetScene({ run, reduced, home = false }: SceneProps) {
       cancelAnimationFrame(raf);
       observer.disconnect();
       intersection.disconnect();
-      surface.removeEventListener("pointermove", move);
-      surface.removeEventListener("pointerleave", leave);
     };
   }, []);
   return <canvas ref={canvas} className="street-canvas" aria-hidden="true" />;

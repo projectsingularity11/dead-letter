@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-13T02:24:13.790980+00:00",
+  "generatedAt": "2026-11-13T02:47:35.653032+00:00",
   "title": "Design System: DEAD LETTER — Night Walk",
   "extensions": {
     "colorMeta": {
@@ -329,11 +329,6 @@
     },
     "shadows": [
       {
-        "name": "city-frame",
-        "value": "inset 0 0 0 2px #a48655",
-        "purpose": "Brass rule inside the timber frame."
-      },
-      {
         "name": "amber-button",
         "value": "inset 0 4px #ffe6a3, inset 0 -4px #a9723e",
         "purpose": "Crisp top and bottom material edges."
@@ -358,7 +353,7 @@
       {
         "name": "scene",
         "value": "approximately 30fps",
-        "purpose": "One capped drawing loop with static and offscreen skips."
+        "purpose": "One capped drawing loop; cached static dressing, three steam plumes, four runoff drops and a slow window resident; pause, reduced-motion, hidden and offscreen skips."
       },
       {
         "name": "title",
@@ -384,6 +379,11 @@
         "name": "reduced",
         "value": "none",
         "purpose": "System or explicit reduced motion disables UI animation and ambient travel."
+      },
+      {
+        "name": "walking-camera",
+        "value": "1.15s, maximum 32 canvas pixels",
+        "purpose": "Finite stepped camera movement during Pete’s walk only; no pointer-following drift."
       }
     ],
     "breakpoints": [
@@ -411,6 +411,14 @@
   },
   "components": [
     {
+      "name": "Full-bleed city surface",
+      "kind": "custom",
+      "refersTo": "city-surface",
+      "description": "Edge-to-edge document and unframed street; padding and rules belong only to internal reading surfaces.",
+      "html": "<main class=\"ds-city\"><section class=\"ds-street\" aria-label=\"Street surface\"></section><section class=\"ds-console\"><p>Read the evidence. Every field must fit.</p></section></main>",
+      "css": ".ds-city{width:100%;max-width:none;margin:0;padding:0;border:0;border-radius:0;background:var(--ink);box-shadow:none}.ds-street{width:100%;height:160px;margin:0;padding:0;border:0;background:var(--sky);box-shadow:none}.ds-console{padding:32px;background:#343a2c;border-top:4px solid var(--wood);color:var(--text)}.ds-console p{margin:0;max-width:70ch;font:24px/1.35 \"VT323\",monospace}@media(max-width:850px){.ds-city{padding:0;border:0;box-shadow:none}.ds-console{padding:24px}}"
+    },
+    {
       "name": "Amber primary action",
       "kind": "button",
       "refersTo": "button-primary",
@@ -432,7 +440,7 @@
       "refersTo": "answer-input",
       "description": "Native labeled input with a persistent explicit format hint.",
       "html": "<label class=\"ds-label\" for=\"ds-answer\">Arrival time</label><input class=\"ds-input\" id=\"ds-answer\" aria-describedby=\"ds-hint\"/><span class=\"ds-hint\" id=\"ds-hint\">Use HH:MM</span>",
-      "css": ".ds-label{display:block;color:var(--text);font:21px \"VT323\",monospace;margin-bottom:8px}.ds-input{display:block;width:240px;min-height:52px;background:#102b2f;color:var(--text);border:2px solid #6a9a86;border-bottom:4px solid #9dbd9f;border-radius:0;box-shadow:inset 3px 3px #0d1b24;padding:8px 12px;font:26px/1 \"VT323\",monospace;letter-spacing:.035em;caret-color:var(--gold)}.ds-input:hover{border-color:var(--sage)}.ds-input:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.ds-input[aria-invalid=\"true\"]{border-color:var(--danger)}.ds-hint{display:block;margin-top:8px;font:17px/1.2 \"VT323\",monospace;color:var(--muted)}"
+      "css": ".ds-label{display:block;color:var(--text);font:21px \"VT323\",monospace;margin-bottom:8px}.ds-input{display:block;width:100%;min-width:0;min-height:52px;background:#102b2f;color:var(--text);border:2px solid #6a9a86;border-bottom:4px solid #9dbd9f;border-radius:0;box-shadow:inset 3px 3px #0d1b24;padding:8px 12px;font:26px/1 \"VT323\",monospace;letter-spacing:.035em;caret-color:var(--gold)}.ds-input:hover{border-color:var(--sage)}.ds-input:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.ds-input[aria-invalid=\"true\"]{border-color:var(--danger)}.ds-hint{display:block;margin-top:8px;font:17px/1.2 \"VT323\",monospace;color:var(--muted)}"
     },
     {
       "name": "In-scene utilities",
@@ -447,7 +455,7 @@
       "refersTo": "evidence-panel",
       "description": "Warm reading surface within the contiguous divided console.",
       "html": "<article class=\"ds-evidence\"><h2>The found page</h2><p>Read the evidence. Every field must fit.</p></article>",
-      "css": ".ds-evidence{background:#343a2c;color:var(--text);border-right:2px solid var(--edge);border-radius:0;padding:32px;max-width:380px}.ds-evidence h2{margin:0;color:var(--gold);font:32px/1.2 \"Pixelify Sans\",\"VT323\",monospace}.ds-evidence p{margin:20px 0 0;font:24px/1.35 \"VT323\",monospace;white-space:pre-line}"
+      "css": ".ds-evidence{background:#343a2c;color:var(--text);border-right:2px solid var(--edge);border-radius:0;padding:32px;width:100%;min-width:0}.ds-evidence h2{margin:0;color:var(--gold);font:32px/1.2 \"Pixelify Sans\",\"VT323\",monospace}.ds-evidence p{margin:20px 0 0;font:24px/1.35 \"VT323\",monospace;white-space:pre-line;max-width:70ch}"
     },
     {
       "name": "Brass menu frame",
@@ -455,7 +463,7 @@
       "refersTo": "menu",
       "description": "Material appearance of the Radix dialog; runtime owns focus behavior.",
       "html": "<section class=\"ds-menu\" aria-label=\"Paused menu preview\"><h2>PAUSED</h2><p>The street can wait.</p><button class=\"ds-secondary\">Back to street</button></section>",
-      "css": ".ds-menu{position:relative;background:#203c37;color:var(--text);border:4px solid #a58a53;border-radius:0;box-shadow:inset 0 0 0 2px #3e6251,8px 8px #0b1920;padding:32px;max-width:500px}.ds-menu h2{margin:0;color:var(--gold);font:15px/1.7 \"Press Start 2P\",monospace}.ds-menu p{font:21px/1.4 \"VT323\",monospace;margin:15px 0}.ds-secondary{font:20px \"VT323\",monospace;color:var(--sage);background:none;border:0;padding:9px 14px;min-height:46px;text-decoration:underline;cursor:pointer}.ds-secondary:hover{color:var(--sage-bright)}.ds-secondary:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-secondary:active{transform:translateY(2px)}"
+      "css": ".ds-menu{position:relative;background:#203c37;color:var(--text);border:4px solid #a58a53;border-radius:0;box-shadow:inset 0 0 0 2px #3e6251,8px 8px #0b1920;padding:32px;width:calc(100% - 40px);max-width:720px}.ds-menu h2{margin:0;color:var(--gold);font:15px/1.7 \"Press Start 2P\",monospace}.ds-menu p{font:21px/1.4 \"VT323\",monospace;margin:15px 0}.ds-secondary{font:20px \"VT323\",monospace;color:var(--sage);background:none;border:0;padding:9px 14px;min-height:46px;text-decoration:underline;cursor:pointer}.ds-secondary:hover{color:var(--sage-bright)}.ds-secondary:focus-visible{outline:3px solid var(--gold);outline-offset:5px;}.ds-secondary:active{transform:translateY(2px)}"
     },
     {
       "name": "Compact threat strip",
@@ -467,9 +475,9 @@
   ],
   "narrative": {
     "northStar": "Pete's midnight pixel city",
-    "overview": "Pete's midnight pixel city is the whole document. Ink-blue sky, wet pavement, brass frames, timber edges, amber signs and mint ghosts continue through the street, evidence console, typed forms and menus. Utility controls belong inside the scene rather than in a separate website header.\n\nOriginal low-resolution art and local pixel type make the world specific. HTML remains the readable, stable interaction layer: evidence stays still while the bounded street animation carries the chase. Interfaces share the city's material language without becoming rounded web cards.",
+    "overview": "Pete's midnight pixel city fills the document edge to edge. Ink-blue sky, wet pavement, amber signs and mint ghosts continue through the street, evidence console, typed forms and menus; brass and timber define internal interface details. Utility controls belong inside the scene rather than in a separate website header.\n\nOriginal low-resolution art and local pixel type make the world specific. HTML remains the readable, stable interaction layer: evidence stays still while the bounded street animation carries the chase. Interfaces share the city's material language without becoming rounded web cards.",
     "keyCharacteristics": [
-      "Original integer pixel sprites and a broad city scene.",
+      "Original integer pixel sprites and a full-bleed, unframed city scene.",
       "Amber actions and signage; mint ghost, progress and secondary controls.",
       "Readable local pixel type and square, stepped HTML controls.",
       "Stable evidence, explicit typed fields and compact persistent threat feedback.",
@@ -494,12 +502,14 @@
     ],
     "dos": [
       "Do carry the amber, brass, timber and ink-blue world through every screen.",
+      "Do keep the city full width with zero exterior gutters, perimeter borders or shell shadows at every breakpoint.",
       "Do use local pixel fonts, original sprite matrices and crisp stepped icons.",
       "Do retain visible focus, labeled typed fields, explicit formats and readable error feedback.",
       "Do keep evidence stationary, allow normal scrolling and preserve the compact sticky threat bar.",
       "Do preserve cached art, the shared bounded drawing loop, deferred menus and reduced-motion behavior."
     ],
     "donts": [
+      "Don't restore a centered maximum-width page shell, exterior frame or surrounding brick wallpaper.",
       "Don't restore the cream postal interface, serif branding or rounded bento cards.",
       "Don't add decorative eyebrow labels or use text glyphs as icons.",
       "Don't add scroll hijacking, cursor replacement, repeated flashing or expensive full-screen filters.",

@@ -63,6 +63,11 @@ spacing:
   console: "32px"
   wide: "40px"
 components:
+  city-surface:
+    backgroundColor: "{colors.ink}"
+    rounded: "{rounded.square}"
+    padding: "0px"
+    width: "100%"
   button-primary:
     backgroundColor: "{colors.gold}"
     textColor: "{colors.action-ink}"
@@ -99,13 +104,13 @@ components:
 
 **Creative North Star: "Pete's midnight pixel city"**
 
-Pete's midnight pixel city is the whole document. Ink-blue sky, wet pavement, brass frames, timber edges, amber signs and mint ghosts continue through the street, evidence console, typed forms and menus. Utility controls belong inside the scene rather than in a separate website header.
+Pete's midnight pixel city fills the document edge to edge. Ink-blue sky, wet pavement, amber signs and mint ghosts continue through the street, evidence console, typed forms and menus; brass and timber define internal interface details. Utility controls belong inside the scene rather than in a separate website header.
 
 Original low-resolution art and local pixel type make the world specific. HTML remains the readable, stable interaction layer: evidence stays still while the bounded street animation carries the chase. Interfaces share the city's material language without becoming rounded web cards.
 
 **Key Characteristics:**
 
-- Original integer pixel sprites and a broad city scene.
+- Original integer pixel sprites and a full-bleed, unframed city scene.
 - Amber actions and signage; mint ghost, progress and secondary controls.
 - Readable local pixel type and square, stepped HTML controls.
 - Stable evidence, explicit typed fields and compact persistent threat feedback.
@@ -113,7 +118,7 @@ Original low-resolution art and local pixel type make the world specific. HTML r
 
 ## Colors
 
-The palette pairs amber light and warm brass with blue-black night, damp green surfaces and luminous mint. Frontmatter records the current values from `src/night/world.css`, which overrides `src/night/night.css`; the latter still supplies font stacks and base behavior.
+The palette pairs amber light and warm brass with blue-black night, damp green surfaces and luminous mint. Frontmatter records the current interface values from `src/night/world.css`, which overrides `src/night/night.css`; the latter still supplies font stacks and base behavior. The canvas renderer separately uses a muted sky (`#121d29`) and subdued skyline beneath a partly clouded moon; this art color does not replace the CSS sky token.
 
 ### Primary
 
@@ -127,7 +132,7 @@ The palette pairs amber light and warm brass with blue-black night, damp green s
 ### Neutral
 
 - **Midnight ink** (`ink`, `sky`, `night`): the document, sky and scene depth.
-- **Damp timber and brass** (`wood`, `edge`): structural frame and panel divisions.
+- **Damp timber and brass** (`wood`, `edge`): internal console divisions, fields, utility controls and menu details.
 - **Street interiors** (`panel`, `panel-deep`, `evidence`, `interaction`, `menu`, `field`, `field-edge`): distinguish reading, answering and menus without changing worlds.
 - **Lamplit paper** (`text`, `paper`, `muted`): primary reading, supporting copy and format hints.
 
@@ -149,15 +154,17 @@ Display uses the frontmatter ramp on desktop, becomes 60px at the intermediate b
 
 ## Layout
 
-The document uses a centered 1800px maximum width. Desktop outer padding is 24px 28px 0, widening to 24px 40px 0 from 1600px. It becomes 16px 16px 0 at 1050px and 8px 8px 0 at 850px. Scene controls are absolutely positioned inside the shared city frame.
+The document reaches the browser edges at every breakpoint, including wide desktop. The app uses `width: 100%`, `max-width: none`, zero margin and zero exterior padding. The main surface and street have no perimeter border or inset shadow, and the body is solid ink without surrounding wallpaper. Scene controls are absolutely positioned inside the city. Internal evidence, form and menu padding still provides reading space; it must not become an exterior page gutter.
 
-The title scene uses a viewport-aware height between 660px and 900px, a stacked DEAD / LETTER title, left-aligned entry actions and a separate tutorial entrance. The run scene is 440px tall on desktop and 390px on compact screens. The evidence and interaction console divides into equal columns with 32px padding; it stacks at 850px. Fields use two columns on wide screens and one on compact screens, with single fields spanning the form. The city scrolls normally above the console; compact play retains a sticky threat strip with a 44px minimum height. Short landscape layouts scroll rather than squeezing reading content into the viewport.
+The title scene uses a viewport-aware height between 660px and 900px, a stacked DEAD / LETTER title, left-aligned entry actions and a separate tutorial entrance. The run scene is 440px tall on desktop and 390px on compact screens. The evidence and interaction console divides into equal columns with 32px internal padding; it stacks at 850px. Evidence lines are capped at 70ch and the deduction form at 720px, preserving readable content inside the full-width surface. Fields use two columns on wide screens and one on compact screens, with single fields spanning the form. The city scrolls normally above the console; compact play retains a sticky threat strip with a 44px minimum height. Short landscape layouts scroll rather than squeezing reading content into the viewport.
 
 ## Elevation & Depth
 
-City silhouettes, stepped lamp light, puddles and sprite outlines create scene depth. HTML depth is structural: four-pixel timber framing, brass inset rules, stepped button edges and inset field shading. The title uses authored pixel text shadows; menus use an inset frame and an eight-pixel dark offset. These are crisp pixel materials, not diffuse dashboard shadows or frosted glass. Exact shadows and brief motion values are carried in the sidecar.
+Muted city silhouettes, stepped lamp light, cyan puddles, cloud cover and sprite outlines create scene depth. Original cached details include laundry, fire escapes, overhead wires, full-height utility poles, damaged notices, a lodging sign, a bicycle, a dented car and a shelter with a shopping bag and sleeping cat. Keep these within the city rather than adding a decorative exterior frame.
 
-The scene shares one drawing loop with a roughly 30fps cap. Cache backgrounds and sprite canvases, disable image smoothing, and skip unchanged frozen or offscreen views. Ambient effects stay bounded; reduced motion freezes travel and disables UI choreography. Essential distance remains available as a number and a stepped progress position.
+HTML depth stays inside the interface: brass rules, stepped button edges and inset field shading. The title uses authored pixel text shadows; menus retain an inset frame and an eight-pixel dark offset. These are crisp pixel materials, not diffuse dashboard shadows or frosted glass. The document perimeter has no border or shadow. Exact internal shadows and brief motion values are carried in the sidecar.
+
+The scene shares one drawing loop with a roughly 30fps cap. Cache backgrounds, static street dressing and sprite canvases, disable image smoothing, and skip unchanged frozen, hidden or offscreen views. Three slow steam plumes, four runoff drops and a slow window resident are sampled inside this loop. Ambient effects stay bounded; pause and reduced motion freeze the scene, and reduced motion disables UI choreography. The camera moves only during Pete’s finite walk; pointer movement does not move it. Essential distance remains available as a number and a stepped progress position.
 
 ## Shapes
 
@@ -179,7 +186,7 @@ Typed answers use native labeled inputs with explicit adjacent format hints. Fie
 
 ### Cards / Containers
 
-The shared city frame surrounds scene and console. Evidence uses a warm olive interior; answering uses a cooler green interior, divided by a brass rule. These are contiguous rooms of one console rather than floating cards. Daily information and story sections share timber divisions and the same broad spacing rhythm.
+The full-width city continues directly into the console without an enclosing frame. Evidence uses a warm olive interior; answering uses a cooler green interior, divided by a brass rule. These are contiguous rooms of one console rather than floating cards. Daily information and story sections retain internal timber divisions and the same broad spacing rhythm.
 
 ### Navigation
 
@@ -198,6 +205,7 @@ Desktop threat feedback combines a numeric distance and a stepped track within t
 ### Do:
 
 - Do carry the amber, brass, timber and ink-blue world through every screen.
+- Do keep the city full width with zero exterior gutters, perimeter borders or shell shadows at every breakpoint.
 - Do use local pixel fonts, original sprite matrices and crisp stepped icons.
 - Do retain visible focus, labeled typed fields, explicit formats and readable error feedback.
 - Do keep evidence stationary, allow normal scrolling and preserve the compact sticky threat bar.
@@ -205,6 +213,7 @@ Desktop threat feedback combines a numeric distance and a stepped track within t
 
 ### Don't:
 
+- Don't restore a centered maximum-width page shell, exterior frame or surrounding brick wallpaper.
 - Don't restore the cream postal interface, serif branding or rounded bento cards.
 - Don't add decorative eyebrow labels or use text glyphs as icons.
 - Don't add scroll hijacking, cursor replacement, repeated flashing or expensive full-screen filters.

@@ -36,3 +36,5 @@ The current pass extends the pixel aesthetic through the entire document and use
 - [Phaser 3.90 canvas SetTransform](https://github.com/phaserjs/phaser/blob/v3.90.0/src/renderer/canvas/utils/SetTransform.js), specifically explicit image-smoothing policy and avoiding invisible draw work. Used to confirm the renderer's existing nearest-neighbour/cached approach while expanding the visual world. No Phaser runtime or copied source was added.
 
 A NES.css distribution-path probe returned 404; it is not claimed as inspected or imported. All street, character, border and brick material remains original code. The palette is intentionally brighter at focal points: amber actions/windows, cyan puddles and mint spectres against the brown/blue-green city.
+
+The edge-to-edge city pass keeps these established canvas/pixel-rendering references. New street dressing is original canvas geometry, cached with the existing backdrop. Mouse-following camera drift from the earlier effects pass has been removed; only Pete’s walk moves the scene. No additional external art or code was imported.

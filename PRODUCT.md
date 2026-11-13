@@ -1,6 +1,6 @@
 # DEAD LETTER — the midnight city
 
-Pete wants to get home. The city leaves eight connected pages in his path; a ghost advances while he solves them. The whole website shares this pixel world: skyline, amber signage, mint spectres, brass frames, readable pixel type, notebook, forms and menus. Controls live inside the street scene rather than a separate website bar.
+Pete wants to get home. The city leaves eight connected pages in his path; a ghost advances while he solves them. The whole website shares this pixel world: skyline, amber signage, mint spectres, brass interface accents, readable pixel type, notebook, forms and menus. Controls live inside the street scene rather than a separate website bar.
 
 The visitor first sees the city, Pete, the title and Start game. A short story opening precedes a real case. A replayable two-page tutorial teaches reading and typing on an untimed, penalty-free first page, then banishing a moving ghost. Tutorial progress never consumes Daily or changes best score.
 
@@ -11,3 +11,5 @@ Answers are typed deductions with explicit field labels and formats. Several pag
 Difficulty comes from explicit constraints, cross-page evidence and multiple operations: permit windows, clock errors and delays, room permutations, alternating ciphers, directed route alibis, Boolean interlocks, and rotating relay mechanisms. Pages allow 65–150 seconds of active solving time. Earlier solved pages, pause, settings and hidden tabs stop the chase. Reload requires Resume. Daily scores 100, 200, …, 800 per page, maximum 3600. Practice uses the same rules. v4 local saves retain typed evidence and separate the old bank; only preferences migrate from v3.
 
 This remains a fast static React/Vite application, with no account, server database or runtime AI dependency. The calendar is a local content database; date selection needs no nightly server job. Browser date and local records are not a server-authoritative competition. The user authorized commit/push to main and Vercel deployment; live Vercel status has been blocked by this environment's network policy.
+
+The city reaches the browser edges at every breakpoint: no page gutters, outer frame, inset border or maximum-width shell. Street details show life and neglect—laundry, fire escapes, wires, notices, parked car, bicycle and shelter—under a clouded sky. Slow room light, drain steam and runoff share the existing frame loop; reduced motion and pause freeze them. The camera moves only when Pete walks. This is the last visual expansion before the polishing phase; further work should refine the established world rather than add new mechanics.
