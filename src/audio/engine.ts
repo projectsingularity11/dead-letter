@@ -39,10 +39,10 @@ export function sound(
   notes.forEach((f, i) => {
     const o = c.createOscillator(),
       g = c.createGain();
-    o.type = kind === "stamp" ? "triangle" : "sine";
+    o.type = kind === "incorrect" ? "triangle" : "square";
     o.frequency.setValueAtTime(f, now + i * 0.13);
     g.gain.setValueAtTime(0, now + i * 0.13);
-    g.gain.linearRampToValueAtTime(0.035, now + i * 0.13 + 0.008);
+    g.gain.linearRampToValueAtTime(0.02, now + i * 0.13 + 0.008);
     g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.13 + 0.16);
     o.connect(g).connect(master!);
     o.start(now + i * 0.13);

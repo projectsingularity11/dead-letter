@@ -1,52 +1,55 @@
-# DEAD LETTER
+# DEAD LETTER — Night Walk
 
-**The night post between worlds.** Six letters, one lie in each, and two wax seals to trust your instincts. An original illustrated browser game built from the locked [implementation specification](IMPLEMENTATION_SPEC.txt).
+Get Pete home. An8-bit survival mystery set on an empty, rain-soaked city street.
+
+Pete finds a page. A ghost closes in. Solve the clue to destroy it and reach the next block. Eight connected clues build from simple observation to ciphers, timelines, witness deductions and a final answer using earlier evidence. If the ghost reaches Pete, the run ends.
 
 ## Run
 
-Requires Node.js 22.12+ (validated with Node 24.22.1) and npm.
+Node22.12+ and npm. Validated with Node24.22.1 and the committed npm lockfile.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Vite serves the game on port 5173. No credentials, backend, database, remote fonts, or remote images are needed. If your npm cache location is not writable, use `npm --cache /workspace/.npm-cache ci`.
-
 ```sh
 npm run typecheck
 npm run validate:content
 npm run test
 npm run test:e2e
+npm run test:performance
 npm run build
 npm run preview
 ```
 
-Playwright uses `/usr/bin/chromium` in this cloud environment. Elsewhere install Chromium with `npx playwright install chromium`, then set `CHROMIUM_PATH` to its executable (or adapt the executable selection in `playwright.config.ts`). The browser tests start Vite automatically. They use two workers.
+The cloud npm cache can be set with `npm --cache /workspace/.npm-cache ci` if the default cache is unwritable. Playwright uses `/usr/bin/chromium`, overridable with `CHROMIUM_PATH`. Outside this environment, install Chromium and set that path. Build output `dist/` supports static hosting and hash routes without server rewrite rules. No backend, credentials, remote fonts, remote images, or service worker.
 
 ## Play
 
-Daily is seeded by UTC date. Practice chooses a fresh seed and avoids your immediately previous puzzle in each category. Relaxed Practice has no clock. Each shift has one letter per category. Choose the lie, optionally arm a seal, then stamp. A correct answer earns 100 points or 200 with a seal. A wrong submitted seal is consumed. Timeouts do not submit selected answers or consume armed seals.
+Click an answer or use1–4. Correct answers banish the ghost. Wrong answers cost35% of that clue’s original distance. The same wrong answer cannot cost distance twice. Three wrong choices or an expired chase end the run. Escape pauses. Earlier solved pages are available during later clues; opening them pauses too. Resume after reload/tab hiding is explicit.
 
-Keyboard: **1–4** select, **S** arms/disarms, **Enter** submits or continues. Radix radios also support arrows and Space. Modals, navigation, hidden tabs, and the Resume overlay pause answering time. Reloaded shifts require explicit resume. Sound and atmosphere start off; use the header or Settings to opt in.
+Score comes from progress:100 for the first clue,200 for the second, and so on, with3600 for all eight. Speed matters through survival rather than a separate score bonus. Difficulty and chase timing grow together, with 40–75 seconds of active time per page.
 
-## Architecture
+Daily rotates through seven mysteries at00:00 UTC; choices use a deterministic FNV-1a / Mulberry32 seed. Practice chooses another mystery, and Retry replays the same mystery in Practice. The finite bank contains56 connected clues, with no live AI judging or outside factual knowledge required. All settings and runs are local. No online leaderboard or anti-cheat claim.
 
-- `src/game`: pure reducer, scoring, selection, monotonic clock, versioned validation and storage, achievements.
-- `src/content`: 36 puzzles, six recipients and structural validator. Claim IDs carry truth; positions do not.
-- `src/art`: original reusable SVG artwork. All fonts are bundled locally; licenses ship in `public/licenses`.
-- `src/screens`, `src/components`, `src/overlays`: React screens and accessible Radix interactions.
-- `e2e`: Playwright journeys, recovery, accessibility and reflow checks.
-- `qa/capture.ts`: deterministic screenshot fixture harness, isolated from production. `npx tsx qa/capture.ts` writes the required viewport/state matrix and its manifest under `qa/screenshots`.
+## Implementation
 
-Hash routes `#/`, `#/play`, `#/results` and relative build paths allow ordinary static hosting of `dist/`. No rewrite rule is required. No service worker is installed; offline reload is not guaranteed.
+- `src/night/art`: original integer pixel character matrices and deterministic canvas city renderer. Native semantic HTML remains outside canvas.
+- `src/night/content`: seven authored mysteries, choices, explanations, solution audits and structural validator.
+- `src/night/game`: reducer, score/progression, seeded choices, validated v3 storage.
+- `src/night/NightWalk.tsx`: screen and chase controller, overlays, preference handling.
+- `src/night/night.css`: the single pixel UI system and responsive layouts.
+- `src/game/rng.ts`, `src/audio/engine.ts`: deterministic RNG and original opt-in Web Audio.
+- `src/tests`, `e2e`: meaningful rules/content, recovery, browser, accessibility and viewport tests.
+- `qa/night-walk/capture.ts`: deterministic capture harness. `npx tsx qa/night-walk/capture.ts` recreates the current screenshot matrix.
 
-Daily selection uses FNV-1a 32-bit hashing over JS UTF-16 code units, Mulberry32, category iteration in the exported fixed order, one random puzzle per category, seeded Fisher–Yates over those puzzles, then each puzzle’s claim IDs. The canonical bank is never mutated. Version and date determine the complete played order. Daily authority is local, not a server anti-cheat system.
+Current save key: `dead-letter:night-walk:v3`. The app validates all saved runs, checkpoints results before presentation, saves about once per second while active, and handles blocked storage. Reset clears only the v3 key. Only sound/motion preferences migrate from v2; easier-bank runs and scores do not carry over. Legacy postal and v2 saves remain untouched. The old postal implementation and tests were retired because the user replaced those mechanics; its original specification is retained in `docs/archive` and its source remains in Git history.
 
-Storage uses `dead-letter:records`, schema version 1. Each run commits immutable answers before decoration, snapshots at discrete events, roughly once a second, and on page hide. Stamping restores to reveal; transition restores to the next opening. Invalid runs are rejected without discarding valid collection/preferences/other runs. Reset affects only `dead-letter:` keys. Storage failure leaves a playable in-memory game and an honest warning.
+See [NIGHT_WALK_SPEC.md](NIGHT_WALK_SPEC.md), [DESIGN.md](DESIGN.md), [REFERENCES.md](REFERENCES.md), [CONTENT_REVIEW.md](CONTENT_REVIEW.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), and [QA_REPORT.md](QA_REPORT.md).
 
-## Current release gate
+Performance measurements and current budgets: see [PERF.md](PERF.md). Menus load separately; fonts are local/preloaded and ambient effects share a cached scene loop.
 
-All 36 records need independent verification of **all four claims**. External institutional/reference sites were denied by this environment’s proxy. Further-reading destinations are candidates, not inspected proof; see [CONTENT_REVIEW.md](CONTENT_REVIEW.md). See [QA_REPORT.md](QA_REPORT.md) for executed checks, screenshot review and remaining limitations, [REFERENCES.md](REFERENCES.md) for design provenance, and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for dependency/font notices.
+## Vercel
 
-This task does not publish a site or an environment.
+`vercel.json` selects the Vite build and `dist` output, caches fingerprinted assets for one year, and revalidates the root HTML. Push `main` to deploy through the existing Vercel Git integration. Deployment readiness must be checked in Vercel; a successful Git push alone does not establish a live release.

@@ -1,0 +1,115 @@
+{
+  "conditions": "Chromium, cold cache,80ms latency,1.6Mbps download,4xCPU;3runs",
+  "median": {
+    "lcp": 1064,
+    "fcp": 1064,
+    "cls": 0.020238366381065673,
+    "longTasks": 2,
+    "idleTaskMs": 193.75799999999998
+  },
+  "assets": [
+    {
+      "file": "index-DPcia0wv.css",
+      "bytes": 24550,
+      "gzip": 5795
+    },
+    {
+      "file": "index-D_H4fdO1.js",
+      "bytes": 335976,
+      "gzip": 106704
+    }
+  ],
+  "runs": [
+    {
+      "lcp": 1116,
+      "cls": 0.020238366381065673,
+      "longTasks": 2,
+      "fcp": 1116,
+      "resources": [
+        {
+          "name": "index-D_H4fdO1.js",
+          "bytes": 106704
+        },
+        {
+          "name": "index-DPcia0wv.css",
+          "bytes": 5795
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        },
+        {
+          "name": "favicon.ico",
+          "bytes": 0
+        }
+      ],
+      "idleTaskMs": 212.044
+    },
+    {
+      "lcp": 1064,
+      "cls": 0.020238366381065673,
+      "longTasks": 2,
+      "fcp": 1064,
+      "resources": [
+        {
+          "name": "index-D_H4fdO1.js",
+          "bytes": 106704
+        },
+        {
+          "name": "index-DPcia0wv.css",
+          "bytes": 5795
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        }
+      ],
+      "idleTaskMs": 193.75799999999998
+    },
+    {
+      "lcp": 1060,
+      "cls": 0.020238366381065673,
+      "longTasks": 2,
+      "fcp": 1060,
+      "resources": [
+        {
+          "name": "index-D_H4fdO1.js",
+          "bytes": 106704
+        },
+        {
+          "name": "index-DPcia0wv.css",
+          "bytes": 5795
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        }
+      ],
+      "idleTaskMs": 191.54500000000007
+    }
+  ]
+}

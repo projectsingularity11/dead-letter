@@ -1,0 +1,116 @@
+{
+  "conditions": "Chromium, cold cache,80ms latency,1.6Mbps download,4xCPU;3runs",
+  "median": {
+    "lcp": 1148,
+    "fcp": 1148,
+    "cls": 0.00005297550154320988,
+    "longTasks": 2,
+    "idleTaskMs": 227.98799999999986
+  },
+  "assets": [
+    {
+      "file": "GameOverlays-Do8Yq36B.js",
+      "bytes": 67775,
+      "gzip": 21483
+    },
+    {
+      "file": "index-Bd-_ZbvR.js",
+      "bytes": 272517,
+      "gzip": 87907
+    },
+    {
+      "file": "index-CsxgYzDn.css",
+      "bytes": 26510,
+      "gzip": 6225
+    }
+  ],
+  "runs": [
+    {
+      "lcp": 1232,
+      "cls": 0.00005297550154320988,
+      "longTasks": 3,
+      "fcp": 1232,
+      "resources": [
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "index-Bd-_ZbvR.js",
+          "bytes": 87907
+        },
+        {
+          "name": "index-CsxgYzDn.css",
+          "bytes": 6225
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        }
+      ],
+      "idleTaskMs": 227.98799999999986
+    },
+    {
+      "lcp": 1148,
+      "cls": 0.00005297550154320988,
+      "longTasks": 2,
+      "fcp": 1148,
+      "resources": [
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "index-CsxgYzDn.css",
+          "bytes": 6225
+        },
+        {
+          "name": "index-Bd-_ZbvR.js",
+          "bytes": 87907
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        }
+      ],
+      "idleTaskMs": 228.765
+    },
+    {
+      "lcp": 1132,
+      "cls": 0.00005297550154320988,
+      "longTasks": 2,
+      "fcp": 1132,
+      "resources": [
+        {
+          "name": "press-start-2p-latin-400-normal-_wFEWmAB.woff2",
+          "bytes": 12512
+        },
+        {
+          "name": "vt323-latin-400-normal-wDgJuOC9.woff2",
+          "bytes": 17936
+        },
+        {
+          "name": "index-Bd-_ZbvR.js",
+          "bytes": 87907
+        },
+        {
+          "name": "index-CsxgYzDn.css",
+          "bytes": 6225
+        },
+        {
+          "name": "pixelify-sans-latin-400-normal-DLrIX9QE.woff2",
+          "bytes": 7692
+        }
+      ],
+      "idleTaskMs": 207.17700000000005
+    }
+  ]
+}

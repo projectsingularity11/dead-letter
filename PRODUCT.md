@@ -1,9 +1,9 @@
-# DEAD LETTER
+# DEAD LETTER — Night Walk
 
-The night post between worlds. A single-player, local browser knowledge game for short daily rituals. The player is the night clerk at a supernatural post office, choosing the one false statement among four in each of six letters.
+The user's Night Walk redesign supersedes the original postal specification. Pete walks through an empty, gloomy city at night, finds scraps of a Daily mystery, and must solve them before an approaching ghost catches him. This is a survival mystery game, not a false-statement quiz.
 
-The implementation authority is `IMPLEMENTATION_SPEC.txt`, supplied by the user. Its mechanics, quantities, hierarchy, palette, art direction and copy are fixed. No product discovery or alternative concept work is needed.
+Fixed visual direction: crisp 8-bit pixel artwork, a dark brown / green-blue palette, broad horizontal street composition, night sky, puddles and flickering streetlights. Krillion is the user's main reference for clarity, daily ritual and game-first presentation; its site is currently denied by the cloud proxy, so no claim of live visual inspection is made. No serif fonts, cream postal cards, bento choices, or decorative marketing copy.
 
-Daily uses a UTC date and the `dead-letter-v1` seed. Practice uses a random seed; Relaxed Practice removes the 25-second active answering timer. Two seals each double one correct answer from 100 to 200 points. Misses and timeouts score zero. Maximum 800. There are no speed bonuses, penalties, accounts or backend.
+Loop: Start → Pete walks to a paper and picks it up → read a clue with a ghost visibly advancing → choose an answer → correct banishes the ghost; wrong loses chase distance → next block → increasingly hard clues → escape or be caught. Score is distance through the mystery: 100 points for clue1, 200 for clue2, etc., maximum3600 for all8. Speed matters because the ghost keeps approaching; no separate arbitrary speed bonus.
 
-Core quality gates: recoverable atomic game rules, readable accessible controls, faithful postal scene, responsive reflow. Content verification is an outstanding editorial release gate; all 36 conservative puzzles are honestly marked for review.
+There are seven authored, internally answerable fictional mysteries, with eight clues each. Daily is UTC seeded; Practice selects another mystery. Timed play is the main game. Pause/settings/hidden-tab stop the chase; reload requires Resume. Local v3 saves preserve runs; v2 sound/motion preferences migrate, while easier-bank scores remain archived. Legacy postal records remain untouched. No backend or accounts.

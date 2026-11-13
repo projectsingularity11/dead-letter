@@ -1,59 +1,51 @@
 import { test, expect } from "@playwright/test";
-import { begin } from "./helpers";
-test("restore incomplete Daily preserves choice, seal and timer until explicit resume", async ({
+import { begin, runState, solve, seed, fixture } from "./helpers";
+import { KEY } from "../src/night/game/storage";
+test("reload requires Resume and keeps wrong choices, distance and score", async ({
   page,
 }) => {
-  await begin(page, "daily");
-  await page.getByRole("radio").nth(1).click();
-  await page.getByRole("button", { name: /Use a wax seal/ }).click();
-  await page.waitForTimeout(1200);
-  const before = await page
-    .getByRole("timer", { includeHidden: true })
-    .getAttribute("aria-label");
+  await begin(page);
+  const r = await runState(page);
+  await page.locator(".answer-option").nth(0).click();
+  await page.waitForTimeout(150);
+  const before = await runState(page);
   await page.reload();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.waitForTimeout(1200);
   await expect(
-    page.getByRole("timer", { includeHidden: true }),
-  ).toHaveAttribute("aria-label", before!);
-  await page.getByRole("button", { name: "Resume shift", exact: true }).click();
-  await expect(page.getByRole("radio").nth(1)).toBeChecked();
-  await expect(
-    page.getByRole("button", { name: /Wax seal armed/ }),
-  ).toHaveAttribute("aria-pressed", "true");
+    page.getByRole("dialog", { name: "TAKE A BREATH." }),
+  ).toBeVisible();
+  const paused = await runState(page);
+  await page.waitForTimeout(1100);
+  expect((await runState(page)).remaining).toBe(paused.remaining);
+  expect(paused.answers).toEqual(before.answers);
+  expect(paused.score).toBe(before.score);
+  await page.getByRole("button", { name: "RESUME GAME", exact: true }).click();
+  expect((await runState(page)).paused).toBe(false);
 });
-test("settings, explicit pause and home navigation preserve active time", async ({
+test("settings and explicit pause stop active elapsed time", async ({
   page,
 }) => {
   await begin(page);
   await page.clock.install();
   await page.clock.runFor(1000);
   await page.getByRole("button", { name: "Settings", exact: true }).click();
-  const paused = await page
+  const time = (await runState(page)).remaining;
+  await page.clock.runFor(20000);
+  expect((await runState(page)).remaining).toBe(time);
+  const label = await page
     .getByRole("timer", { includeHidden: true })
     .getAttribute("aria-label");
-  await page.clock.runFor(10000);
-  await expect(
-    page.getByRole("timer", { includeHidden: true }),
-  ).toHaveAttribute("aria-label", paused!);
   await page.getByRole("button", { name: "Close dialog" }).click();
-  await page.clock.runFor(1000);
-  expect(
-    await page
-      .getByRole("timer", { includeHidden: true })
-      .getAttribute("aria-label"),
-  ).not.toBe(paused);
-  await page.getByRole("button", { name: "Pause shift", exact: true }).click();
-  const explicit = await page
-    .getByRole("timer", { includeHidden: true })
-    .getAttribute("aria-label");
-  await page.clock.runFor(10000);
-  await expect(
-    page.getByRole("timer", { includeHidden: true }),
-  ).toHaveAttribute("aria-label", explicit!);
-  await page.getByRole("button", { name: "Resume shift", exact: true }).click();
+  await page.clock.runFor(2200);
+  await expect(page.getByRole("timer")).not.toHaveAttribute(
+    "aria-label",
+    label!,
+  );
+  await page.getByRole("button", { name: "Pause game", exact: true }).click();
+  const again = (await runState(page)).remaining;
+  await page.clock.runFor(20000);
+  expect((await runState(page)).remaining).toBe(again);
 });
-test("hidden-tab event opens Resume without losing active time", async ({
+test("a hidden tab opens Resume instead of continuing to chase", async ({
   page,
 }) => {
   await begin(page);
@@ -65,130 +57,68 @@ test("hidden-tab event opens Resume without losing active time", async ({
     document.dispatchEvent(new Event("visibilitychange"));
   });
   await expect(
-    page.getByRole("dialog", { name: "Your shift is waiting." }),
+    page.getByRole("dialog", { name: "TAKE A BREATH." }),
   ).toBeVisible();
-  const seconds = await page
-    .getByRole("timer", { includeHidden: true })
-    .getAttribute("aria-label");
+  const time = (await runState(page)).remaining;
   await page.waitForTimeout(1200);
-  await expect(
-    page.getByRole("timer", { includeHidden: true }),
-  ).toHaveAttribute("aria-label", seconds!);
-  await page.evaluate(() =>
-    Object.defineProperty(document, "hidden", {
-      configurable: true,
-      get: () => false,
-    }),
-  );
-  await page.getByRole("button", { name: "Resume shift", exact: true }).click();
-  await expect(page.getByRole("radio").first()).toBeEnabled();
+  expect((await runState(page)).remaining).toBe(time);
 });
-
-test("unfinished Practice is reachable from home after reload", async ({
+test("answer is durable before the banish animation completes", async ({
   page,
 }) => {
   await begin(page);
-  await page.getByRole("radio").nth(2).click();
-  await page.getByRole("link", { name: "Dead Letter — post office" }).click();
+  await solve(page);
+  const saved = await runState(page);
+  expect(saved.phase).toBe("banished");
+  expect(saved.answers.filter((a) => a.correct)).toHaveLength(1);
+  expect(saved.score).toBe(100);
   await page.reload();
-  await page
-    .getByRole("button", { name: "Resume Practice shift", exact: true })
-    .click();
-  await page.getByRole("button", { name: "Resume shift", exact: true }).click();
-  await expect(page.getByRole("radio").nth(2)).toBeChecked();
-});
-test("storage denial leaves the game playable with an honest warning", async ({
-  page,
-}) => {
-  await page.addInitScript(() => {
-    Storage.prototype.setItem = () => {
-      throw new DOMException("Unavailable", "QuotaExceededError");
-    };
-  });
-  await page.goto("/");
-  await page
-    .getByRole("button", { name: "Relaxed practice", exact: true })
-    .click();
-  await expect(page.getByRole("radio").first()).toBeEnabled();
-  await expect(page.getByRole("status")).toContainText(
-    "Progress can’t be saved in this browser.",
-  );
-  await page.getByRole("radio").first().click();
-  await page.getByRole("button", { name: /RETURN TO SENDER/ }).click();
+  await page.getByRole("button", { name: "RESUME GAME", exact: true }).click();
   await expect(
-    page.getByRole("button", { name: "Next letter", exact: true }),
+    page.getByRole("button", { name: "NEXT BLOCK", exact: true }),
   ).toBeEnabled();
+  expect((await runState(page)).answers).toEqual(saved.answers);
 });
-
-test("denied localStorage getter does not crash or prevent play", async ({
-  page,
-}) => {
+test("denied storage getter remains playable", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.addInitScript(() =>
     Object.defineProperty(window, "localStorage", {
-      configurable: true,
       get() {
-        throw new DOMException("Unavailable", "SecurityError");
+        throw new DOMException("Denied", "SecurityError");
       },
     }),
   );
   await page.goto("/");
-  await expect(
-    page.getByRole("button", { name: "Begin tonight’s shift" }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Relaxed practice", exact: true })
-    .click();
-  await expect(page.getByRole("radio").first()).toBeEnabled();
-  await expect(page.getByRole("status")).toContainText(
-    "Progress can’t be saved in this browser.",
-  );
+  await page.getByRole("button", { name: "START GAME", exact: true }).click();
+  await expect(page.locator(".answer-option").first()).toBeEnabled();
+  await expect(page.locator(".night-toast")).toContainText("cannot be saved");
   expect(errors).toEqual([]);
 });
-test("submitted result is durable before stamp completion", async ({
+test("reset cancels by default and preserves legacy/unrelated records", async ({
   page,
 }) => {
   await begin(page);
+  await page.evaluate(() => {
+    localStorage.setItem("other", "keep");
+    localStorage.setItem("dead-letter:records", "legacy");
+  });
   await page.getByRole("button", { name: "Settings", exact: true }).click();
-  await page.getByRole("radio", { name: "Full", exact: true }).click();
-  await page.getByRole("button", { name: "Close dialog" }).click();
-  await page.clock.install({ time: new Date("2026-11-11T12:00:00Z") });
-  await page.clock.pauseAt(new Date("2026-11-11T12:00:01Z"));
-  await page.getByRole("radio").nth(1).click();
-  await page.getByRole("button", { name: /RETURN TO SENDER/ }).click();
-  const saved = await page.evaluate(
-    () => JSON.parse(localStorage.getItem("dead-letter:records")!).practice,
-  );
-  expect(saved.phase).toBe("stamping");
-  await expect(page.getByRole('radio',{checked:true}).locator('.active-stamp')).toBeVisible();
-  expect(saved.answers).toHaveLength(1);
-  await page.clock.resume();
-  await page.reload();
-  await page.getByRole("button", { name: "Resume shift", exact: true }).click();
+  await page.getByRole("button", { name: "Reset local runs" }).click();
+  await expect(page.getByRole("button", { name: "KEEP RUNS" })).toBeFocused();
+  await page.getByRole("button", { name: "Erase runs" }).click();
   await expect(
-    page.getByRole("button", { name: "Next letter", exact: true }),
-  ).toBeEnabled();
-  const restored = await page.evaluate(
-    () => JSON.parse(localStorage.getItem("dead-letter:records")!).practice,
+    page.getByRole("button", { name: "START GAME", exact: true }),
+  ).toBeVisible();
+  const values = await page.evaluate(
+    (key) => ({
+      other: localStorage.getItem("other"),
+      legacy: localStorage.getItem("dead-letter:records"),
+      state: JSON.parse(localStorage.getItem(key)!),
+    }),
+    KEY,
   );
-  expect(restored.answers).toEqual(saved.answers);
-  expect(restored.score).toBe(saved.score);
-});
-
-test("starting Daily preserves the previous Practice selections", async ({
-  page,
-}) => {
-  await begin(page);
-  const recent = await page.evaluate(
-    () => JSON.parse(localStorage.getItem("dead-letter:records")!).recent,
-  );
-  await page.getByRole("link", { name: "Dead Letter — post office" }).click();
-  await page.getByRole("button", { name: "Begin tonight’s shift" }).click();
-  await expect(page.getByRole("radio").first()).toBeEnabled();
-  expect(
-    await page.evaluate(
-      () => JSON.parse(localStorage.getItem("dead-letter:records")!).recent,
-    ),
-  ).toEqual(recent);
+  expect(values.other).toBe("keep");
+  expect(values.legacy).toBe("legacy");
+  expect(values.state.active).toBeNull();
 });

@@ -1,419 +1,69 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-11T05:07:53.108478+00:00",
-  "title": "Design System: DEAD LETTER",
+  "title": "Design System: DEAD LETTER \u2014 Night Walk",
   "extensions": {
-    "provenance": {
-      "authority": "IMPLEMENTATION_SPEC.txt (locked); current source is the extraction evidence.",
-      "sourceFiles": [
-        "src/styles/tokens.css",
-        "src/styles/typography.css",
-        "src/styles/layout.css",
-        "src/styles/surfaces.css",
-        "src/styles/components.css",
-        "src/styles/reset.css",
-        "src/styles/motion.css",
-        "src/art/PostalArt.tsx",
-        "src/main.tsx",
-        "src/components/ui/PaperDialog.tsx",
-        "src/components/ui/ConfirmDialog.tsx",
-        "src/components/game/ClaimGroup.tsx"
-      ],
-      "method": "Static source extraction. This file does not assert browser verification or final design approval.",
-      "baseTokens": "DESIGN.md YAML frontmatter; colorMeta canonical values preserve the actual CSS token values.",
-      "preview": "Compact token record; no live-panel component previews or generated tonal ramps."
-    },
-    "colorMeta": {
-      "night-950": {
-        "role": "neutral",
-        "displayName": "Deep midnight",
-        "canonical": "#0b141a",
-        "cssVariable": "--night-950"
-      },
-      "night-900": {
-        "role": "neutral",
-        "displayName": "Midnight room",
-        "canonical": "#101e26",
-        "cssVariable": "--night-900"
-      },
-      "night-800": {
-        "role": "neutral",
-        "displayName": "Night teal",
-        "canonical": "#172c34",
-        "cssVariable": "--night-800"
-      },
-      "teal-700": {
-        "role": "primary",
-        "displayName": "Postal teal",
-        "canonical": "#23464b",
-        "cssVariable": "--teal-700"
-      },
-      "teal-500": {
-        "role": "primary",
-        "displayName": "Muted teal",
-        "canonical": "#4b7775",
-        "cssVariable": "--teal-500"
-      },
-      "ghost-300": {
-        "role": "tertiary",
-        "displayName": "Ghost mint",
-        "canonical": "#a8dad0",
-        "cssVariable": "--ghost-300"
-      },
-      "ghost-100": {
-        "role": "tertiary",
-        "displayName": "Pale ghost mint",
-        "canonical": "#ddf2e9",
-        "cssVariable": "--ghost-100"
-      },
-      "paper-100": {
-        "role": "neutral",
-        "displayName": "Warm letter paper",
-        "canonical": "#f7eedc",
-        "cssVariable": "--paper-100"
-      },
-      "paper-200": {
-        "role": "neutral",
-        "displayName": "Folded cream paper",
-        "canonical": "#efe1c5",
-        "cssVariable": "--paper-200"
-      },
-      "paper-300": {
-        "role": "neutral",
-        "displayName": "Aged paper",
-        "canonical": "#dac49b",
-        "cssVariable": "--paper-300"
-      },
-      "paper-400": {
-        "role": "neutral",
-        "displayName": "Paper edge",
-        "canonical": "#b99d73",
-        "cssVariable": "--paper-400"
-      },
-      "ink-900": {
-        "role": "neutral",
-        "displayName": "Document ink",
-        "canonical": "#25302d",
-        "cssVariable": "--ink-900"
-      },
-      "ink-600": {
-        "role": "neutral",
-        "displayName": "Soft document ink",
-        "canonical": "#5e665c",
-        "cssVariable": "--ink-600"
-      },
-      "brass-400": {
-        "role": "secondary",
-        "displayName": "Lamplight brass",
-        "canonical": "#d7b66f",
-        "cssVariable": "--brass-400"
-      },
-      "brass-600": {
-        "role": "secondary",
-        "displayName": "Aged brass",
-        "canonical": "#98743d",
-        "cssVariable": "--brass-600"
-      },
-      "seal-500": {
-        "role": "secondary",
-        "displayName": "Vermilion wax",
-        "canonical": "#b74435",
-        "cssVariable": "--seal-500"
-      },
-      "seal-700": {
-        "role": "secondary",
-        "displayName": "Stamped wax",
-        "canonical": "#81372e",
-        "cssVariable": "--seal-700"
-      },
-      "success-700": {
-        "role": "tertiary",
-        "displayName": "Resolved green ink",
-        "canonical": "#285b4f",
-        "cssVariable": "--success-700"
-      },
-      "danger-700": {
-        "role": "tertiary",
-        "displayName": "Returned red ink",
-        "canonical": "#8f332d",
-        "cssVariable": "--danger-700"
-      }
-    },
-    "fonts": [
+    "breakpoints": [
       {
-        "family": "Fraunces",
-        "weights": [
-          400,
-          600
-        ],
-        "subset": "latin",
-        "package": "@fontsource/fraunces",
-        "license": "SIL OFL 1.1",
-        "notice": "public/licenses/Fraunces-OFL.txt"
+        "name": "compact",
+        "value": "850px"
       },
       {
-        "family": "Source Sans 3",
-        "weights": [
-          400,
-          600,
-          700
-        ],
-        "subset": "latin",
-        "package": "@fontsource/source-sans-3",
-        "license": "SIL OFL 1.1",
-        "notice": "public/licenses/Source-Sans-3-OFL.txt"
-      },
-      {
-        "family": "Special Elite",
-        "weights": [
-          400
-        ],
-        "subset": "latin",
-        "package": "@fontsource/special-elite",
-        "license": "Apache-2.0",
-        "notice": "public/licenses/Special-Elite-Apache.txt"
-      }
-    ],
-    "shadows": [
-      {
-        "name": "paper-shadow",
-        "cssVariable": "--paper-shadow",
-        "value": "0 2px 2px rgba(0, 0, 0, 0.16), 0 16px 38px rgba(0, 0, 0, 0.24)",
-        "purpose": "Contact and lift under document surfaces."
-      },
-      {
-        "name": "modal",
-        "value": "0 24px 80px rgba(0, 0, 0, 0.45)",
-        "purpose": "Paper dialog above the room."
-      },
-      {
-        "name": "home-action-edge",
-        "value": "0 4px 0 #6a332d",
-        "purpose": "Short solid edge under the home primary action."
+        "name": "intermediate",
+        "value": "1050px"
       }
     ],
     "motion": [
       {
-        "name": "fast",
-        "cssVariable": "--fast",
-        "value": "120ms",
-        "purpose": "Control state transitions."
-      },
-      {
-        "name": "standard",
-        "cssVariable": "--standard",
-        "value": "220ms",
-        "purpose": "Standard state timing token."
-      },
-      {
-        "name": "paper",
-        "cssVariable": "--paper",
-        "value": "420ms",
-        "purpose": "Paper timing token."
-      },
-      {
         "name": "scene",
-        "cssVariable": "--scene",
-        "value": "600ms",
-        "purpose": "Scene timing token."
+        "value": "30fps",
+        "purpose": "One canvas loop with static/offscreen skips."
       },
       {
-        "name": "ease",
-        "cssVariable": "--ease",
-        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "Restrained material movement."
+        "name": "title",
+        "value": "380ms steps(2,end)",
+        "purpose": "One finite title tune-in."
+      },
+      {
+        "name": "menu",
+        "value": "140ms ease-out",
+        "purpose": "Menu appearance."
+      },
+      {
+        "name": "answer",
+        "value": "180ms ease-out",
+        "purpose": "Answer readiness."
       }
     ],
-    "reducedMotion": {
-      "selector": "html[data-motion=\"reduced\"]",
-      "animations": "none !important",
-      "transitionDuration": "100ms !important",
-      "scrollBehavior": "auto !important",
-      "hiddenSelectors": [
-        ".stamping:after",
-        ".opening-envelope",
-        ".answer-effects"
-      ],
-      "motionConfig": "always",
-      "paperTranslation": "0px",
-      "preferences": [
-        "system",
-        "reduced",
-        "full"
-      ]
-    },
-    "breakpoints": [
+    "shadows": [
       {
-        "name": "compact",
-        "value": "640px",
-        "query": "(max-width: 639px)",
-        "purpose": "Single-column gameplay and bottom paper sheets."
-      },
-      {
-        "name": "wide",
-        "value": "1024px",
-        "query": "(max-width: 1023px)",
-        "purpose": "Below wide, remove the decorative tool column."
-      },
-      {
-        "name": "scene-container",
-        "value": "1180px",
-        "query": "(max-width: 1180px)",
-        "purpose": "Container-sized scene adjustment."
+        "name": "pixel-title",
+        "value": "4px 4px 0 #3b4132",
+        "purpose": "Pixel lettering depth."
       }
-    ],
-    "layout": {
-      "sceneMaxWidth": "1180px",
-      "readingMaxWidth": "680px",
-      "gameWorkspaceMaxWidth": "892px",
-      "toolWidth": "180px",
-      "toolGap": "32px",
-      "resultsMaxWidth": "560px",
-      "gutters": {
-        "wide": "32px",
-        "intermediate": "24px",
-        "compact": "16px"
-      },
-      "header": {
-        "wideHeight": "72px",
-        "compactMinHeight": "56px"
-      },
-      "sceneHeights": {
-        "gameplay": {
-          "wide": "160px",
-          "intermediate": "130px",
-          "compact": "90px"
-        },
-        "home": {
-          "wide": "275px",
-          "intermediate": "245px",
-          "compact": "190px"
-        }
-      },
-      "dialog": {
-        "maxWidth": "560px",
-        "wideMaxWidth": "760px",
-        "maxHeight": "calc(100dvh - 64px)",
-        "compactMaxHeight": "calc(100dvh - 16px)",
-        "compactPadding": "28px 20px calc(24px + env(safe-area-inset-bottom))",
-        "compactRadius": "12px 12px 0 0"
-      }
-    },
-    "focus": [
-      {
-        "name": "dark-surface",
-        "value": "3px solid #d7b66f",
-        "offset": "3px",
-        "selector": ":focus-visible"
-      },
-      {
-        "name": "paper-surface",
-        "value": "3px solid #285b4f",
-        "offset": "3px",
-        "selector": ".letter-paper :focus-visible, .paper-dialog :focus-visible, .result-receipt :focus-visible"
-      }
-    ],
-    "componentStateColors": {
-      "selectedClaim": "#e2e8d7",
-      "wrongClaim": "#f0dfd2",
-      "armedSeal": "#eadac0",
-      "actionHover": "#963a2e",
-      "disabledActionBackground": "#dacdb5",
-      "disabledActionText": "#625d51",
-      "disabledActionBorder": "#b6a98f",
-      "sceneBase": "#182725"
-    },
-    "backdrop": {
-      "background": "rgba(5, 12, 16, 0.72)",
-      "backdropFilter": "blur(2px)"
-    },
-    "paperTexture": {
-      "source": "Original local SVG feTurbulence data URL in src/styles/surfaces.css",
-      "opacity": 0.03
-    },
-    "layers": {
-      "scene": 0,
-      "content": 20,
-      "decorativeEffects": 35,
-      "utilityHeader": 40,
-      "modalBackdrop": 100,
-      "modal": 110,
-      "toastAndTooltip": 120,
-      "skipLink": 150
-    },
-    "art": {
-      "source": "src/art/PostalArt.tsx",
-      "provenance": "Original flat inline SVG; no imported visual assets or composition image.",
-      "decorativeAttributes": {
-        "aria-hidden": true,
-        "focusable": false
-      },
-      "idStrategy": "React useId for reusable gradient and clip references.",
-      "pointerEvents": "none"
-    },
-    "typographyMeta": {
-      "display": {
-        "displayName": "Fraunces display",
-        "source": "src/styles/layout.css",
-        "css": "font-family: Fraunces, Georgia, serif; font-size: 64px; font-weight: 600; line-height: 0.98; letter-spacing: -0.025em;",
-        "compactCss": "font-size: 44px;"
-      },
-      "body": {
-        "displayName": "Source Sans 3 body",
-        "source": "src/styles/typography.css",
-        "css": "font-family: \"Source Sans 3\", system-ui, sans-serif; font-size: 18px; line-height: 1.45;"
-      },
-      "claim-compact": {
-        "displayName": "Compact claim",
-        "source": "src/styles/components.css",
-        "css": "font-size: 17px; line-height: 1.45;"
-      },
-      "button": {
-        "displayName": "Action label",
-        "source": "src/styles/components.css",
-        "css": "font-size: 16px; font-weight: 600; line-height: 1.2;"
-      },
-      "postal-mark": {
-        "displayName": "Postal marks",
-        "source": "src/styles/typography.css",
-        "css": "font-family: \"Special Elite\", \"Courier New\", monospace;"
-      }
-    }
+    ]
   },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "html": "<button class=\"ds-action\">START GAME</button>",
+      "css": ".ds-action{background:var(--sage);color:var(--ink);font:11px \"Press Start 2P\",monospace;border:2px solid var(--sage-bright);padding:17px 24px;min-height:50px;border-radius:0}.ds-action:hover{background:var(--sage-bright)}.ds-action:focus-visible{outline:2px solid var(--sage-bright);outline-offset:5px}.ds-action:active{transform:translateY(2px)}"
+    }
+  ],
   "narrative": {
-    "northStar": "The night post between worlds.",
-    "overview": "A quiet supernatural post office built from midnight teal, warm cream paper, brass, dark wood, and vermilion wax. Original flat vector artwork establishes the room; the letter remains a stable, readable object on the desk. The character is inviting, witty, and slightly uncanny.\n\nThis records the existing implementation, governed by the locked `IMPLEMENTATION_SPEC.txt`. Preserve the illustrated postal identity as the interface grows. Reading and completing a six-letter shift take priority over atmosphere, decorative detail, motion, and sound.",
+    "northStar": "The midnight street",
+    "overview": "An8-bit city frames a survival mystery. Brown brick and wet pavement sit beneath a blue-green sky; Pete and the ghost carry the drama.",
     "keyCharacteristics": [
-      "Warm documents against a dark, restrained room.",
-      "Tactile stamps, wax, layered paper, and receipt edges.",
-      "Readable claims and explicit answer states.",
-      "Decoration that recedes as the viewport narrows."
+      "Original pixel city",
+      "Readable local pixel typography",
+      "Flat HTML controls",
+      "Bounded motion and persistent threat"
     ],
-    "rules": [
-      {
-        "name": "The Reading Surface Rule",
-        "body": "Put document text on warm paper with dark ink; keep atmospheric gradients and grain from competing with glyphs.",
-        "section": "colors"
-      },
-      {
-        "name": "The Clear Claims Rule",
-        "body": "Keep full factual statements in Source Sans 3 with comfortable line height; never use distressed type or forced truncation to fit a letter.",
-        "section": "typography"
-      }
-    ],
-    "dos": [
-      "**Do** preserve the locked postal world and exact base palette.",
-      "**Do** keep claims readable, controls reachable, and content free to grow vertically.",
-      "**Do** pair answer colors with explicit labels and marks.",
-      "**Do** use the original local SVG artwork and retain local font licenses.",
-      "**Do** retain paper-aware focus colors, keyboard behavior, and reduced-motion feedback."
-    ],
+    "dos": ["Keep reading text stable.", "Use one bounded scene loop."],
     "donts": [
-      "**Don't** replace the room and documents with generic application cards.",
-      "**Don't** add neon, purple, floating glass, giant gradient blobs, emoji artwork, or photographic collage.",
-      "**Don't** shrink gameplay claims below 17px or texture their glyphs.",
-      "**Don't** let decoration cover controls, intercept input, or dictate mobile reading space.",
-      "**Don't** use hover-only instructions, color-only outcomes, or fixed-height letters that clip content."
+      "Do not use scroll hijacking.",
+      "Do not restore the postal theme."
     ]
   }
 }

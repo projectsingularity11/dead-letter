@@ -1,29 +1,11 @@
-# Third-party notices
+# Third-party notices — Night Walk
 
-Installed versions are recorded exactly in `package-lock.json`. This document records imported software and fonts, not an assertion that every external design-reference website is open source.
+The exact installed versions are retained in `package-lock.json`. Original game artwork, canvas city, character matrices, puzzle prose, interface CSS and Web Audio are authored for this project. No Krillion assets or source code are copied.
 
-## Runtime software
+Runtime: React / React DOM (Meta and contributors, MIT), Radix Dialog / Alert Dialog / Radio Group / Switch and supporting packages (Radix/WorkOS contributors, MIT). Complete installed production package notices are aggregated in `public/licenses/runtime-MIT.txt` and distributed with the static site.
 
-- React / React DOM — Meta Platforms, Inc. and affiliates, MIT. https://github.com/facebook/react
-- Radix Primitives and their installed supporting packages — WorkOS / Radix contributors, MIT. https://github.com/radix-ui/primitives
-- Motion / motion-dom / motion-utils — Motion contributors, MIT. https://github.com/motiondivision/motion
+Local fonts: Press Start2P, VT323 and Pixelify Sans, all obtained through @fontsource and licensed under SIL Open Font License1.1. Complete supplied copyright, reserved-name and license texts are retained in `public/licenses/Press-Start-2P-OFL.txt`, `VT323-OFL.txt`, and `Pixelify-Sans-OFL.txt`. No fonts were modified. The old serif/typewriter fonts were removed with the superseded design.
 
-Package copyright and license texts are retained by npm in each installed package. These packages are bundled by Vite; their original MIT license notices are also copied into `public/licenses/runtime-MIT.txt` for distribution with the static site.
+The raylib platformer example was inspected as a reference for framing/time-based movement. No code was copied. Its source header identifies a zlib/libpng license. Other design references are listed honestly in REFERENCES.md, with access limitations and imported-material status.
 
-## Local fonts
-
-The files are obtained through the installed @fontsource packages, with their unmodified license texts retained and copied to the distributable `public/licenses` directory:
-
-- Fraunces — SIL Open Font License 1.1 (`Fraunces-OFL.txt`). Authors and reserved-name details are in that file.
-- Source Sans 3 — SIL Open Font License 1.1 (`Source-Sans-3-OFL.txt`). Adobe copyright retained.
-- Special Elite — Copyright (c) 2010 by Brian J. Bonislawsky DBA Astigmatic (AOETI). All rights reserved. Apache License 2.0 (`Special-Elite-Apache.txt`). The complete supplied license is retained.
-
-No font modifications or external font requests. CSS uses Latin subsets with named local/system fallbacks.
-
-## Development tools
-
-Vite and its React plugin, Vitest, TypeScript, tsx, Prettier, jsdom, React Testing Library, jest-dom, user-event, Playwright and axe-core/Playwright integration are development dependencies. Their packages retain upstream licenses. They are not imported into the application bundle. Playwright and Chromium use their own upstream licenses.
-
-## Original material
-
-All game illustration SVGs, CSS surfaces, Web Audio sounds, recipient reactions, and implementation code were authored for this project. Institutional source candidates are linked for further reading; no institutional source prose or assets were copied into the game. Editorial verification remains outstanding.
+Vite, TypeScript, Vitest, Playwright, axe-core integration, Testing Library, tsx and Prettier are development tools. They retain their upstream package licenses and are not imported into the game bundle. No component framework or second animation/dialog library was added.

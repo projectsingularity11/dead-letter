@@ -1,0 +1,21 @@
+[
+  "qa/night-walk/desktop-home.png",
+  "qa/night-walk/desktop-answering.png",
+  "qa/night-walk/desktop-close-ghost.png",
+  "qa/night-walk/desktop-banished.png",
+  "qa/night-walk/desktop-caught.png",
+  "qa/night-walk/desktop-escaped.png",
+  "qa/night-walk/desktop-settings.png",
+  "qa/night-walk/desktop-case-files.png",
+  "qa/night-walk/mobile-home.png",
+  "qa/night-walk/mobile-answering.png",
+  "qa/night-walk/mobile-close-ghost.png",
+  "qa/night-walk/mobile-caught.png",
+  "qa/night-walk/mobile-escaped.png",
+  "qa/night-walk/mobile-settings.png",
+  "qa/night-walk/mobile-case-files.png",
+  "qa/night-walk/mobile-long-clue-scrolled.png",
+  "qa/night-walk/tablet-answering.png",
+  "qa/night-walk/tablet-settings.png",
+  "qa/night-walk/landscape-long-clue-scrolled.png"
+]
